@@ -1,0 +1,62 @@
+/* ═══ FINESSE MEDIA — ADMIN PORTAL TOKENS ═══ */
+:root {
+  --brand: #1C2640;
+  --brand-soft: #2A3650;
+  --brand-deep: #111B30;
+  --accent: #C5A44B;
+  --accent-soft: rgba(197,164,75,0.15);
+  --accent-deep: #A8882E;
+  --surface: #F2ECE4;
+  --surface-card: #FFFFFF;
+  --line: #E2D9CE;
+  --text: #3A3530;
+  --muted: #7A7268;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-ui: 'DM Sans', sans-serif;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --status-success: #2D8A54;
+  --status-success-bg: #E8F5EC;
+  --status-warning: #B8860B;
+  --status-warning-bg: #FFF8E1;
+  --status-danger: #C53030;
+  --status-danger-bg: #FFF5F5;
+  --status-info: #2B6CB0;
+  --status-info-bg: #EBF8FF;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-ui);
+  background: var(--surface);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(197,164,75,0.2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(197,164,75,0.4); }
+
+/* Focus */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Responsive sidebar */
+@media (max-width: 768px) {
+  aside { position: fixed !important; }
+  .mobile-close { display: block !important; }
+}
+@media (min-width: 769px) {
+  .mobile-menu { display: none !important; }
+  aside { left: 0 !important; position: relative !important; }
+}
