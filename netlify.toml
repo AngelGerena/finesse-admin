@@ -5,16 +5,21 @@
 [build.environment]
   NODE_VERSION = "20"
 
-# Routing is defined explicitly here (top-to-bottom, first match wins) so it
-# overrides any framework auto-injected SPA fallback.
-#
+# CANARY (temporary): if /canary-xyz serves the admin page, netlify.toml
+# redirects are being honored; if it serves the public page, they are being
+# overridden by a site-level redirect.
+[[redirects]]
+  from = "/canary-xyz"
+  to = "/admin/index.html"
+  status = 200
+
 # 1) Admin SPA: any /admin/* path with no matching file serves the admin's
 #    index.html so React Router handles the sub-route on hard refresh / deep link.
-#    (Real files like /admin/assets/* still resolve directly and are not rewritten.)
 [[redirects]]
   from = "/admin/*"
   to = "/admin/index.html"
   status = 200
+  force = true
 
 # 2) Public site fallback: everything else serves the static public index.html.
 [[redirects]]
