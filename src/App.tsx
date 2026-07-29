@@ -29,7 +29,7 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
       </div>
     </div>
   )
-  if (!user) return <Navigate to="/login" replace />
+  if (!user) return <Navigate to="/admin/login" replace />
   if (!isAdmin) return (
     <div style={{ minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',background:'var(--brand)',fontFamily:'var(--font-ui)',textAlign:'center',padding:40 }}>
       <div>
@@ -46,7 +46,7 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route path="/admin/login" element={<Login />} />
           <Route path="/admin" element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
             <Route index element={<Dashboard />} />
             <Route path="leads" element={<Leads />} />

@@ -1,9 +1,10 @@
 import { useState, type FormEvent } from 'react'
+import { Navigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { Eye, EyeOff } from 'lucide-react'
 
 export default function Login() {
-  const { signIn } = useAuth()
+  const { signIn, user } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPw, setShowPw] = useState(false)
@@ -25,6 +26,10 @@ export default function Login() {
     }
     setLoading(false)
   }
+
+  // Already signed in: hand off to the protected /admin routes, which gate on
+  // admin status (dashboard if authorized, "Access Denied" otherwise).
+  if (user) return <Navigate to="/admin" replace />
 
   return (
     <div style={{

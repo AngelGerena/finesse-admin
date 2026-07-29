@@ -1,0 +1,16 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+
+# local env (Supabase keys are configured in Netlify, not committed)
+.env
+.env.local
+.env.*.local
+
+# logs / editor / OS
+npm-debug.log*
+*.tsbuildinfo
+.DS_Store
+.vscode/
