@@ -5,11 +5,19 @@
 [build.environment]
   NODE_VERSION = "20"
 
-# SPA fallback for the admin portal only: any /admin/* path with no matching
-# file is rewritten to the admin's index.html so React Router can handle it.
-# (Netlify serves real files first, so /admin/assets/* still resolve directly.)
-# Everything outside /admin/* falls through to the static public site at dist/ root.
+# Routing is defined explicitly here (top-to-bottom, first match wins) so it
+# overrides any framework auto-injected SPA fallback.
+#
+# 1) Admin SPA: any /admin/* path with no matching file serves the admin's
+#    index.html so React Router handles the sub-route on hard refresh / deep link.
+#    (Real files like /admin/assets/* still resolve directly and are not rewritten.)
 [[redirects]]
   from = "/admin/*"
   to = "/admin/index.html"
+  status = 200
+
+# 2) Public site fallback: everything else serves the static public index.html.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
   status = 200
