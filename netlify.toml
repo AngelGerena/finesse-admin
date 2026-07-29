@@ -5,23 +5,22 @@
 [build.environment]
   NODE_VERSION = "20"
 
-# CANARY (temporary): if /canary-xyz serves the admin page, netlify.toml
-# redirects are being honored; if it serves the public page, they are being
-# overridden by a site-level redirect.
-[[redirects]]
-  from = "/canary-xyz"
-  to = "/admin/index.html"
-  status = 200
-
-# 1) Admin SPA: any /admin/* path with no matching file serves the admin's
-#    index.html so React Router handles the sub-route on hard refresh / deep link.
+# Intended routing (top-to-bottom, first match wins):
+#   1) /admin/*  -> admin SPA shell (React Router handles the sub-route)
+#   2) /*        -> public static site
+#
+# NOTE: this site currently has a legacy *site-level* redirect (/* -> /index.html,
+# created via the Netlify API before the admin moved under /admin/) that is
+# evaluated BEFORE netlify.toml and overrides these rules. Until that site-level
+# redirect is removed, admin sub-routes are handled instead by pre-generated
+# static shells (dist/admin/<route>/index.html, produced by scripts/gen-admin-routes.mjs),
+# which are real files and therefore resolve before any redirect. Once the
+# site-level redirect is deleted, the rules below become authoritative on their own.
 [[redirects]]
   from = "/admin/*"
   to = "/admin/index.html"
   status = 200
-  force = true
 
-# 2) Public site fallback: everything else serves the static public index.html.
 [[redirects]]
   from = "/*"
   to = "/index.html"
