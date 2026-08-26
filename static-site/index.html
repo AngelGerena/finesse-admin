@@ -2721,6 +2721,16 @@ function showPage(id, el) {
   var page = document.getElementById('page-' + id);
   if (page) {
     page.classList.add('active');
+    // Force-load lazy images in the newly shown page. Native loading="lazy"
+    // stalls for images revealed by a display:none -> block tab switch, which
+    // left gallery thumbnails (portfolio, headshots, photography, logos) blank.
+    page.querySelectorAll('img[loading="lazy"]').forEach(function(img) {
+      img.loading = 'eager';
+      if (!img.complete || img.naturalWidth === 0) {
+        var src = img.getAttribute('src');
+        if (src) img.setAttribute('src', src);
+      }
+    });
     // Triple-ensure scroll top after paint
     requestAnimationFrame(function() {
       window.scrollTo(0, 0);
