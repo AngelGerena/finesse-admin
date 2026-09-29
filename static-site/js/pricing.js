@@ -1,30 +1,28 @@
-/* Finesse Media — pricing plan cards on phones: dots follow the swipe,
-   tapping a dot scrolls to that plan, and the list opens on "Most chosen". */
+/* Finesse Media — website pricing tracks (build 20260928-35).
+   The toggle switches between the small business and established business tracks.
+   Each plan button pre-fills the contact form with the plan the visitor picked. */
 (function () {
   'use strict';
-  var track = document.querySelector('.cmp-cards');
-  if (!track) return;
-  var cards = Array.prototype.slice.call(track.querySelectorAll('.cmp-card'));
-  var dots = Array.prototype.slice.call(document.querySelectorAll('[data-plan-dot]'));
-  function mark(i) { dots.forEach(function (d, n) { if (n === i) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current'); }); }
-  function go(i, smooth) {
-    var card = cards[i]; if (!card) return;
-    track.scrollTo({ left: card.offsetLeft - track.offsetLeft - parseFloat(getComputedStyle(track).paddingLeft || 0), behavior: smooth ? 'smooth' : 'auto' });
-  }
-  dots.forEach(function (d, i) { d.addEventListener('click', function () { go(i, true); mark(i); }); });
-  var ticking = false;
-  track.addEventListener('scroll', function () {
-    if (ticking) return; ticking = true;
-    requestAnimationFrame(function () {
-      ticking = false;
-      var best = 0, dist = Infinity, left = track.getBoundingClientRect().left;
-      cards.forEach(function (c, n) { var d = Math.abs(c.getBoundingClientRect().left - left); if (d < dist) { dist = d; best = n; } });
-      mark(best);
+  var buttons = Array.prototype.slice.call(document.querySelectorAll('.track-toggle [data-track]'));
+  if (!buttons.length) return;
+  function show(track) {
+    buttons.forEach(function (b) {
+      var on = b.getAttribute('data-track') === track;
+      b.setAttribute('aria-pressed', String(on));
+      var panel = document.getElementById(b.getAttribute('aria-controls'));
+      if (panel) panel.hidden = !on;
     });
-  }, { passive: true });
-  // Open on the highlighted plan once the cards are laid out.
-  var start = cards.findIndex(function (c) { return c.classList.contains('is-pop'); });
-  if (window.matchMedia('(max-width: 900px)').matches && start > 0) {
-    window.requestAnimationFrame(function () { go(start, false); mark(start); });
   }
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () { show(b.getAttribute('data-track')); });
+  });
+
+  // Plan buttons: the site already sets the service dropdown from data-interest.
+  // Add the chosen plan to the message box if the visitor hasn't typed anything yet.
+  document.querySelectorAll('.plan-cta[data-plan]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      var msg = document.getElementById('inquiry-message');
+      if (msg && !msg.value.trim()) msg.value = 'I am interested in ' + a.getAttribute('data-plan') + '.';
+    });
+  });
 })();

@@ -1,4 +1,4 @@
-/* Finesse Media — digital studio showcases (build 20260928-26).
+/* Finesse Media — digital studio showcases (build 20260928-37).
    Websites tab: tap a client site in the picker to preview it in the browser frame.
    Finesse OS tab: switch the Deltona Wellness case study between the public site ("What your
    clients see") and its Finesse OS admin ("What you see"). */
@@ -44,7 +44,9 @@
         views.forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
         shots.forEach(function (s) { s.hidden = s.dataset.sxShot !== v; });
         bar.textContent = TEXT[v].bar;
-        cap.textContent = TEXT[v].cap;
+        // In the admin view, the caption follows the tour screen that is showing
+        var active = v === 'admin' && os.querySelector('.os-tour-btn[aria-pressed="true"]');
+        cap.textContent = active ? active.getAttribute('data-caption') : TEXT[v].cap;
       });
     });
   }
