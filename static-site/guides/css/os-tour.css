@@ -1,0 +1,55 @@
+/* Finesse Media — Finesse OS showcase admin tour (build 20260928-36).
+   Five admin screens with module buttons under the frame. A thin bar under the active
+   button fills over 5 seconds, then the tour steps to the next screen. It pauses on
+   hover or focus, stops for good once a visitor picks a screen, and stays still for
+   visitors who prefer reduced motion. Wraps into rows; never scrolls sideways. */
+.os-tour { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.os-tour-screen { position: relative; }
+.os-tour-screen img[hidden] { display: none; }
+.os-tour-screen img { animation: osTourIn .45s ease; }
+@keyframes osTourIn { from { opacity: .35; } to { opacity: 1; } }
+
+.os-tour-nav { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.os-tour-btn {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 8px;
+  min-height: 48px; padding: 10px 12px 12px; border: 1px solid var(--line); border-radius: 8px;
+  background: var(--paper, #fffcf6); color: var(--muted);
+  font: inherit; font-size: 13px; font-weight: 600; line-height: 1.25; text-align: left; cursor: pointer;
+  transition: border-color .2s, color .2s, background .2s;
+}
+.os-tour-btn:hover { color: var(--ink); border-color: color-mix(in srgb, var(--gold) 50%, var(--line)); }
+.os-tour-btn[aria-pressed="true"] { color: var(--ink); border-color: var(--gold); background: color-mix(in srgb, var(--soft, #ddc5a0) 22%, var(--paper, #fffcf6)); }
+.os-tour-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.os-tour-bar { display: block; width: 100%; height: 2px; border-radius: 2px; background: color-mix(in srgb, var(--ink) 12%, transparent); overflow: hidden; }
+.os-tour-bar i { display: block; height: 100%; width: 0; background: var(--gold); }
+.os-tour-btn[aria-pressed="true"] .os-tour-bar i { width: 100%; }
+.os-tour-btn.is-running .os-tour-bar i { width: 0; animation: osTourFill var(--tour-dur, 5s) linear forwards; }
+.os-tour.is-paused .os-tour-btn.is-running .os-tour-bar i { animation-play-state: paused; }
+@keyframes osTourFill { from { width: 0; } to { width: 100%; } }
+
+.os-view-copy .os-tour-caption {
+  margin-top: 18px; padding: 14px 16px; border-left: 2px solid var(--gold);
+  background: color-mix(in srgb, var(--soft, #ddc5a0) 16%, transparent);
+  font-size: 15px !important; line-height: 1.6 !important; color: var(--ink) !important;
+}
+
+@media (max-width: 700px) {
+  .os-tour-nav { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .os-tour-btn { padding: 9px 10px 11px; font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .os-tour-screen img { animation: none; }
+  .os-tour-btn { transition: none; }
+}
+
+/* ---------- Deltona Wellness tour inside the dark digital studio (build 20260928-37) ---------- */
+.sx-tour-screen { width: 100%; height: 100%; }
+.sx-tour-screen[hidden], .sx-tour-nav[hidden], .sx-tour-screen img[hidden] { display: none; }
+.sx-tour-screen img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.sx-tour-nav { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.sx-tour-nav .os-tour-btn { background: rgba(17, 19, 23, .72); border-color: rgba(221, 197, 160, .22); color: #b8ad9c; }
+.sx-tour-nav .os-tour-btn:hover { color: #f3ece0; border-color: rgba(221, 197, 160, .5); }
+.sx-tour-nav .os-tour-btn[aria-pressed="true"] { color: #f3ece0; border-color: #ddc5a0; background: rgba(221, 197, 160, .12); }
+.sx-tour-nav .os-tour-bar { background: rgba(243, 236, 224, .14); }
+.sx-tour-nav .os-tour-bar i { background: #ddc5a0; }
+.sx-tour-nav .os-tour-btn:focus-visible { outline-color: #ddc5a0; }
