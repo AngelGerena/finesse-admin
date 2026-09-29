@@ -167,9 +167,9 @@ async function startJourney(kind){
   const sectionTop=()=>section.getBoundingClientRect().top+scrollY;
   window.scrollTo({top:sectionTop(),behavior:'instant'});
   video.muted=true;
-  // Clicking "Enter the digital studio" plays the laptop film at 2x so visitors reach the studio in about 4 seconds.
+  // Clicking "Enter the digital studio" plays the laptop film at 4x so visitors reach the studio in about 2 seconds.
   // The camera journey keeps its normal speed.
-  video.defaultPlaybackRate=kind==='digital'?2:1;
+  video.defaultPlaybackRate=kind==='digital'?4:1;
   video.playbackRate=video.defaultPlaybackRate;
   video.preload='auto';
   if(kind==='digital'){digitalFilm.dataset.loaded='true';digitalLoad.disconnect();}
