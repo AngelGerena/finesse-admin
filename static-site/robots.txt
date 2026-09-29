@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /guides/
 
 Sitemap: https://www.finessemedia.pro/sitemap.xml

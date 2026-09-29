@@ -1,0 +1,104 @@
+/* Finesse Media — Websites pricing: side-by-side comparison (desktop)
+   and swipeable plan cards (phones). Palette tokens keep themes working. */
+
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* ---------- Desktop table ---------- */
+.cmp-table-wrap { overflow-x: auto; }
+.cmp-table { width: 100%; border-collapse: separate; border-spacing: 16px 0; margin: 0 -16px; table-layout: fixed; }
+.cmp-table th, .cmp-table td { text-align: center; vertical-align: middle; }
+.cmp-table thead th { vertical-align: bottom; padding: 0 0 18px; font-weight: 400; }
+.cmp-table thead th.cmp-intro { width: 22%; text-align: left; }
+.cmp-intro p { font-size: 14px; line-height: 1.75; color: var(--muted); max-width: 260px; }
+.cmp-head {
+  border-radius: 18px;
+  padding: 22px 20px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--paper, #fffcf6) 80%, transparent);
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  text-align: left;
+}
+.cmp-flag { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); min-height: 16px; }
+.cmp-name { font-size: 16px; font-weight: 600; }
+.cmp-price { font-family: var(--serif); font-size: clamp(36px, 3.2vw, 46px); line-height: 1; }
+.cmp-alt { font-size: 12px; color: var(--muted); min-height: 18px; }
+.cmp-choose {
+  margin-top: 8px;
+  align-self: stretch;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  font-size: 13px;
+  transition: background .2s, color .2s;
+}
+.cmp-choose:hover { background: var(--ink); color: var(--bg); }
+.is-pop .cmp-head { background: #1a1714; border-color: #1a1714; color: #f3ece0; box-shadow: 0 26px 60px rgba(40, 30, 15, .22); }
+.is-pop .cmp-head .cmp-flag, .is-pop .cmp-head .cmp-price { color: #ddc5a0; }
+.is-pop .cmp-head .cmp-alt { color: #b8ae9d; }
+.is-pop .cmp-head .cmp-choose { background: #ddc5a0; border-color: #ddc5a0; color: #1a1714; }
+.is-pop .cmp-head .cmp-choose:hover { background: #ebd8b6; }
+
+.cmp-table tbody th { text-align: left; font-weight: 400; font-size: 14px; color: var(--ink); padding: 15px 0; border-bottom: 1px solid var(--line); }
+.cmp-table tbody td { padding: 15px 0; border-bottom: 1px solid var(--line); }
+.cmp-table tbody td.is-pop { background: color-mix(in srgb, var(--ink) 5%, transparent); }
+.cmp-table tbody tr:last-child td.is-pop { border-radius: 0 0 14px 14px; }
+.cmp-check { width: 20px; height: 20px; fill: none; stroke: var(--gold); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; vertical-align: middle; }
+.cmp-dash { color: color-mix(in srgb, var(--muted) 60%, transparent); }
+.cmp-val { font-size: 14px; color: var(--ink); }
+
+/* ---------- Phones: swipe cards ---------- */
+.cmp-mobile { display: none; }
+@media (max-width: 900px) {
+  .cmp-table-wrap { display: none; }
+  .cmp-mobile { display: block; margin: 0 calc(-1 * var(--cmp-bleed, 6%)); }
+  .cmp-swipe { font-size: 13px; color: var(--muted); padding: 0 var(--cmp-bleed, 6%); margin-bottom: 14px; }
+  .cmp-cards {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 var(--cmp-bleed, 6%);
+    padding: 4px var(--cmp-bleed, 6%) 18px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .cmp-cards::-webkit-scrollbar { display: none; }
+  .cmp-card {
+    flex: 0 0 min(84%, 340px);
+    scroll-snap-align: start;
+    border-radius: 20px;
+    padding: 24px 20px;
+    border: 1px solid var(--line);
+    background: color-mix(in srgb, var(--paper, #fffcf6) 85%, transparent);
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .cmp-card h3 { font-size: 27px; line-height: 1.08; }
+  .cmp-card .cmp-price { font-size: 48px; margin-top: 4px; }
+  .cmp-card ul { list-style: none; margin: 6px 0 4px; padding: 0; flex: 1; }
+  .cmp-card li { font-size: 14px; padding: 9px 0 9px 26px; border-bottom: 1px solid var(--line); position: relative; }
+  .cmp-card li::before { content: '✓'; position: absolute; left: 2px; color: var(--gold); }
+  .cmp-choose-block { min-height: 48px; font-size: 14px; background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .cmp-card.is-pop { background: #1a1714; border-color: #1a1714; color: #f3ece0; }
+  .cmp-card.is-pop .cmp-flag, .cmp-card.is-pop .cmp-price, .cmp-card.is-pop li::before { color: #ddc5a0; }
+  .cmp-card.is-pop .cmp-alt { color: #b8ae9d; }
+  .cmp-card.is-pop li { border-color: rgba(243, 236, 224, .12); }
+  .cmp-card.is-pop .cmp-choose-block { background: #ddc5a0; border-color: #ddc5a0; color: #1a1714; }
+  .cmp-dots { display: flex; justify-content: center; gap: 4px; }
+  .cmp-dots button { width: 28px; height: 28px; padding: 0; border: 0; background: none; display: flex; align-items: center; justify-content: center; }
+  .cmp-dots button::before { content: ''; width: 7px; height: 7px; border-radius: 999px; background: color-mix(in srgb, var(--ink) 25%, transparent); transition: width .25s, background .25s; }
+  .cmp-dots button[aria-current="true"]::before { width: 22px; background: var(--ink); }
+}
+@media (max-width: 1050px) { .web-pricing { --cmp-bleed: 6%; } }
+@media (max-width: 700px) { .web-pricing { --cmp-bleed: 7%; } }

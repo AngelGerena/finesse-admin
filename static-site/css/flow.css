@@ -1,0 +1,142 @@
+/* Finesse Media — homepage flow: hero paths, hello strip, website pricing,
+   testimonials, and the founder section. Palette tokens keep every theme working. */
+
+/* ---------- Hero: two clear paths (camera journey untouched) ---------- */
+.hero-intro { max-width: 520px; font-size: 16px; line-height: 1.7; }
+.hero-paths { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.path-pill {
+  min-height: 50px;
+  padding: 0 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid var(--cinema-accent, #c9b48c);
+  border-radius: 999px;
+  color: #f0eeea;
+  font-size: 14px;
+  transition: background .25s, color .25s;
+}
+.path-pill span { color: var(--cinema-accent, #c9b48c); transition: color .25s; }
+.path-pill:hover, .path-primary { background: var(--cinema-accent, #c9b48c); color: #0d0c0b; }
+.path-pill:hover span, .path-primary span { color: #0d0c0b; }
+.path-primary:hover { background: #e2cda8; }
+.hero-copy .hero-actions { margin-top: 10px; }
+.hero-copy .hero-actions .text-link { font-size: 12px; padding-top: 10px; }
+
+/* ---------- Hello strip ---------- */
+.hello-strip { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.4fr); gap: 70px; align-items: center; }
+.hello-strip .eyebrow { padding-top: 0; margin-bottom: 18px; }
+.hello-strip h2 { font-size: clamp(38px, 3.4vw, 54px); line-height: 1.08; }
+.hello-facts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+.hello-facts li { border-left: 1px solid var(--line); padding-left: 22px; display: flex; flex-direction: column; gap: 8px; }
+.hello-facts strong { font-family: var(--serif); font-weight: 400; font-size: clamp(42px, 3.8vw, 58px); line-height: 1; color: var(--gold); }
+.hello-facts span { font-size: 13px; line-height: 1.6; color: var(--muted); }
+
+/* ---------- Website pricing ---------- */
+.web-pricing { border-top: 1px solid var(--line); }
+.web-tiers { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.web-tier {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 30px 26px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--surface) 45%, transparent);
+}
+.web-tier .eyebrow { font-size: 10px; }
+.web-tier h3 { font-size: 30px; line-height: 1.08; letter-spacing: -.015em; }
+.web-tier > p:not(.eyebrow):not(.web-price):not(.web-plan) { font-size: 14px; line-height: 1.75; color: var(--muted); flex: 1; }
+.web-price { font-family: var(--serif); font-size: 46px; line-height: 1; border-top: 1px solid var(--line); padding-top: 16px; }
+.web-price small { display: block; font-family: var(--sans); font-size: 10px; letter-spacing: .16em; color: var(--gold); margin-bottom: 8px; }
+.web-plan { font-size: 12px; line-height: 1.6; color: var(--muted); }
+.web-tier-os { border-color: color-mix(in srgb, var(--gold) 55%, transparent); background: color-mix(in srgb, var(--gold) 8%, transparent); }
+.web-extras {
+  margin-top: 34px;
+  padding: 24px 28px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.web-extras > p { font-size: 14px; color: var(--muted); margin: 0; }
+.web-extras strong { color: var(--ink); font-weight: 600; }
+.web-extra-links { display: flex; flex-wrap: wrap; gap: 4px 26px; }
+.web-extra-links .text-link { gap: 12px; margin-top: 0; padding: 8px 0 5px; font-size: 12px; background: none; border-left: 0; border-right: 0; border-top: 0; color: var(--ink); }
+.web-ctas { margin-top: 34px; display: flex; align-items: center; gap: 30px; flex-wrap: wrap; }
+.web-ctas .text-link { margin-top: 0; }
+
+/* ---------- Testimonials ---------- */
+.kind-words { background: var(--surface); }
+.kind-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+.kind-grid figure { margin: 0; padding: 34px 30px; border: 1px solid var(--line); border-radius: 18px; background: var(--bg); display: flex; flex-direction: column; gap: 20px; }
+.kind-grid figure::before { content: '\201C'; font-family: var(--serif); font-size: 70px; line-height: .5; color: var(--gold); }
+.kind-grid blockquote { margin: 0; font-family: var(--serif); font-size: 24px; line-height: 1.4; }
+.kind-grid figcaption { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+
+/* ---------- Meet Angel ---------- */
+.studio-verse { border-radius: 18px; padding: 40px 34px; gap: 6px; }
+.studio-verse .verse { font-family: var(--serif); font-style: italic; font-size: 22px; line-height: 1.5; letter-spacing: 0; color: var(--ink); text-transform: none; margin: 8px 0 14px; }
+.studio-verse p:last-child { font-size: 12px; letter-spacing: .16em; font-style: normal; font-family: var(--sans); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1100px) {
+  .hello-strip { grid-template-columns: 1fr; gap: 40px; }
+  .web-tiers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 700px) {
+  .hero-paths { flex-direction: column; margin-top: 18px; gap: 10px; }
+  .path-pill { justify-content: space-between; min-height: 48px; }
+  .hero-copy .hero-actions { display: none; }
+  .hello-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 16px; }
+  .hello-facts li { padding-left: 16px; }
+  .web-tiers { grid-template-columns: 1fr; }
+  .kind-grid { grid-template-columns: 1fr; }
+  .web-extras { padding: 22px; }
+}
+
+/* Tiny build marker in the footer: confirms which deploy a device is showing */
+.build-id { font-size: 10px; letter-spacing: .08em; opacity: .45; }
+
+/* Shown when a device asks for reduced motion: a clear way to turn the animations on */
+.motion-notice {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 18px;
+  min-height: 44px; padding: 0 18px; border-radius: 999px;
+  border: 1px solid var(--cinema-accent, #c9b48c); background: rgba(12, 11, 9, .55);
+  color: #f0eeea; font: inherit; font-size: 13px; cursor: pointer;
+}
+.motion-notice strong { color: var(--cinema-accent, #c9b48c); font-weight: 600; }
+.motion-notice[hidden] { display: none; }
+.reduced-motion .hero-copy .motion-notice { display: inline-flex; }
+.reduced-motion .hero-copy .motion-notice[hidden] { display: none; }
+
+/* Hello strip: name, title, then the promise */
+.hello-strip .eyebrow { margin-bottom: 10px; }
+.hello-role { margin: 0 0 22px; font-size: 15px; font-weight: 500; letter-spacing: .02em; color: var(--ink); }
+.hello-strip h2 { font-size: clamp(36px, 3.2vw, 52px); line-height: 1.1; }
+@media (max-width: 700px) { .hello-role { font-size: 14px; margin-bottom: 18px; } }
+.hello-strip .hello-copy > p { margin-top: 0; max-width: none; }
+.hello-strip .hello-copy > .hello-role { color: var(--ink); font-size: 15px; line-height: 1.5; }
+
+/* Hello strip: portrait + greeting */
+.hello-id { display: flex; align-items: center; gap: 22px; margin-bottom: 30px; }
+.hello-avatar {
+  width: 112px; height: 112px; flex-shrink: 0;
+  border-radius: 50%; object-fit: cover; object-position: center 28%;
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--gold) 14%, transparent), 0 14px 30px rgba(40, 30, 15, .18);
+}
+.hello-strip .hello-copy .hello-hi {
+  margin: 0 0 6px; font-family: var(--serif); font-size: clamp(30px, 2.6vw, 40px);
+  line-height: 1.05; letter-spacing: -.01em; color: var(--ink);
+}
+.hello-strip .hello-copy .hello-id .hello-role { margin: 0; color: var(--muted); }
+@media (max-width: 700px) {
+  .hello-id { gap: 16px; margin-bottom: 24px; }
+  .hello-avatar { width: 84px; height: 84px; box-shadow: 0 0 0 4px color-mix(in srgb, var(--gold) 14%, transparent); }
+}
+.hello-strip .hello-copy .hello-hi { font-size: clamp(28px, 2.3vw, 36px); }
+.hello-strip .hello-copy .hello-id .hello-role { font-size: 14px; line-height: 1.5; }

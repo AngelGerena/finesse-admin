@@ -25,3 +25,23 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+# ---- Public site headers (added with the 2026-09-28 site rebuild) ----
+
+# Pages always check for a newer version, so a fresh deploy shows up immediately.
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+# Private price guides: keep them out of search engines.
+[[headers]]
+  for = "/guides/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+    Cache-Control = "no-cache"

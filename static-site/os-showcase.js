@@ -1,0 +1,3 @@
+const osViewTabs=[...document.querySelectorAll('[data-os-view]')];
+function selectOsView(tab,focus=false){osViewTabs.forEach(button=>{const selected=button===tab;button.setAttribute('aria-selected',String(selected));button.tabIndex=selected?0:-1;document.getElementById(button.getAttribute('aria-controls')).hidden=!selected;});if(focus)tab.focus();}
+osViewTabs.forEach((tab,index)=>{tab.addEventListener('click',()=>selectOsView(tab));tab.addEventListener('keydown',event=>{let next;if(event.key==='ArrowRight'||event.key==='ArrowLeft')next=1-index;if(event.key==='Home')next=0;if(event.key==='End')next=osViewTabs.length-1;if(next!==undefined){event.preventDefault();selectOsView(osViewTabs[next],true);}});});

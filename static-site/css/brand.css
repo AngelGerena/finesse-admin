@@ -1,0 +1,17 @@
+/* Finesse Media — header logo mark (build 20260928-27). The FM mark sits left of the wordmark. */
+.brand { display: inline-flex; align-items: center; gap: 14px; color: inherit; text-decoration: none; flex-shrink: 0; }
+.brand-mark { display: block; flex: none; width: 52px; height: 52px; }
+.site-header.scrolled .brand-mark { width: 46px; height: 46px; }
+.brand:focus-visible { outline: 2px solid var(--gold); outline-offset: 6px; }
+@media (max-width: 700px) {
+  .brand { gap: 10px; }
+  .brand-mark, .site-header.scrolled .brand-mark { width: 40px; height: 40px; }
+}
+
+/* Footer logo (build 20260928-29): same mark, a touch larger, left-aligned in the footer grid */
+footer .brand--footer { justify-self: start; gap: 16px; }
+footer .brand--footer .brand-mark { width: 56px; height: 56px; }
+@media (max-width: 700px) {
+  footer .brand--footer { gap: 12px; }
+  footer .brand--footer .brand-mark { width: 48px; height: 48px; }
+}
