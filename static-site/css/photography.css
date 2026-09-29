@@ -383,3 +383,7 @@
   .vf-tag i { animation: none; }
   .vf-frame img, .vf-focus { transition: none; }
 }
+
+/* Senior & Graduation style-preview card (build 20260928-39): keep the "now booking" pill
+   above the bottom bar on every screen size so it never collides with the card label. */
+#seniors .vf-gallery-chip { top: auto; bottom: 64px; right: 50%; translate: 50% 0; white-space: nowrap; }
