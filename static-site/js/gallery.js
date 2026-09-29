@@ -39,8 +39,8 @@
       { kind: 'Maternity', hero: 1, photos: r(1, 9), title: 'A teal gown and a big brother.', line: 'A maternity session with the whole family, sonogram and all.' },
       { kind: 'Maternity', hero: 40, photos: [40, 38, 39, 45, 46, 47, 48, 41, 42, 43, 44], title: 'Golden hour, then the studio.', line: 'Yellow lace in the woods, then black and white with a pink ribbon.' },
       { kind: 'Couples', hero: 14, photos: r(10, 15), title: 'Young love, downtown.', line: 'Brick streets, a mural wall, and a red door.' },
-      { kind: 'Couples', hero: 49, photos: [49, 50, 51], title: 'Still each other\u2019s favorite.', line: 'Sunset portraits by the water.' },
-      { kind: 'Kids & portraits', hero: 36, photos: [36, 35, 37, 25, 52], title: 'Personalities.', line: 'Kids being exactly who they are, and a few favorite single portraits.' }
+      { kind: 'Couples', hero: 49, photos: [49, 50, 51, 52], title: 'Still each other\u2019s favorite.', line: 'Sunset portraits by the water.' },
+      { kind: 'Kids & portraits', hero: 36, photos: [36, 35, 37, 25], title: 'Personalities.', line: 'Kids being exactly who they are, and a few favorite portraits.' }
     ],
     headshots: [
       { kind: 'Team', hero: 13, photos: r(13, 16), title: 'One backdrop, a whole team.', line: 'Matching headshots so every bio on the website looks like it belongs.' },
