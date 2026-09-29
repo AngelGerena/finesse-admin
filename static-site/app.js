@@ -118,7 +118,28 @@ digitalFilm.addEventListener('loadeddata',()=>{q('.digital-film-wrap').classList
 digitalFilm.addEventListener('error',()=>{q('.digital-film-wrap').classList.remove('ready');});
 const digitalLoad=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)&&!digitalFilm.dataset.loaded){digitalFilm.dataset.loaded='true';ensureFilmSource(digitalFilm).catch(()=>{});digitalLoad.disconnect();}},{rootMargin:'900px'});
 digitalLoad.observe(digitalJourney);
-function enterStudio(animate=true){if(animate){startJourney('digital');return;}portalEntered=true;if(reduced){hud.scrollIntoView({behavior:'instant',block:'center'});}else{const y=digitalJourney.getBoundingClientRect().top+scrollY+(digitalJourney.offsetHeight-q('.digital-stage').offsetHeight)*.84;window.scrollTo({top:y,behavior:'instant'});updatePortal();}}
+/* "Enter the digital studio" (build 20260928-34): a smooth eased glide down the page instead of video playback.
+   The existing scroll-scrub draws the laptop film frame by frame as the page moves, so the motion stays fluid. */
+let studioGlide=0;
+function cancelStudioGlide(){if(studioGlide){cancelAnimationFrame(studioGlide);studioGlide=0;}}
+function studioTargetY(){return digitalJourney.getBoundingClientRect().top+scrollY+(digitalJourney.offsetHeight-q('.digital-stage').offsetHeight)*.84;}
+function glideToStudio(){
+  cancelStudioGlide();
+  if(reduced){enterStudio(false);return;}
+  if(!digitalFilm.dataset.loaded){digitalFilm.dataset.loaded='true';digitalLoad.disconnect();ensureFilmSource(digitalFilm).catch(()=>{});}
+  const from=scrollY,to=studioTargetY(),dist=to-from,dur=1800,start=performance.now();
+  if(Math.abs(dist)<4){enterStudio(false);return;}
+  const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+  const step=now=>{
+    const t=Math.min(1,(now-start)/dur);
+    window.scrollTo({top:from+dist*ease(t),behavior:'instant'});
+    if(t<1){studioGlide=requestAnimationFrame(step);}else{studioGlide=0;enterStudio(false);}
+  };
+  studioGlide=requestAnimationFrame(step);
+}
+['wheel','touchstart'].forEach(ev=>window.addEventListener(ev,cancelStudioGlide,{passive:true}));
+document.addEventListener('keydown',e=>{if(studioGlide&&['Escape','ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(e.key))cancelStudioGlide();});
+function enterStudio(animate=true){if(animate){glideToStudio();return;}portalEntered=true;if(reduced){hud.scrollIntoView({behavior:'instant',block:'center'});}else{const y=digitalJourney.getBoundingClientRect().top+scrollY+(digitalJourney.offsetHeight-q('.digital-stage').offsetHeight)*.84;window.scrollTo({top:y,behavior:'instant'});updatePortal();}}
 q('.enter-studio').addEventListener('click',()=>enterStudio());
 const serviceTabs=[...document.querySelectorAll('[data-service]')];
 function selectService(key,focus=false){serviceTabs.forEach(tab=>{const selected=tab.dataset.service===key;tab.setAttribute('aria-selected',String(selected));tab.tabIndex=selected?0:-1;document.getElementById(tab.getAttribute('aria-controls')).hidden=!selected;if(selected&&focus)tab.focus();});}
@@ -167,10 +188,6 @@ async function startJourney(kind){
   const sectionTop=()=>section.getBoundingClientRect().top+scrollY;
   window.scrollTo({top:sectionTop(),behavior:'instant'});
   video.muted=true;
-  // Clicking "Enter the digital studio" plays the laptop film at 4x so visitors reach the studio in about 2 seconds.
-  // The camera journey keeps its normal speed.
-  video.defaultPlaybackRate=kind==='digital'?4:1;
-  video.playbackRate=video.defaultPlaybackRate;
   video.preload='auto';
   if(kind==='digital'){digitalFilm.dataset.loaded='true';digitalLoad.disconnect();}
   try{
