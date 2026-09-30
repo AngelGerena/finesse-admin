@@ -25,7 +25,6 @@
     weddings: [
       { kind: 'Wedding', hero: 9, photos: r(1, 13), title: 'Pink heels and a chapel aisle.', line: 'Getting ready, the ceremony, and a reception that never sat down.' },
       { kind: 'Wedding', hero: 26, photos: r(14, 31), title: 'A garden gazebo in gold.', line: 'Bridesmaids in blue, a saxophone down the aisle, and vows under the oaks.' },
-      { kind: 'Wedding', hero: 33, photos: [33, 34, 35, 36, 41, 43, 44], title: 'A fire engine and a Thunderbird.', line: 'Portraits with the fire truck and a classic white convertible.' },
       { kind: 'Wedding', hero: 37, photos: [37, 32, 38, 39, 40, 42], title: 'Rustic by the lake.', line: 'Blush roses, mason jars, and golden hour under the moss.' }
     ],
     quinceaneras: [
@@ -52,6 +51,12 @@
       { kind: 'Gender reveal', hero: 8, photos: r(1, 14), title: 'A pastel gender reveal.', line: 'The balloon arch, the dessert table, and the moment the smoke went blue.' }
     ]
   };
+  // Photos removed from a gallery. They are never shown or counted (the files can stay in the folder).
+  var HIDDEN = {
+    weddings: [33, 34, 35, 36, 41, 43, 44] // fire engine and Thunderbird session, removed 2026-09-29
+  };
+  function isHidden(c, n) { return (HIDDEN[c] || []).indexOf(n) >= 0; }
+  function visibleCount(c) { return SIZES[c].length - (HIDDEN[c] || []).filter(function (n) { return n >= 1 && n <= SIZES[c].length; }).length; }
   var PREVIEW = 8; // thumbnails shown before a "See all" tile, when a session has more than PREVIEW + 1
   var UP = '\u2191\ufe0e', DOWN = '\u2193\ufe0e', LEFT = '\u2190\ufe0e', ARROW = '\u2197\ufe0e';
 
@@ -69,12 +74,12 @@
     if (cache[c]) return cache[c];
     var total = SIZES[c].length, seen = {}, list = [];
     (SESSIONS[c] || []).forEach(function (s) {
-      var photos = (s.photos || []).filter(function (n) { var ok = n >= 1 && n <= total && !seen[n]; if (ok) seen[n] = true; return ok; });
+      var photos = (s.photos || []).filter(function (n) { var ok = n >= 1 && n <= total && !seen[n] && !isHidden(c, n); if (ok) seen[n] = true; return ok; });
       if (!photos.length) return;
       list.push({ kind: s.kind || '', title: s.title || '', line: s.line || '', photos: photos,
         hero: photos.indexOf(s.hero) >= 0 ? s.hero : photos[0] });
     });
-    var rest = r(1, total).filter(function (n) { return !seen[n]; });
+    var rest = r(1, total).filter(function (n) { return !seen[n] && !isHidden(c, n); });
     if (rest.length) list.push({ kind: list.length ? 'More' : '', title: list.length ? 'More moments.' : '', line: '', photos: rest, hero: rest[0] });
     cache[c] = list;
     return list;
@@ -247,7 +252,7 @@
     if (!SIZES[c]) return;
     if (!dlg) build();
     cat = c; filter = 'All'; pos = 0; opener = trigger || document.activeElement;
-    var total = SIZES[c].length, n = sessionsFor(c).length;
+    var total = visibleCount(c), n = sessionsFor(c).length;
     titleEl.textContent = META[c].title;
     lineEl.textContent = META[c].line + ' ' + (n > 1 ? n + ' sessions \u00b7 ' : '') + total + ' photos.';
     pricingLink.setAttribute('href', META[c].pricing);
