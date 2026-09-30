@@ -66,7 +66,7 @@ function update(){
   scene.style.opacity=progress<.18?0:progress>.96?clamp((1-progress)/.04):clamp((progress-.18)/.06);
   const chapter=progress<.35?0:progress<.76?1:2;
   q('#scene-label').textContent=['01 / THE PERSPECTIVE','02 / THE DETAILS','03 / THE FEELING'][chapter];
-  q('#scene-title').innerHTML=['A little closer.<br><em>A different perspective.</em>','Every detail.<br><em>With intention.</em>','Beyond the image.<br><em>Into the feeling.</em>'][chapter];
+  q('#scene-title').innerHTML=['A little closer.<br><em>A different perspective.</em>','The little things.<br><em>I don\u2019t miss them.</em>','Photos you can feel.<br><em>Years from now.</em>'][chapter];
   document.querySelectorAll('.chapter-nav button').forEach((b,i)=>{b.classList.toggle('active',i===chapter);b.setAttribute('aria-pressed',String(i===chapter))});
   q('.film-progress span').style.width=`${progress*100}%`;
   if(Number.isFinite(film.duration)&&film.duration>0){targetTime=progress*(film.duration-.045);seek();}
