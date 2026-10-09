@@ -168,5 +168,15 @@ const websiteProjects = [
     "alt": "Volkswagen World — VW Enthusiast Community Website Design",
     "available": true,
     "osExample": false
+  },
+  {
+    "name": "Impact Beauty Studio",
+    "description": "Hair Salon Web Design",
+    "category": "business",
+    "url": "https://www.impactbeautystudio.com",
+    "image": "assets/websites/portfolio-impact-beauty.webp",
+    "alt": "Impact Beauty Studio — Hair Salon Website Design Sanford FL",
+    "available": true,
+    "osExample": false
   }
 ];
