@@ -30,7 +30,7 @@
     quinceaneras: [
       { kind: 'Quincea\u00f1era', hero: 1, photos: r(1, 10), title: 'Two gowns, one afternoon.', line: 'A white gown and Converse, then red for the courthouse steps.' },
       { kind: 'Quincea\u00f1era', hero: 12, photos: r(11, 18), title: 'White by the water, then red.', line: 'Lakeside portraits in two gowns, from the balustrade to the boardwalk.' },
-      { kind: 'Quincea\u00f1era', hero: 21, photos: r(19, 27), title: 'In royal blue.', line: 'Portraits in the gown before the big day.' }
+      { kind: 'Quincea\u00f1era', hero: 20, photos: r(19, 27), title: 'In royal blue.', line: 'Portraits in the gown before the big day.' }
     ],
     portraits: [
       { kind: 'Family', hero: 33, photos: r(26, 34), title: 'All white, all family.', line: 'A studio session in white shirts and denim, and nobody took it too seriously.' },
@@ -45,7 +45,7 @@
       { kind: 'Team', hero: 13, photos: r(13, 16), title: 'One backdrop, a whole team.', line: 'Matching headshots so every bio on the website looks like it belongs.' },
       { kind: 'Partners', hero: 10, photos: r(10, 12), title: 'Two founders, one brand.', line: 'Color-coordinated portraits for a business partnership.' },
       { kind: 'Personal branding', hero: 1, photos: [1, 2, 18, 19, 17], title: 'Personal branding.', line: 'Studio portraits for websites, bios, and social.' },
-      { kind: 'Musician', hero: 5, photos: r(3, 9), title: 'The saxophone session.', line: 'Dark, moody branding for a working musician.' }
+      { kind: 'Musician', hero: 4, photos: r(3, 9), title: 'The saxophone session.', line: 'Dark, moody branding for a working musician.' }
     ],
     events: [
       { kind: 'Gender reveal', hero: 8, photos: r(1, 14), title: 'A pastel gender reveal.', line: 'The balloon arch, the dessert table, and the moment the smoke went blue.' }
@@ -53,7 +53,10 @@
   };
   // Photos removed from a gallery. They are never shown or counted (the files can stay in the folder).
   var HIDDEN = {
-    weddings: [33, 34, 35, 36, 41, 43, 44] // fire engine and Thunderbird session, removed 2026-09-29
+    weddings: [33, 34, 35, 36, 41, 43, 44], // fire engine and Thunderbird session, removed 2026-09-29
+    quinceaneras: [11, 21], // lavender gown removed; royal blue now on the card only (2026-10-10)
+    events: [10], // button photo, now on the Events card only (2026-10-10)
+    headshots: [5] // Obed with the saxophone, now on the Headshots card only (2026-10-10)
   };
   function isHidden(c, n) { return (HIDDEN[c] || []).indexOf(n) >= 0; }
   function visibleCount(c) { return SIZES[c].length - (HIDDEN[c] || []).filter(function (n) { return n >= 1 && n <= SIZES[c].length; }).length; }
