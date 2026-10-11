@@ -5,7 +5,11 @@ const heroCopy = q('.hero-copy');
 const scene = q('.scene-copy');
 const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 const motionChoice=(()=>{try{return localStorage.getItem('finesse-motion')}catch(e){return null}})();
-let reduced = motionChoice ? motionChoice==='reduce' : prefersReduced.matches;
+/* Speed pass (Mario, 2026-10-10): visitors with Data Saver on start with the light poster version
+   unless they already chose motion. They can still tap "Enable motion" to get the films. */
+const netInfo=navigator.connection||{};
+const saveData=!!netInfo.saveData;
+let reduced = motionChoice ? motionChoice==='reduce' : (prefersReduced.matches||saveData);
 let targetTime = 0;
 let ticking = false;
 let playbackVideo=null;
@@ -13,13 +17,39 @@ let playbackFrame=0;
 let playbackRequest=0;
 const filmSources=new WeakMap();
 function showCameraStatus(message){q('.media-status').hidden=false;q('.media-status').textContent=message;}
+/* Phones and slower connections get the lighter 720p film; larger screens get the 900p film. */
+function filmSrc(video){
+  const small=window.matchMedia('(max-width: 900px)').matches;
+  const slow=['slow-2g','2g','3g'].includes(netInfo.effectiveType);
+  return ((small||slow)&&video.dataset.srcM)?video.dataset.srcM:video.dataset.src;
+}
+/* Wait for the visitor to interact before downloading the hero film, so first load stays light.
+   On fast connections it also prefetches quietly a few seconds after the page finishes loading. */
+let filmArmed=false;
+function armFilm(){
+  if(filmArmed)return;
+  filmArmed=true;
+  const events=['scroll','wheel','touchstart','pointerdown','keydown'];
+  /* Browsers will not prepare video in a background tab, so a tab opened in the background
+     waits until it is actually shown before it starts the film. */
+  const start=()=>{if(!reduced)ensureFilmSource(film).catch(()=>{});};
+  const go=()=>{
+    events.forEach(t=>window.removeEventListener(t,go,true));
+    if(!document.hidden){start();return;}
+    const onShow=()=>{if(document.hidden)return;document.removeEventListener('visibilitychange',onShow);start();};
+    document.addEventListener('visibilitychange',onShow);
+  };
+  events.forEach(t=>window.addEventListener(t,go,{capture:true,passive:true,once:true}));
+  const idle=()=>{if(saveData||(netInfo.effectiveType&&netInfo.effectiveType!=='4g'))return;setTimeout(()=>{(window.requestIdleCallback||setTimeout)(go);},6000);};
+  if(document.readyState==='complete')idle();else window.addEventListener('load',idle,{once:true});
+}
 function ensureFilmSource(video){
   if(filmSources.has(video))return filmSources.get(video);
   // The private host returns complete files for Range requests. A local Blob
   // gives the media decoder a fully seekable source for scroll scrubbing.
   const loading=(async()=>{
     if(video===film)showCameraStatus('Loading the camera animation…');
-    const response=await fetch(video.dataset.src,{credentials:'same-origin',signal:AbortSignal.timeout(60000)});
+    const response=await fetch(filmSrc(video),{credentials:'same-origin',signal:AbortSignal.timeout(60000)});
     if(!response.ok)throw new Error('Unable to load the animation');
     const blob=await response.blob();
     const url=URL.createObjectURL(new Blob([blob],{type:'video/mp4'}));
@@ -47,7 +77,7 @@ function ensureFilmSource(video){
   return loading;
 }
 const clamp = (n, min=0, max=1) => Math.min(max, Math.max(min,n));
-function setMotion(value){reduced=value;document.body.classList.toggle('reduced-motion',value);q('.motion-toggle').setAttribute('aria-pressed',String(value));q('.motion-toggle').textContent=value?'Enable motion':'Reduce motion';const mn=q('.motion-notice');if(mn)mn.hidden=!value;if(!value)ensureFilmSource(film).catch(()=>{});update();}
+function setMotion(value,initial){reduced=value;document.body.classList.toggle('reduced-motion',value);q('.motion-toggle').setAttribute('aria-pressed',String(value));q('.motion-toggle').textContent=value?'Enable motion':'Reduce motion';const mn=q('.motion-notice');if(mn)mn.hidden=!value;if(!value){if(initial)armFilm();else ensureFilmSource(film).catch(()=>{});}update();}
 function rememberMotion(){try{localStorage.setItem('finesse-motion',reduced?'reduce':'on')}catch(e){}}
 q('.motion-toggle').addEventListener('click',()=>{setMotion(!reduced);rememberMotion();});
 if(q('.motion-notice'))q('.motion-notice').addEventListener('click',()=>{setMotion(false);rememberMotion();});
@@ -223,5 +253,5 @@ document.querySelectorAll('a[href^="#"],.motion-toggle,[data-chapter],#palette-l
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&playbackVideo)stopJourney();});
 if(new URLSearchParams(location.search).get('interest')==='website')q('#inquiry-service').value='Website + Finesse OS';
 selectService('web');
-setMotion(reduced);
+setMotion(reduced,true);
 
