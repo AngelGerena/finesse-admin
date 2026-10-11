@@ -1,0 +1,59 @@
+# Netlify headers for the public site (copied to the publish root by scripts/copy-static.mjs).
+# Speed pass (Mario, 2026-10-10). Netlify was not applying the [[headers]] blocks in netlify.toml
+# (every deploy reported "No header rules processed"), so the rules live here instead.
+
+# Pages always check for a newer version, so a fresh deploy shows up right away.
+/
+  Cache-Control: no-cache
+
+# Private price guides: keep them out of search engines.
+/guides/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Cache-Control: no-cache
+
+# Photos, posters and films: keep for a week. When you swap an image, give it a new
+# file name (or a ?v= tag) so visitors get the new one right away.
+/assets/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/images/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+# Stylesheets and scripts: keep for a day. The main pages load them with ?v= tags,
+# so bumping the tag on a deploy always delivers the new version.
+/css/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/js/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/styles.css
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/themes.css
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/finesse-os.css
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/app.js
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/os-showcase.js
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/palette-data.js
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/themes.js
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/website-portfolio.js
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/website-projects.js
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+# Admin portal build files have content hashes in their names, so they never go stale.
+/admin/assets/*
+  Cache-Control: public, max-age=31536000, immutable
