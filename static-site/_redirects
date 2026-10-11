@@ -1,2 +1,2 @@
-# Force www
-https://finessemedia.pro/* https://www.finessemedia.pro/:splat 301!
+# Netlify handles domain redirects via its own settings
+# No custom redirects needed
