@@ -30,7 +30,15 @@ function armFilm(){
   if(filmArmed)return;
   filmArmed=true;
   const events=['scroll','wheel','touchstart','pointerdown','keydown'];
-  const go=()=>{events.forEach(t=>window.removeEventListener(t,go,true));if(!reduced)ensureFilmSource(film).catch(()=>{});};
+  /* Browsers will not prepare video in a background tab, so a tab opened in the background
+     waits until it is actually shown before it starts the film. */
+  const start=()=>{if(!reduced)ensureFilmSource(film).catch(()=>{});};
+  const go=()=>{
+    events.forEach(t=>window.removeEventListener(t,go,true));
+    if(!document.hidden){start();return;}
+    const onShow=()=>{if(document.hidden)return;document.removeEventListener('visibilitychange',onShow);start();};
+    document.addEventListener('visibilitychange',onShow);
+  };
   events.forEach(t=>window.addEventListener(t,go,{capture:true,passive:true,once:true}));
   const idle=()=>{if(saveData||(netInfo.effectiveType&&netInfo.effectiveType!=='4g'))return;setTimeout(()=>{(window.requestIdleCallback||setTimeout)(go);},6000);};
   if(document.readyState==='complete')idle();else window.addEventListener('load',idle,{once:true});
