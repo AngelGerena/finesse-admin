@@ -45,3 +45,10 @@
   [headers.values]
     X-Robots-Tag = "noindex, nofollow, noarchive"
     Cache-Control = "no-cache"
+
+# Private client proposals: keep them out of search engines.
+[[headers]]
+  for = "/proposals/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+    Cache-Control = "no-cache"
