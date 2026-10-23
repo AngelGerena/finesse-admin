@@ -79,9 +79,16 @@ function services() {
   return `<section class="panel"><h2>What I shoot</h2><p class="about">${GIO.about}</p>
     <div class="chips" style="margin-top:12px">${GIO.services.map(s => `<span class="chip">${s}</span>`).join("")}</div></section>`;
 }
+function qrPanel() {
+  return `<section class="panel qr-panel" aria-label="QR code for this card">
+    <button type="button" class="qr-tile" data-qr-full aria-label="Show the QR code full screen">${qrSvg(cardUrl())}</button>
+    <div class="qr-copy"><h2>Scan to save my card</h2><p>Point any phone camera here to open my card and save my contact.</p>
+      <div class="qr-btns"><button type="button" class="qr-btn" data-qr-full>Full screen</button><button type="button" class="qr-btn" data-share>Share link</button></div></div>
+  </section>`;
+}
 function tail() {
-  const msg = encodeURIComponent(`Hi Angel, I really like the vCard you made for ${GIO.name}. I'd love one for my business too.`);
-  return `<a class="own" data-snd href="https://wa.me/${FINESSE_WA}?text=${msg}" target="_blank" rel="noopener">Get your own vCard <span aria-hidden="true">↗${T}</span></a>
+  const msg = `Hi Angel, I really like the vCard you made for ${GIO.name}. I'd love one for my business too.`;
+  return `${qrPanel()}<a class="own" data-snd data-send="${esc(msg)}" href="https://wa.me/${FINESSE_WA}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">Get your own vCard <span aria-hidden="true">↗${T}</span></a>
     <p class="foot">Crafted by <a href="https://finessemedia.pro" target="_blank" rel="noopener">Finesse Media</a></p>`;
 }
 const E = GIO.exposure;
@@ -255,7 +262,8 @@ function setLook(id, sound) {
   const label = LOOKS.find(l => l.id === id).label;
   document.getElementById("lookName").textContent = label;
   const pick = document.getElementById("pickLook");
-  if (pick) pick.href = `https://wa.me/${FINESSE_WA}?text=${encodeURIComponent(`Hi Angel, it's Gio. I love the vCard! I'm going with the ${label} look.`)}`;
+  const pickMsg = `Hi Angel, it's Gio. I love the vCard! I'm going with the ${label} look.`;
+  if (pick) { pick.href = `https://wa.me/${FINESSE_WA}?text=${encodeURIComponent(pickMsg)}`; pick.dataset.send = pickMsg; }
   if (id === "play") drawHistogram();
   try { localStorage.setItem("gio-look", id); } catch (e) { }
   if (sound) click(true);
@@ -266,8 +274,81 @@ document.addEventListener("click", (e) => {
   if (e.target.closest("[data-save]")) { e.preventDefault(); saveContact(); return; }
   const dial = e.target.closest("[data-dial]");
   if (dial) { const n = (+(dial.dataset.turn || 0) + 1); dial.dataset.turn = n; dial.style.transform = `rotate(${n * 45}deg)`; click(false); return; }
+  const send = e.target.closest("[data-send]");
+  if (send) { e.preventDefault(); click(false); openSend(send.dataset.send); return; }
+  if (e.target.closest("[data-qr-full]")) { click(false); openQr(); return; }
+  if (e.target.closest("[data-share]")) { click(false); shareCard(); return; }
+  if (e.target.closest("[data-sheet-close]")) { closeSheets(); return; }
+  if (e.target.closest("[data-sent]")) { setTimeout(closeSheets, 400); }
   if (e.target.closest("[data-snd]")) click(false);
 });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeSheets(); });
+
+/* ---------- send to Angel: WhatsApp or a regular text, message pre-written ---------- */
+function openSend(msg) {
+  let el = document.getElementById("sendSheet");
+  if (!el) {
+    el = document.createElement("div"); el.id = "sendSheet"; el.className = "sheet"; el.hidden = true;
+    el.innerHTML = `<div class="sheet-scrim" data-sheet-close></div>
+      <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sendTitle">
+        <div class="sheet-head"><h2 id="sendTitle">Send to Angel</h2><button type="button" class="sheet-x" data-sheet-close aria-label="Close">✕${T}</button></div>
+        <p class="sheet-msg" id="sendMsg"></p>
+        <a class="sheet-opt wa" id="sendWa" data-sent target="_blank" rel="noopener"><b>WhatsApp</b><span>Opens a chat with the message ready</span></a>
+        <a class="sheet-opt sms" id="sendSms" data-sent><b>Text message</b><span>No WhatsApp? Send it as a regular text</span></a>
+        <p class="sheet-note">Tap send in the app that opens. (407) 960-9004</p>
+      </div>`;
+    document.body.appendChild(el);
+  }
+  document.getElementById("sendMsg").textContent = `"${msg}"`;
+  document.getElementById("sendWa").href = `https://wa.me/${FINESSE_WA}?text=${encodeURIComponent(msg)}`;
+  document.getElementById("sendSms").href = `sms:+${FINESSE_WA}?&body=${encodeURIComponent(msg)}`;
+  showSheet(el);
+}
+
+/* ---------- QR code ---------- */
+function cardUrl() { return location.origin + location.pathname; }
+function qrSvg(text) {
+  try {
+    const qr = qrcode(0, "H"); qr.addData(text); qr.make();
+    const n = qr.getModuleCount(), q = 2, s = n + q * 2;
+    let d = "";
+    for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (qr.isDark(r, c)) d += `M${c + q},${r + q}h1v1h-1z`;
+    const lw = Math.round(n * 0.22), lx = (s - lw) / 2;
+    return `<svg viewBox="0 0 ${s} ${s}" role="img" aria-label="QR code linking to ${esc(text)}" shape-rendering="crispEdges">
+      <rect width="${s}" height="${s}" fill="#fff"/><path d="${d}" fill="#111"/>
+      <rect x="${lx - .6}" y="${lx - .6}" width="${lw + 1.2}" height="${lw + 1.2}" rx="1.4" fill="#fff"/>
+      <image href="images/mark-black.png" x="${lx + lw * .18}" y="${lx + lw * .06}" width="${lw * .64}" height="${lw * .88}" preserveAspectRatio="xMidYMid meet"/></svg>`;
+  } catch (e) { return `<span class="qr-fail">${esc(text)}</span>`; }
+}
+function openQr() {
+  let el = document.getElementById("qrSheet");
+  if (!el) {
+    el = document.createElement("div"); el.id = "qrSheet"; el.className = "sheet sheet-center"; el.hidden = true;
+    el.innerHTML = `<div class="sheet-scrim" data-sheet-close></div>
+      <div class="qr-full" role="dialog" aria-modal="true" aria-label="QR code for ${esc(GIO.name)}">
+        <button type="button" class="sheet-x" data-sheet-close aria-label="Close">✕${T}</button>
+        <div class="qr-big">${qrSvg(cardUrl())}</div>
+        <b>${esc(GIO.name)}</b><span>${esc(GIO.role)} · ${esc(GIO.brand)}</span>
+        <small>Point your camera here to open my card</small>
+      </div>`;
+    document.body.appendChild(el);
+  }
+  showSheet(el);
+}
+async function shareCard() {
+  const data = { title: `${GIO.name} | ${GIO.role}`, text: `${GIO.name}, ${GIO.role}. Save my contact:`, url: cardUrl() };
+  try { if (navigator.share) { await navigator.share(data); return; } } catch (e) { if (e && e.name === "AbortError") return; }
+  try { await navigator.clipboard.writeText(cardUrl()); toast("Link copied"); } catch (e) { toast(cardUrl()); }
+}
+function showSheet(el) {
+  closeSheets(); el.hidden = false; requestAnimationFrame(() => el.classList.add("open"));
+  document.documentElement.classList.add("bk-lock");
+  const f = el.querySelector("a,button:not(.sheet-scrim)"); if (f) setTimeout(() => f.focus({ preventScroll: true }), 250);
+}
+function closeSheets() {
+  document.querySelectorAll(".sheet.open").forEach(el => { el.classList.remove("open"); setTimeout(() => { el.hidden = true; }, 260); });
+  if (!document.querySelector("#bk.open")) document.documentElement.classList.remove("bk-lock");
+}
 
 
 (function boot() {
@@ -287,7 +368,7 @@ const TIME_SLOTS = ["8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1
 const BK = { view: null, date: null, time: null, lastFocus: null };
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const fmtDate = (d) => d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric" });
-const esc = (t) => String(t).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+function esc(t) { return String(t).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
 
 function buildBooking() {
   if (document.getElementById("bk")) return;
