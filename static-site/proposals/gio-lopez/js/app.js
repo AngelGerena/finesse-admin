@@ -105,9 +105,8 @@ function lookTop() {
       <div class="lens-outer"></div>
       <svg class="lens-text" viewBox="0 0 100 100" aria-hidden="true"><defs><path id="lensPath" d="M50,50 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs><text><textPath href="#lensPath">${ring}</textPath></text></svg>
       <div class="lens-red"></div><div class="lens-inner"></div>
-      <div class="glass"><div class="iris" id="iris">${blades}</div></div>
+      <div class="glass"><img class="glass-photo" src="${GIO.photo}" alt="Portrait of ${GIO.name}"><div class="iris" id="iris">${blades}</div></div>
       <div class="lens-shadow"></div>
-      <div class="pop"><div class="pop-in"><img src="${GIO.cutout}" alt="Portrait of ${GIO.name}"></div></div>
     </div>
     <div class="lcd" aria-label="Exposure: ${E.shutter} second, f/${E.aperture}, ISO ${E.iso}">
       <div class="lcd-big"><span>${E.shutter}</span><span>F${E.aperture}</span><span>${E.iso}</span></div>
