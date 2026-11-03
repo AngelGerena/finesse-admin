@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice"><defs>
+<radialGradient id="bg" cx="50%" cy="38%" r="75%"><stop offset="0" stop-color="#2B241A"/><stop offset=".55" stop-color="#16130E"/><stop offset="1" stop-color="#0B0A08"/></radialGradient>
+<linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F3DDA4"/><stop offset=".35" stop-color="#D4AE63"/><stop offset=".7" stop-color="#A7802F"/><stop offset="1" stop-color="#E7C985"/></linearGradient>
+<linearGradient id="goldV" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0D69A"/><stop offset="1" stop-color="#9C7428"/></linearGradient>
+<linearGradient id="silver" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F4F5F6"/><stop offset=".45" stop-color="#B9BEC3"/><stop offset=".8" stop-color="#7E848A"/><stop offset="1" stop-color="#D5D9DC"/></linearGradient>
+<linearGradient id="ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A2620"/><stop offset="1" stop-color="#14120E"/></linearGradient>
+<linearGradient id="paper" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FBF7EE"/><stop offset="1" stop-color="#E7DFCF"/></linearGradient>
+<linearGradient id="beam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6E2AE" stop-opacity=".55"/><stop offset="1" stop-color="#F6E2AE" stop-opacity="0"/></linearGradient>
+<radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#E9C77C" stop-opacity=".45"/><stop offset="1" stop-color="#E9C77C" stop-opacity="0"/></radialGradient>
+<radialGradient id="floor" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#000" stop-opacity=".6"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+<filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="14"/></filter>
+<filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000" flood-opacity=".55"/></filter>
+<pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0V28" fill="none" stroke="#9FC3E8" stroke-opacity=".18" stroke-width="1"/></pattern>
+</defs>
+<rect width="800" height="600" fill="url(#bg)"/>
+<circle cx="400" cy="300" r="260" fill="url(#glow)"/>
+<circle cx="120" cy="110" r="1.6" fill="#F3DDA4" opacity="0.5"/><circle cx="690" cy="140" r="1.2" fill="#F3DDA4" opacity="0.4"/><circle cx="610" cy="470" r="1.8" fill="#F3DDA4" opacity="0.35"/><circle cx="170" cy="430" r="1.2" fill="#F3DDA4" opacity="0.4"/><circle cx="520" cy="90" r="1" fill="#F3DDA4" opacity="0.5"/><circle cx="730" cy="360" r="1.4" fill="#F3DDA4" opacity="0.3"/><circle cx="90" cy="250" r="1" fill="#F3DDA4" opacity="0.35"/><circle cx="330" cy="70" r="1.3" fill="#F3DDA4" opacity="0.3"/>
+
+<ellipse cx="400" cy="480" rx="250" ry="28" fill="url(#floor)"/>
+<g filter="url(#shadow)" transform="rotate(-10 330 320)">
+ <rect x="170" y="230" width="320" height="200" rx="18" fill="url(#ink)" stroke="url(#gold)" stroke-width="1.5"/>
+ <rect x="200" y="290" width="54" height="40" rx="7" fill="url(#gold)"/>
+ <path d="M200 304 H254 M200 316 H254 M227 290 V330" stroke="#7A5A1E" stroke-width="1"/>
+ <g fill="url(#silver)"><rect x="200" y="360" width="48" height="10" rx="5"/><rect x="260" y="360" width="48" height="10" rx="5"/><rect x="320" y="360" width="48" height="10" rx="5"/><rect x="380" y="360" width="48" height="10" rx="5"/></g>
+ <rect x="200" y="392" width="110" height="7" rx="3.5" fill="#8A8F94"/>
+ <circle cx="430" cy="270" r="16" fill="#C9A15A" opacity=".85"/><circle cx="452" cy="270" r="16" fill="#E6D3B0" opacity=".7"/>
+</g>
+<g filter="url(#shadow)">
+ <rect x="470" y="150" width="170" height="320" rx="28" fill="#0E0C0A" stroke="url(#silver)" stroke-width="3"/>
+ <rect x="482" y="164" width="146" height="292" rx="18" fill="#1B1813"/>
+ <rect x="530" y="172" width="50" height="10" rx="5" fill="#0E0C0A"/>
+ <circle cx="555" cy="270" r="40" fill="url(#gold)"/>
+ <path d="M538 270 l12 12 l24 -26" fill="none" stroke="#1B1813" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+ <rect x="510" y="335" width="90" height="10" rx="5" fill="url(#silver)"/>
+ <rect x="525" y="356" width="60" height="7" rx="3.5" fill="#6F6A62"/>
+ <rect x="500" y="400" width="110" height="34" rx="17" fill="url(#gold)" opacity=".9"/>
+</g>
+
+<rect x="18" y="18" width="764" height="564" fill="none" stroke="url(#gold)" stroke-opacity=".35" stroke-width="1.2"/>
+</svg>
