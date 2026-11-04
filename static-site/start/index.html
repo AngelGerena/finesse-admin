@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en" data-look="champagne">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <base href="/start/">
+  <title>Start a Project | Finesse Media LLC</title>
+  <meta name="description" content="Tell me about your website or online store. A short, bilingual project form from Finesse Media LLC in Deltona, Florida.">
+  <meta name="theme-color" content="#FBF8F2">
+  <link rel="canonical" href="https://www.finessemedia.pro/start/">
+  <meta property="og:title" content="Start a Project | Finesse Media LLC">
+  <meta property="og:description" content="Tell me about your website or online store. About 15 minutes, in English or Spanish.">
+  <meta property="og:image" content="https://www.finessemedia.pro/og-image.jpg">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Figtree:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/intake.css">
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <div class="brand">
+      <a href="/" aria-label="Finesse Media home"><img src="images/fm-logo-256.png" alt="Finesse Media logo" width="46" height="46"></a>
+      <div class="brand-txt"><b>Finesse Media</b><span data-t="tagline">Project Intake</span></div>
+    </div>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="es" aria-pressed="false">ES</button>
+    </div>
+  </header>
+
+  <main class="shell">
+    <aside class="visual" aria-hidden="true">
+      <img id="vImg" src="images/step-start.svg" alt="">
+      <div class="v-cap"><span class="v-step" id="vStep">Welcome</span><span class="v-line" id="vLine">Every great launch starts with a clear plan.</span></div>
+    </aside>
+
+    <div class="side">
+      <div class="progress" id="progress">
+        <div class="prog-meta"><span id="progLabel">Before you start</span><b id="progPct">0%</b></div>
+        <div class="bar"><i id="barFill"></i></div>
+        <div class="chips" id="chips"></div>
+      </div>
+
+      <form id="form" novalidate>
+        <div style="position:absolute;left:-9999px" aria-hidden="true"><label for="website_hp">Leave this empty</label><input type="text" id="website_hp" name="website_hp" tabindex="-1" autocomplete="off"></div>
+        <!-- 0 START -->
+        <section class="step" data-step="0">
+          <p class="eyebrow" data-t="s0e">New project</p>
+          <h1 data-t="s0h">Let's build your online store</h1>
+          <hr class="rule">
+          <p class="lead" data-t="s0p">Gather these first and the form goes quick. Missing something? Mark it and keep going. Nothing here holds you up.</p>
+          <div class="meta-row">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span data-t="tagTime">About 15 minutes</span></span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h9l3 3v15H6z"/><path d="M9 3v5h6"/></svg><span data-t="tagSave">Save and finish later</span></span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg><span data-t="tagLang">English or Spanish</span></span>
+          </div>
+          <p class="q" data-t="s0list">Have these handy</p>
+          <ul class="check">
+            <li><label><input type="checkbox" id="c1" name="c1"><span data-t="c1">Your logo (PNG or SVG, transparent background if you have it)</span></label></li>
+            <li><label><input type="checkbox" id="c2" name="c2"><span data-t="c2">Product photos and any videos</span></label></li>
+            <li><label><input type="checkbox" id="c3" name="c3"><span data-t="c3">Prices, sizes and colors for each product</span></label></li>
+            <li><label><input type="checkbox" id="c4" name="c4"><span data-t="c4">Product weight and box size (for shipping)</span></label></li>
+            <li><label><input type="checkbox" id="c5" name="c5"><span data-t="c5">Your patent number(s)</span></label></li>
+            <li><label><input type="checkbox" id="c6" name="c6"><span data-t="c6">Domain login, if you already own one</span></label></li>
+            <li><label><input type="checkbox" id="c7" name="c7"><span data-t="c7">Stripe login, if you already have an account</span></label></li>
+            <li><label><input type="checkbox" id="c8" name="c8"><span data-t="c8">Your return and warranty rules</span></label></li>
+          </ul>
+        </section>
+
+        <!-- 1 YOU -->
+        <section class="step" data-step="1" hidden>
+          <h1 data-t="s1h">You and your business</h1>
+          <p class="lead" data-t="s1p">So I know who I'm building for and how to reach you.</p>
+          <div class="grid two">
+            <div class="field"><label for="fullName" data-t="fName">Full name</label><input type="text" id="fullName" name="fullName" autocomplete="name"><p class="err" id="errName" hidden data-t="errReq">This one's required.</p></div>
+            <div class="field"><label for="bizName" data-t="fBiz">Business or brand name</label><input type="text" id="bizName" name="bizName" autocomplete="organization"></div>
+            <div class="field"><label for="email" data-t="fEmail">Email</label><input type="email" id="email" name="email" autocomplete="email"><p class="err" id="errEmail" hidden data-t="errEmail">Add a valid email so I can send updates.</p></div>
+            <div class="field"><label for="phone" data-t="fPhone">Phone (WhatsApp is fine)</label><input type="tel" id="phone" name="phone" autocomplete="tel"></div>
+            <div class="field"><label for="launch" data-t="fLaunch">Target launch date</label><input type="date" id="launch" name="launch"><label class="nohave"><input type="checkbox" data-need="needLaunch"><span data-t="noDate">No date yet</span></label></div>
+            <div class="field"><label for="budget" data-t="fBudget">Budget range</label>
+              <select id="budget" name="budget">
+                <option value="" data-t="selPick">Pick one</option>
+                <option value="1" data-t="b1">Under $1,500</option>
+                <option value="2" data-t="b2">$1,500 to $3,000</option>
+                <option value="3" data-t="b3">$3,000 to $5,000</option>
+                <option value="4" data-t="b4">$5,000 or more</option>
+                <option value="5" data-t="b5">Not sure, let's talk</option>
+              </select></div>
+          </div>
+          <div class="field"><span class="q" data-t="fUpdates">Send me updates in</span>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="updLang" value="en" id="ul-en" checked><span>English</span></label>
+              <label class="opt"><input type="radio" name="updLang" value="es" id="ul-es"><span>Español</span></label>
+            </div></div>
+        </section>
+
+        <!-- 2 BRAND -->
+        <section class="step" data-step="2" hidden>
+          <h1 data-t="s2h">Your brand</h1>
+          <p class="lead" data-t="s2p">The look and feel. Rough answers are totally fine.</p>
+          <div class="field"><span class="q" data-t="fLogo">Upload your logo</span>
+            <label class="drop"><input type="file" id="logo" name="logo" accept="image/*,.svg,.pdf,.ai,.eps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/></svg><div><b data-t="dropB">Tap to upload</b><span class="fname" data-t="dropS">PNG, SVG, PDF or AI</span></div></label>
+            <label class="nohave"><input type="checkbox" data-need="needLogo"><span data-t="noHave">I don't have this yet</span></label></div>
+          <div class="grid two">
+            <div class="field"><label for="colors" data-t="fColors">Brand colors</label><input type="text" id="colors" name="colors" data-tp="pColors" placeholder="e.g., royal blue and white"></div>
+            <div class="field"><label for="fonts" data-t="fFonts">Fonts you use (if you know)</label><input type="text" id="fonts" name="fonts"></div>
+          </div>
+          <div class="field"><span class="q" data-t="fVibe">Words that fit your brand</span><p class="hint" data-t="hPickAll">Pick all that apply.</p>
+            <div class="opts">
+              <label class="opt"><input type="checkbox" name="vibe" value="premium" id="v1"><span data-t="v1">Premium</span></label>
+              <label class="opt"><input type="checkbox" name="vibe" value="bold" id="v2"><span data-t="v2">Bold</span></label>
+              <label class="opt"><input type="checkbox" name="vibe" value="clean" id="v3"><span data-t="v3">Clean</span></label>
+              <label class="opt"><input type="checkbox" name="vibe" value="tech" id="v4"><span data-t="v4">High-tech</span></label>
+              <label class="opt"><input type="checkbox" name="vibe" value="friendly" id="v5"><span data-t="v5">Friendly</span></label>
+              <label class="opt"><input type="checkbox" name="vibe" value="rugged" id="v6"><span data-t="v6">Rugged</span></label>
+              <label class="opt"><input type="checkbox" name="vibe" value="family" id="v7"><span data-t="v7">Family</span></label>
+            </div></div>
+          <div class="field"><label for="likes" data-t="fLikes">Websites you like</label><p class="hint" data-t="hLikes">Paste 2 or 3 links and tell me what you like about each one.</p><textarea id="likes" name="likes"></textarea></div>
+        </section>
+
+        <!-- 3 DOMAIN -->
+        <section class="step" data-step="3" hidden>
+          <h1 data-t="s3h">Domain and socials</h1>
+          <p class="lead" data-t="s3p">Your web address and where people already find you.</p>
+          <div class="field"><span class="q" data-t="fOwnDomain">Do you already own a domain (like yourbrand.com)?</span>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="domainOwn" value="yes" id="d-y"><span data-t="yes">Yes</span></label>
+              <label class="opt"><input type="radio" name="domainOwn" value="no" id="d-n"><span data-t="no">No</span></label>
+              <label class="opt"><input type="radio" name="domainOwn" value="unsure" id="d-u"><span data-t="unsure">Not sure</span></label>
+            </div></div>
+          <div class="grid two" data-show-if="domainOwn:yes" hidden>
+            <div class="field"><label for="domain" data-t="fDomain">Domain name</label><input type="text" id="domain" name="domain" placeholder="yourbrand.com"></div>
+            <div class="field"><label for="registrar" data-t="fRegistrar">Where did you buy it?</label>
+              <select id="registrar" name="registrar"><option value="" data-t="selPick">Pick one</option><option>GoDaddy</option><option>Namecheap</option><option>Squarespace</option><option>Wix</option><option value="other" data-t="other">Other</option><option value="idk" data-t="idk">I don't remember</option></select></div>
+          </div>
+          <div class="field" data-show-if="domainOwn:no|unsure" hidden><label for="domainIdeas" data-t="fDomainIdeas">Name ideas for your web address</label><p class="hint" data-t="hDomainIdeas">I'll check what's available and set it up for you.</p><input type="text" id="domainIdeas" name="domainIdeas"></div>
+          <div class="grid two">
+            <div class="field"><label for="ig">Instagram</label><input type="text" id="ig" name="ig" placeholder="@"></div>
+            <div class="field"><label for="fb">Facebook</label><input type="text" id="fb" name="fb"></div>
+            <div class="field"><label for="tt">TikTok</label><input type="text" id="tt" name="tt" placeholder="@"></div>
+            <div class="field"><label for="yt">YouTube</label><input type="text" id="yt" name="yt"></div>
+          </div>
+        </section>
+
+        <!-- 4 PRODUCTS -->
+        <section class="step" data-step="4" hidden>
+          <h1 data-t="s4h">Your products</h1>
+          <p class="lead" data-t="s4p">One card per product. If you only have one, that's perfect.</p>
+          <div id="prodList" style="display:flex;flex-direction:column;gap:14px"></div>
+          <button type="button" class="btn" id="addProd" style="align-self:flex-start"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg><span data-t="addProd">Add another product</span></button>
+          <label class="opt" style="align-self:flex-start"><input type="checkbox" name="wantPhoto" id="wantPhoto"><span data-t="wantPhoto">I'd like Finesse Media to photograph my product</span></label>
+        </section>
+
+        <!-- 5 PATENT -->
+        <section class="step" data-step="5" hidden>
+          <h1 data-t="s5h">Your patent and your story</h1>
+          <p class="lead" data-t="s5p">Years of work went into this. Let's make sure the site shows it.</p>
+          <div class="field"><span class="q" data-t="fPatStatus">Patent status</span>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="patStatus" value="granted" id="ps1"><span data-t="psGranted">Granted</span></label>
+              <label class="opt"><input type="radio" name="patStatus" value="pending" id="ps2"><span data-t="psPending">Pending</span></label>
+              <label class="opt"><input type="radio" name="patStatus" value="unsure" id="ps3"><span data-t="unsure">Not sure</span></label>
+            </div></div>
+          <div class="field"><label for="patNo" data-t="fPatNo">Patent number(s)</label><input type="text" id="patNo" name="patNo" placeholder="US 11,234,567"><label class="nohave"><input type="checkbox" data-need="needPatNo"><span data-t="noHave">I don't have this yet</span></label></div>
+          <div class="field"><span class="q" data-t="fPatShow">How should the site mention it?</span>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="patShow" value="page" id="pm1"><span data-t="pmPage">A page that lists my patent numbers</span></label>
+              <label class="opt"><input type="radio" name="patShow" value="badge" id="pm2"><span data-t="pmBadge">Just a "Patented" badge</span></label>
+              <label class="opt"><input type="radio" name="patShow" value="talk" id="pm3"><span data-t="pmTalk">Let's talk about it</span></label>
+            </div>
+            <p class="hint" data-t="hPat">Ask your patent attorney which option works best for you.</p></div>
+          <div class="field"><label for="story" data-t="fStory">How did it start?</label><p class="hint" data-t="hStory">What problem does it solve, who is it for, and what did it take to get here? Talk to me like a friend. I'll polish it.</p><textarea id="story" name="story"></textarea></div>
+        </section>
+
+        <!-- 6 CHECKOUT -->
+        <section class="step" data-step="6" hidden>
+          <h1 data-t="s6h">Checkout and payments</h1>
+          <p class="lead" data-t="s6p">How customers pay you.</p>
+          <div class="field"><span class="q" data-t="fStripe">Do you have a Stripe account?</span>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="stripe" value="yes" id="st1"><span data-t="yes">Yes</span></label>
+              <label class="opt"><input type="radio" name="stripe" value="setup" id="st2"><span data-t="stSetup">No, help me set it up</span></label>
+              <label class="opt"><input type="radio" name="stripe" value="unsure" id="st3"><span data-t="unsure">Not sure</span></label>
+            </div></div>
+          <div class="field"><span class="q" data-t="fPay">Ways to pay</span><p class="hint" data-t="hPickAll">Pick all that apply.</p>
+            <div class="opts">
+              <label class="opt"><input type="checkbox" name="pay" value="cards" id="pay1" checked><span data-t="payCards">Credit and debit cards</span></label>
+              <label class="opt"><input type="checkbox" name="pay" value="wallets" id="pay2" checked><span>Apple Pay / Google Pay</span></label>
+              <label class="opt"><input type="checkbox" name="pay" value="paypal" id="pay3"><span>PayPal</span></label>
+              <label class="opt"><input type="checkbox" name="pay" value="bnpl" id="pay4"><span data-t="payBnpl">Pay later (Klarna, Afterpay)</span></label>
+            </div></div>
+          <div class="grid two">
+            <div class="field"><span class="q" data-t="fTax">Collect sales tax automatically?</span>
+              <div class="opts"><label class="opt"><input type="radio" name="tax" value="yes" id="tx1"><span data-t="yes">Yes</span></label><label class="opt"><input type="radio" name="tax" value="no" id="tx2"><span data-t="no">No</span></label><label class="opt"><input type="radio" name="tax" value="unsure" id="tx3"><span data-t="unsure">Not sure</span></label></div></div>
+            <div class="field"><span class="q" data-t="fPreorder">Take pre-orders before launch?</span>
+              <div class="opts"><label class="opt"><input type="radio" name="preorder" value="yes" id="po1"><span data-t="yes">Yes</span></label><label class="opt"><input type="radio" name="preorder" value="no" id="po2"><span data-t="no">No</span></label></div></div>
+            <div class="field"><span class="q" data-t="fCodes">Discount codes?</span>
+              <div class="opts"><label class="opt"><input type="radio" name="codes" value="yes" id="dc1"><span data-t="yes">Yes</span></label><label class="opt"><input type="radio" name="codes" value="no" id="dc2"><span data-t="no">No</span></label></div></div>
+            <div class="field"><span class="q" data-t="fAccounts">Customer accounts?</span>
+              <div class="opts"><label class="opt"><input type="radio" name="accounts" value="guest" id="ac1"><span data-t="acGuest">Guest checkout only</span></label><label class="opt"><input type="radio" name="accounts" value="both" id="ac2"><span data-t="acBoth">Let them make an account</span></label></div></div>
+          </div>
+          <div class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5"/></svg><p><b data-t="feeH">Good to know</b><span data-t="feeP">Card processors take a small fee from each sale (Stripe's standard US rate is about 2.9% + 30¢ per card payment). I'll walk you through it before launch.</span></p></div>
+        </section>
+
+        <!-- 7 SHIPPING -->
+        <section class="step" data-step="7" hidden>
+          <h1 data-t="s7h">Shipping</h1>
+          <p class="lead" data-t="s7p">I can connect real carrier rates right into your checkout.</p>
+          <div class="field"><span class="q" data-t="fShips">Will you ship physical products?</span>
+            <div class="opts"><label class="opt"><input type="radio" name="ships" value="yes" id="sh1"><span data-t="yes">Yes</span></label><label class="opt"><input type="radio" name="ships" value="no" id="sh2"><span data-t="no">No</span></label></div></div>
+          <div data-show-if="ships:yes" hidden style="display:flex;flex-direction:column;gap:20px">
+            <div class="grid two">
+              <div class="field"><label for="zip" data-t="fZip">Ship-from ZIP code</label><input type="text" id="zip" name="zip" inputmode="numeric"></div>
+              <div class="field"><label for="packer" data-t="fPacker">Who packs and ships orders?</label>
+                <select id="packer" name="packer"><option value="" data-t="selPick">Pick one</option><option value="me" data-t="pkMe">I do</option><option value="3pl" data-t="pk3pl">A fulfillment company</option><option value="unsure" data-t="unsure">Not sure</option></select></div>
+            </div>
+            <div class="field"><span class="q" data-t="fCarriers">Carriers you want</span><p class="hint" data-t="hPickAll">Pick all that apply.</p>
+              <div class="opts">
+                <label class="opt"><input type="checkbox" name="carrier" value="usps" id="cr1"><span>USPS</span></label>
+                <label class="opt"><input type="checkbox" name="carrier" value="ups" id="cr2"><span>UPS</span></label>
+                <label class="opt"><input type="checkbox" name="carrier" value="fedex" id="cr3"><span>FedEx</span></label>
+                <label class="opt"><input type="checkbox" name="carrier" value="dhl" id="cr4"><span>DHL</span></label>
+                <label class="opt"><input type="checkbox" name="carrier" value="unsure" id="cr5"><span data-t="crUnsure">Recommend one for me</span></label>
+              </div></div>
+            <div class="field"><span class="q" data-t="fRates">How should shipping be charged?</span>
+              <div class="opts">
+                <label class="opt"><input type="radio" name="rates" value="live" id="r1"><span data-t="rLive">Real carrier rates at checkout</span></label>
+                <label class="opt"><input type="radio" name="rates" value="flat" id="r2"><span data-t="rFlat">One flat rate</span></label>
+                <label class="opt"><input type="radio" name="rates" value="freeover" id="r3"><span data-t="rFreeOver">Free over a certain amount</span></label>
+                <label class="opt"><input type="radio" name="rates" value="free" id="r4"><span data-t="rFree">Always free</span></label>
+              </div></div>
+            <div class="field" data-show-if="rates:freeover|flat" hidden><label for="rateAmt" data-t="fRateAmt">Amount ($)</label><input type="number" id="rateAmt" name="rateAmt" min="0" step="1"></div>
+            <div class="grid two">
+              <div class="field"><label for="intl" data-t="fIntl">Where do you ship?</label>
+                <select id="intl" name="intl"><option value="us" data-t="iUS">USA only</option><option value="usca" data-t="iUSCA">USA and Canada</option><option value="world" data-t="iWorld">Worldwide</option></select></div>
+              <div class="field"><span class="q" data-t="fPickup">Offer local pickup?</span>
+                <div class="opts"><label class="opt"><input type="radio" name="pickup" value="yes" id="pu1"><span data-t="yes">Yes</span></label><label class="opt"><input type="radio" name="pickup" value="no" id="pu2"><span data-t="no">No</span></label></div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 8 POLICIES -->
+        <section class="step" data-step="8" hidden>
+          <h1 data-t="s8h">Store policies</h1>
+          <p class="lead" data-t="s8p">Every online store needs these. Tell me your rules and I'll write them up.</p>
+          <div class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/></svg><p><b data-t="polNoteH">I'll draft them, your attorney signs off</b><span data-t="polNoteP">Finesse Media provides these drafts as a starting point. Please have your attorney review them and make any changes before your store goes live.</span></p></div>
+          <div class="field"><span class="q" data-t="fDraft">Which should I draft?</span>
+            <div class="opts">
+              <label class="opt"><input type="checkbox" name="pol" value="returns" id="pl1" checked><span data-t="plReturns">Returns and refunds</span></label>
+              <label class="opt"><input type="checkbox" name="pol" value="shipping" id="pl2" checked><span data-t="plShipping">Shipping policy</span></label>
+              <label class="opt"><input type="checkbox" name="pol" value="warranty" id="pl3"><span data-t="plWarranty">Warranty</span></label>
+              <label class="opt"><input type="checkbox" name="pol" value="terms" id="pl4" checked><span data-t="plTerms">Terms of service</span></label>
+              <label class="opt"><input type="checkbox" name="pol" value="privacy" id="pl5" checked><span data-t="plPrivacy">Privacy policy</span></label>
+            </div></div>
+          <div class="grid two">
+            <div class="field"><label for="returnWin" data-t="fReturnWin">Return window</label>
+              <select id="returnWin" name="returnWin"><option value="" data-t="selPick">Pick one</option><option value="0" data-t="rw0">No returns</option><option value="14" data-t="rw14">14 days</option><option value="30" data-t="rw30">30 days</option><option value="60" data-t="rw60">60 days</option></select></div>
+            <div class="field"><label for="warranty" data-t="fWarranty">Warranty (if any)</label><input type="text" id="warranty" name="warranty" data-tp="pWarranty" placeholder="e.g., 1 year against defects"></div>
+          </div>
+          <label class="opt" style="align-self:flex-start"><input type="checkbox" name="nda" id="nda"><span data-t="nda">I'd like an NDA before I share product details</span></label>
+        </section>
+
+        <!-- 9 FINISH -->
+        <section class="step" data-step="9" hidden>
+          <h1 data-t="s9h">Pages and final touches</h1>
+          <p class="lead" data-t="s9p">Almost done. Pick what you want on the site.</p>
+          <div class="field"><span class="q" data-t="fPages">Pages</span>
+            <div class="opts">
+              <label class="opt"><input type="checkbox" name="pages" value="about" id="pg1" checked><span data-t="pgAbout">About / Our story</span></label>
+              <label class="opt"><input type="checkbox" name="pages" value="faq" id="pg2" checked><span>FAQ</span></label>
+              <label class="opt"><input type="checkbox" name="pages" value="contact" id="pg3" checked><span data-t="pgContact">Contact</span></label>
+              <label class="opt"><input type="checkbox" name="pages" value="reviews" id="pg4"><span data-t="pgReviews">Customer reviews</span></label>
+              <label class="opt"><input type="checkbox" name="pages" value="wholesale" id="pg5"><span data-t="pgWholesale">Wholesale inquiries</span></label>
+              <label class="opt"><input type="checkbox" name="pages" value="press" id="pg6"><span data-t="pgPress">Press kit</span></label>
+            </div></div>
+          <div class="field"><span class="q" data-t="fExtras">Extras</span>
+            <div class="opts">
+              <label class="opt"><input type="checkbox" name="extras" value="waitlist" id="ex1"><span data-t="exWait">Pre-launch waitlist page</span></label>
+              <label class="opt"><input type="checkbox" name="extras" value="email" id="ex2"><span data-t="exEmail">Email signup</span></label>
+              <label class="opt"><input type="checkbox" name="extras" value="wa" id="ex3"><span data-t="exWa">WhatsApp chat button</span></label>
+              <label class="opt"><input type="checkbox" name="extras" value="ig" id="ex4"><span data-t="exIg">Instagram feed</span></label>
+            </div></div>
+          <div class="field"><span class="q" data-t="fUpdater">After launch, who adds and edits products?</span>
+            <div class="opts"><label class="opt"><input type="radio" name="updater" value="me" id="up1"><span data-t="upMe">I will</span></label><label class="opt"><input type="radio" name="updater" value="finesse" id="up2"><span>Finesse Media</span></label><label class="opt"><input type="radio" name="updater" value="both" id="up3"><span data-t="upBoth">Both</span></label></div></div>
+          <div class="field"><span class="q" data-t="fCare">Want me to handle care and updates after launch?</span><p class="hint" data-t="hCare">Hosting, security updates, keeping checkout and shipping running, and product edits, all for one monthly fee.</p>
+            <div class="opts"><label class="opt"><input type="radio" name="care" value="yes" id="cp1"><span data-t="yes">Yes</span></label><label class="opt"><input type="radio" name="care" value="no" id="cp2"><span data-t="cpNo">No, I'll manage it</span></label><label class="opt"><input type="radio" name="care" value="info" id="cp3"><span data-t="cpInfo">Tell me more</span></label></div></div>
+          <div class="field"><label for="else" data-t="fElse">Anything else I should know?</label><textarea id="else" name="else"></textarea></div>
+          <div class="field"><span class="q" data-t="stillH">Still needed from you</span><p class="hint" data-t="stillP">No rush. You can send these later and I'll keep building.</p><ul class="needed" id="needed"></ul></div>
+          <div class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/></svg><p><b data-t="depH">How projects get started</b><span data-t="depP">Once you approve your proposal, a non-refundable deposit reserves your spot and I start building. Your proposal will show the exact amount and the payment plan for the rest.</span></p></div>
+          <div class="field"><label class="nohave" style="font-size:.88rem;color:var(--ink);align-items:flex-start"><input type="checkbox" id="depAck" name="depAck" style="margin-top:4px"><span data-t="depAck">I understand projects begin with a non-refundable deposit after I approve my proposal.</span></label><p class="err" id="errDep" hidden data-t="errDep">Please check this box before sending.</p></div>
+        </section>
+
+        <!-- 10 DONE -->
+        <section class="step" data-step="10" hidden>
+          <div class="done-seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
+          <h1 id="doneH">Got it. Thank you!</h1>
+          <p class="lead" data-t="doneP">I'll review everything and reach out within 1 to 2 business days with next steps and your proposal.</p>
+          <div class="contact">
+            <img src="images/fm-logo-256.png" alt="" width="56" height="56">
+            <div>
+              <b>Angel Gerena</b>
+              <span data-t="doneRole">Founder, Finesse Media LLC</span>
+              <span class="sel">(407) 960-9004</span>
+              <span class="sel">angel@finessemedia.pro</span>
+              <span class="sel">finessemedia.pro</span>
+            </div>
+          </div>
+        </section>
+
+        <div class="nav" id="nav">
+          <button type="button" class="btn" id="backBtn" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg><span data-t="back">Back</span></button>
+          <div class="nav-right">
+            <button type="button" class="btn ghost" id="saveBtn" data-t="saveLater">Save and finish later</button>
+            <button type="submit" class="btn primary" id="nextBtn"><span id="nextTxt">Let's start</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <p class="foot"><img src="images/fm-logo-256.png" alt="" width="18" height="18">Finesse Media LLC · Deltona, FL · <a href="/">finessemedia.pro</a></p>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<template id="prodTpl">
+  <div class="prod">
+    <div class="prod-head"><span class="prod-title"></span><button type="button" class="link-btn rm" data-t="remove">Remove</button></div>
+    <div class="grid two">
+      <div class="field"><label data-t="pName">Product name</label><input type="text" name="pName"></div>
+      <div class="field"><label data-t="pPrice">Price ($)</label><input type="number" name="pPrice" min="0" step="0.01"></div>
+    </div>
+    <div class="field"><label data-t="pDesc">Short description</label><textarea name="pDesc" style="min-height:72px"></textarea></div>
+    <div class="field"><label data-t="pVar">Options (sizes, colors)</label><input type="text" name="pVar" data-tp="pVarPh"></div>
+    <div class="grid two">
+      <div class="field"><label data-t="pWeight">Weight packed (lb)</label><input type="number" name="pWeight" min="0" step="0.1"><label class="nohave"><input type="checkbox" data-need="needWeight"><span data-t="noHave">I don't have this yet</span></label></div>
+      <div class="field"><label data-t="pBox">Box size (in) L × W × H</label><div class="dims"><input type="number" name="pL" aria-label="L" min="0"><input type="number" name="pW" aria-label="W" min="0"><input type="number" name="pH" aria-label="H" min="0"></div></div>
+    </div>
+    <div class="field"><span class="q" data-t="pPhotos">Product photos</span>
+      <label class="drop"><input type="file" name="pPhotos" accept="image/*,video/*" multiple><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-8 8"/></svg><div><b data-t="dropB">Tap to upload</b><span class="fname" data-t="dropP">Photos or short videos</span></div></label>
+      <label class="nohave"><input type="checkbox" data-need="needPhotos"><span data-t="noHave">I don't have this yet</span></label></div>
+  </div>
+</template>
+
+<script src="js/intake.js"></script>
+
+</body>
+</html>
