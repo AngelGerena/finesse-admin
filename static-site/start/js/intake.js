@@ -24,7 +24,7 @@ cap8:["Clear rules protect you and your customers.","Reglas claras te protegen a
 cap9:["Last details, then we build.","Últimos detalles y empezamos a construir."],
 cap10:["Received. Now the fun part begins.","Recibido. Ahora empieza lo bueno."],
 tagline:["Project Intake","Formulario de proyecto"],
-s0h:["Let's build your online store","Construyamos tu tienda en línea"],
+s0h:["Let's bring your vision to life","Hagamos realidad tu visión"],
 s0p:["Gather these first and the form goes quick. Missing something? Mark it and keep going. Nothing here holds you up.","Reúne esto primero y el formulario será rápido. ¿Te falta algo? Márcalo y sigue. Nada aquí te detiene."],
 tagTime:["About 15 minutes","Unos 15 minutos"],tagSave:["Save and finish later","Guarda y termina después"],tagLang:["English or Spanish","Inglés o español"],
 s0list:["Have these handy","Ten esto a la mano"],
