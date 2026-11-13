@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JA Paint Pro | Website Design Preview</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="description" content="Website design preview for JA Paint Pro by Finesse Media LLC.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="JA Paint Pro | Website Design Preview">
+<meta property="og:description" content="Pick your favorite look. Crafted by Finesse Media LLC.">
+<meta property="og:url" content="https://finessemedia.pro/proposals/ja-paint-pro/">
+<meta property="og:image" content="https://finessemedia.pro/proposals/ja-paint-pro/images/gallery/exterior-01.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Barlow:wght@400;500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-theme="brand">
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="top">
+  <a href="#top" class="logo" aria-label="JA Paint Pro home">
+    <span class="logo-mark" aria-hidden="true">
+      <svg viewBox="0 0 40 40"><rect x="3" y="5" width="28" height="12" rx="6" class="lm-roll"/><path d="M31 11h4v10H19v7" class="lm-frame"/><rect x="16" y="27" width="6" height="11" rx="2" class="lm-handle"/></svg>
+    </span>
+    <span class="logo-text"><b>JA</b> PAINT<em class="pro">PRO</em></span>
+  </a>
+  <nav class="nav-links" id="navLinks" aria-label="Main">
+    <a href="#services">Services</a>
+    <a href="#work">Our Work</a>
+    <a href="#process">Process</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+    <a href="#book" class="nav-book-m" data-tab="book">Book Estimate</a>
+  </nav>
+  <div class="lang" role="group" aria-label="Language">
+    <button type="button" class="lang-btn on" data-lang="en" aria-pressed="true" lang="en">EN</button>
+    <button type="button" class="lang-btn" data-lang="es" aria-pressed="false" lang="es">ES</button>
+  </div>
+  <a href="#book" class="btn btn-sm nav-cta" data-tab="book">Book Estimate</a>
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+    <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </button>
+</header>
+
+<!-- ============ HERO: SCROLL TO PAINT ============ -->
+<section class="hero" id="hero">
+  <div class="hero-sticky">
+    <!-- the bare wall -->
+    <div class="wall" aria-hidden="true">
+      <div class="tape tape-top"></div>
+      <div class="tape tape-bottom"></div>
+      <div class="wall-hint">
+        <p class="wall-line">Every great room starts as a blank wall.</p>
+        <div class="scroll-cue"><span></span></div>
+        <p class="wall-small">Scroll to paint</p>
+      </div>
+    </div>
+
+    <!-- the fresh paint, revealed by the roller -->
+    <div class="painted" id="painted">
+      <div class="painted-inner">
+        <p class="eyebrow" data-copy="eyebrow">Painting &middot; Epoxy &middot; Pressure Wash</p>
+        <h1 data-copy="h1">Fresh color. Flawless lines.</h1>
+        <p class="hero-sub" data-copy="sub">JA Paint Pro turns tired walls into rooms you are proud of, with careful prep, crisp edges and a crew that respects your home.</p>
+        <div class="hero-ctas">
+          <a href="#book" class="btn btn-onpaint" data-tab="book">Book a Free Estimate</a>
+          <a href="#book" class="btn btn-ghost-onpaint" data-tab="quote">Request a Quote</a>
+        </div>
+        <ul class="hero-trust">
+          <li><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.7-7 9-4-1.3-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Licensed &amp; Insured</li>
+          <li><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg>Free Written Estimates</li>
+          <li><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg>5-Star Service</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- the roller -->
+    <div class="roller" id="roller" aria-hidden="true">
+      <svg viewBox="0 0 220 190" class="roller-svg">
+        <defs>
+          <clipPath id="cylClip"><rect x="4" y="4" width="192" height="56" rx="28"/></clipPath>
+        </defs>
+        <path d="M196 32h14v52H110v40" class="r-frame"/>
+        <rect x="100" y="120" width="20" height="66" rx="8" class="r-handle"/>
+        <rect x="100" y="120" width="20" height="10" rx="3" class="r-ferrule"/>
+        <g clip-path="url(#cylClip)">
+          <rect x="4" y="4" width="192" height="56" class="r-cyl" id="rCyl"/>
+          <g id="rNap" class="r-nap">
+            <rect x="4" y="-60" width="192" height="4"/><rect x="4" y="-44" width="192" height="4"/><rect x="4" y="-28" width="192" height="4"/>
+            <rect x="4" y="-12" width="192" height="4"/><rect x="4" y="4" width="192" height="4"/><rect x="4" y="20" width="192" height="4"/>
+            <rect x="4" y="36" width="192" height="4"/><rect x="4" y="52" width="192" height="4"/><rect x="4" y="68" width="192" height="4"/>
+          </g>
+          <rect x="4" y="4" width="192" height="18" class="r-shine"/>
+        </g>
+        <rect x="4" y="4" width="192" height="56" rx="28" class="r-outline"/>
+      </svg>
+    </div>
+
+    <div class="hero-progress" aria-hidden="true"><span id="heroBar"></span></div>
+  </div>
+</section>
+
+<!-- ============ TRUST STRIP ============ -->
+<section class="strip">
+  <div class="strip-inner">
+    <div><b data-count="15">15+</b><span>Years of experience</span></div>
+    <div><b>1,200+</b><span>Rooms painted</span></div>
+    <div><b>2-Year</b><span>Workmanship warranty</span></div>
+    <div><b>100%</b><span>Clean-up, every job</span></div>
+  </div>
+  <p class="placeholder-note">Sample numbers for now. I'll swap in your real stats.</p>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="section" id="services">
+  <div class="wrap">
+    <p class="kicker">What we do</p>
+    <h2>Painting services, start to finish</h2>
+    <p class="lead">From one accent wall to a full commercial repaint, every job gets the same prep, protection and pride.</p>
+    <div class="svc-grid">
+      <article class="svc">
+        <span class="svc-ic"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9H3z"/><path d="M9 20v-6h6v6"/></svg></span>
+        <h3>Interior Painting</h3><p>Walls, ceilings, trim and doors with clean cut-ins and zero mess left behind.</p>
+        <button class="svc-book" data-svc="Interior Painting">Book this</button>
+      </article>
+      <article class="svc">
+        <span class="svc-ic"><svg viewBox="0 0 24 24"><path d="M2 12l10-8 10 8"/><path d="M5 10v10h14V10"/><path d="M2 20h20"/></svg></span>
+        <h3>Exterior Painting</h3><p>Florida-tough coatings that stand up to sun, rain and humidity for years.</p>
+        <button class="svc-book" data-svc="Exterior Painting">Book this</button>
+      </article>
+      <article class="svc">
+        <span class="svc-ic"><svg viewBox="0 0 24 24"><path d="M3 21V8l6-4 6 4v13"/><path d="M15 21V11h6v10"/><path d="M7 11h4M7 15h4"/></svg></span>
+        <h3>Commercial Painting</h3><p>Offices, retail, churches and HOAs, scheduled around your hours.</p>
+        <button class="svc-book" data-svc="Commercial Painting">Book this</button>
+      </article>
+      <article class="svc">
+        <span class="svc-ic"><svg viewBox="0 0 24 24"><path d="M4 14c0-3 3-4 3-8M12 14c0-3 3-4 3-8"/><path d="M3 18h18"/><path d="M6 21h12"/></svg></span>
+        <h3>Pressure Washing</h3><p>Driveways, siding, decks and roofs prepped and restored to like-new.</p>
+        <button class="svc-book" data-svc="Pressure Washing">Book this</button>
+      </article>
+      <article class="svc svc-feature">
+        <div class="svc-feature-text">
+          <span class="svc-ic"><svg viewBox="0 0 24 24"><path d="M3 21V9l9-5 9 5v12"/><path d="M6 21v-9h12v9"/><path d="M6 15h12M6 18h12"/></svg></span>
+          <h3>Epoxy &amp; Polyaspartic Floors</h3>
+          <p>We grind, repair and coat your garage, patio or shop floor with a tough base coat, decorative color flakes and a polyaspartic topcoat. It resists stains, oil, hot tires and Florida sun, and it cleans up with a mop.</p>
+          <ul class="feat-list">
+            <li>Full flake or partial flake finish</li>
+            <li>Dozens of flake color blends</li>
+            <li>Polyaspartic topcoat that resists UV yellowing</li>
+            <li>Most garages finished in just 1 day</li>
+          </ul>
+          <div class="pkg-row">
+            <div class="pkg"><small>1-car garage</small><b>$1,000</b></div>
+            <div class="pkg"><small>2-car garage</small><b>$2,000</b></div>
+            <div class="pkg"><small>3-car garage</small><b>$3,000</b></div>
+          </div>
+          <button class="svc-book" data-svc="Epoxy Garage Floor">Book this</button>
+        </div>
+        <div class="flake-floor" aria-hidden="true"><span>Flake blend preview</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<div class="divider dv-a" aria-hidden="true">
+  <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+    <path class="dv-curve" d="M0 0h1440v20C1080 130 360 130 0 20z"/>
+    <path class="dv-slant" d="M0 0h1440v20L0 120z"/>
+    <path class="dv-hard" d="M0 0h1440v0L0 110z"/>
+    <path class="dv-wave" d="M0 0h1440v60c-240 60-480 60-720 0S240 0 0 60z"/>
+  </svg>
+</div>
+
+<!-- ============ WORK: BEFORE / AFTER ============ -->
+<section class="section alt" id="work">
+  <div class="wrap">
+    <p class="kicker">Our work</p>
+    <h2>Drag to see the difference</h2>
+    <p class="lead">Slide the handle to see what a fresh coat does to a tired Florida home.</p>
+
+    <div class="ba" id="ba">
+      <div class="ba-layer ba-after">
+        <svg viewBox="0 0 600 360" preserveAspectRatio="xMidYMid slice">
+          <rect width="600" height="360" class="sky"/>
+          <rect y="300" width="600" height="60" class="lawn"/>
+          <path d="M110 170 300 70l190 100z" class="roof"/>
+          <rect x="130" y="168" width="340" height="140" class="house-after"/>
+          <rect x="130" y="168" width="340" height="10" class="trim-after"/>
+          <rect x="270" y="215" width="60" height="93" class="door-after"/>
+          <rect x="160" y="200" width="70" height="56" class="win"/><rect x="370" y="200" width="70" height="56" class="win"/>
+          <rect x="156" y="196" width="78" height="64" fill="none" class="trim-stroke"/><rect x="366" y="196" width="78" height="64" fill="none" class="trim-stroke"/>
+        </svg>
+        <img class="ba-photo" src="images/house-after.jpg" alt="House after painting by JA Paint Pro" onerror="this.remove()">
+        <span class="ba-tag ba-tag-r">After</span>
+      </div>
+      <div class="ba-layer ba-before" id="baBefore">
+        <svg viewBox="0 0 600 360" preserveAspectRatio="xMidYMid slice">
+          <rect width="600" height="360" fill="#cfd3d6"/>
+          <rect y="300" width="600" height="60" fill="#9aa08a"/>
+          <path d="M110 170 300 70l190 100z" fill="#6f6a66"/>
+          <rect x="130" y="168" width="340" height="140" fill="#bdb7ad"/>
+          <path d="M150 190l30 40M420 250l25-30M300 180l-10 25" stroke="#958e83" stroke-width="3"/>
+          <rect x="130" y="168" width="340" height="10" fill="#a39d93"/>
+          <rect x="270" y="215" width="60" height="93" fill="#8c857c"/>
+          <rect x="160" y="200" width="70" height="56" fill="#8e9aa0"/><rect x="370" y="200" width="70" height="56" fill="#8e9aa0"/>
+        </svg>
+        <img class="ba-photo" src="images/house-before.jpg" alt="House before painting" onerror="this.remove()">
+        <span class="ba-tag">Before</span>
+      </div>
+      <div class="ba-handle" id="baHandle"><span><svg viewBox="0 0 24 24"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span></div>
+      <input type="range" min="0" max="100" value="50" id="baRange" aria-label="Before and after comparison">
+    </div>
+
+    <div class="gallery" id="gallery" hidden>
+      <div class="gal-head">
+        <h3>Recent projects</h3>
+        <a class="gal-ig" href="https://www.instagram.com/japaintpro" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>More on Instagram</a>
+      </div>
+      <div class="gal-filters" role="tablist" aria-label="Filter projects">
+        <button class="gf on" data-cat="all">All</button>
+        <button class="gf" data-cat="interior">Interior</button>
+        <button class="gf" data-cat="exterior">Exterior</button>
+        <button class="gf" data-cat="floors">Epoxy Floors</button>
+        <button class="gf" data-cat="pressure">Pressure Washing</button>
+        <button class="gf" data-cat="commercial">Commercial</button>
+      </div>
+      <div class="gal-grid" id="galGrid"></div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider dv-b flip" aria-hidden="true">
+  <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+    <path class="dv-curve" d="M0 0h1440v20C1080 130 360 130 0 20z"/>
+    <path class="dv-slant" d="M0 0h1440v20L0 120z"/>
+    <path class="dv-hard" d="M0 0h1440v0L0 110z"/>
+    <path class="dv-wave" d="M0 0h1440v60c-240 60-480 60-720 0S240 0 0 60z"/>
+  </svg>
+</div>
+
+<!-- ============ PROCESS ============ -->
+<section class="section" id="process">
+  <div class="wrap">
+    <p class="kicker">How it works</p>
+    <h2>Four simple steps to a fresh finish</h2>
+    <ol class="steps">
+      <li><b>01</b><h3>Book your estimate</h3><p>Pick a day and time online in under a minute.</p></li>
+      <li><b>02</b><h3>Free on-site visit</h3><p>We measure, talk colors and leave a clear written quote.</p></li>
+      <li><b>03</b><h3>Prep and paint</h3><p>Furniture covered, surfaces prepped, two coats applied right.</p></li>
+      <li><b>04</b><h3>Final walkthrough</h3><p>We walk the job with you and touch up until you love it.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ BOOKING PLATFORM ============ -->
+<section class="section book-sec" id="book">
+  <div class="wrap">
+    <p class="kicker">Book online</p>
+    <h2>Schedule an estimate or request a quote</h2>
+    <p class="lead">Choose a time that works for you. You will get a confirmation right away.</p>
+
+    <div class="book-card">
+      <div class="tabs" role="tablist">
+        <button role="tab" class="tab active" data-pane="book" aria-selected="true">
+          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Book Estimate</button>
+        <button role="tab" class="tab" data-pane="quote" aria-selected="false">
+          <svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h5"/></svg>Request Quote</button>
+      </div>
+
+      <!-- BOOK PANE -->
+      <div class="pane active" id="pane-book">
+        <div class="stepper"><span class="st active">Service</span><span class="st">Property</span><span class="st">Date &amp; Time</span><span class="st">Your Info</span></div>
+        <div class="bar"><span id="bookBar"></span></div>
+
+        <form id="bookForm" novalidate>
+          <!-- step 1 -->
+          <fieldset class="bstep active" data-step="0">
+            <legend>What do you need painted?</legend>
+            <p class="hint">Pick all that apply.</p>
+            <div class="chips" id="svcChips">
+              <label class="chip"><input type="checkbox" name="svc" value="Interior Painting"><span>Interior Painting</span></label>
+              <label class="chip"><input type="checkbox" name="svc" value="Exterior Painting"><span>Exterior Painting</span></label>
+              <label class="chip"><input type="checkbox" name="svc" value="Commercial Painting"><span>Commercial Painting</span></label>
+              <label class="chip"><input type="checkbox" name="svc" value="Pressure Washing"><span>Pressure Washing</span></label>
+              <label class="chip"><input type="checkbox" name="svc" value="Epoxy Garage Floor"><span>Epoxy / Polyaspartic Floor</span></label>
+            </div>
+            <p class="err" data-err="0">Choose at least one service.</p>
+          </fieldset>
+
+          <!-- step 2 -->
+          <fieldset class="bstep" data-step="1">
+            <legend>Tell us about the property</legend>
+            <div class="seg" id="propSeg">
+              <label><input type="radio" name="prop" value="House" checked><span>House</span></label>
+              <label><input type="radio" name="prop" value="Condo / Apartment"><span>Condo</span></label>
+              <label><input type="radio" name="prop" value="Business"><span>Business</span></label>
+            </div>
+            <div class="grid2">
+              <label class="field"><span>Approx. size</span>
+                <select name="size">
+                  <option value="Under 1,000 sq ft">Under 1,000 sq ft</option><option value="1,000 - 2,000 sq ft" selected>1,000 - 2,000 sq ft</option><option value="2,000 - 3,000 sq ft">2,000 - 3,000 sq ft</option><option value="3,000+ sq ft">3,000+ sq ft</option><option value="Not sure">Not sure</option>
+                </select></label>
+              <label class="field"><span>Rooms or areas</span>
+                <div class="stepper-num"><button type="button" data-n="-1" aria-label="Fewer rooms">-</button><output id="roomsOut">3</output><button type="button" data-n="1" aria-label="More rooms">+</button></div>
+              </label>
+            </div>
+            <label class="field"><span>Service address</span><input name="address" placeholder="Street, city, ZIP" autocomplete="street-address"></label>
+            <p class="err" data-err="1">Please add the service address.</p>
+          </fieldset>
+
+          <!-- step 3 -->
+          <fieldset class="bstep" data-step="2">
+            <legend>Pick a date and time</legend>
+            <div class="cal">
+              <div class="cal-head">
+                <button type="button" class="cal-nav" id="calPrev" aria-label="Previous month"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+                <b id="calTitle">Month</b>
+                <button type="button" class="cal-nav" id="calNext" aria-label="Next month"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+              </div>
+              <div class="cal-dow" id="calDow"></div>
+              <div class="cal-grid" id="calGrid"></div>
+            </div>
+            <div class="slots-wrap">
+              <p class="slots-title" id="slotsTitle">Choose a day to see open times</p>
+              <div class="slots" id="slots"></div>
+            </div>
+            <p class="err" data-err="2">Choose a day and a time.</p>
+          </fieldset>
+
+          <!-- step 4 -->
+          <fieldset class="bstep" data-step="3">
+            <legend>Where should we send your confirmation?</legend>
+            <div class="grid2">
+              <label class="field"><span>Full name</span><input name="name" autocomplete="name" placeholder="Jane Smith"></label>
+              <label class="field"><span>Phone</span><input name="phone" type="tel" autocomplete="tel" placeholder="(407) 555-0123"></label>
+            </div>
+            <label class="field"><span>Email</span><input name="email" type="email" autocomplete="email" placeholder="you@email.com"></label>
+            <label class="field"><span>Anything we should know? (optional)</span><textarea name="notes" rows="3" placeholder="Colors you have in mind, pets, gate code..."></textarea></label>
+            <label class="check"><input type="checkbox" name="sms" checked><span>Text me a reminder the day before</span></label>
+            <p class="err" data-err="3">Please add your name, phone and a valid email.</p>
+          </fieldset>
+
+          <div class="form-nav">
+            <button type="button" class="btn btn-line" id="bBack">Back</button>
+            <button type="button" class="btn" id="bNext">Continue</button>
+          </div>
+        </form>
+
+        <div class="done" id="bookDone" hidden>
+          <span class="done-ic"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span>
+          <h3>You are booked!</h3>
+          <p id="bookSummary"></p>
+          <p class="ref">Confirmation <b id="bookRef"></b></p>
+          <button class="btn btn-line" id="bookAgain">Book another</button>
+        </div>
+      </div>
+
+      <!-- QUOTE PANE -->
+      <div class="pane" id="pane-quote">
+        <form id="quoteForm" novalidate>
+          <div class="grid2">
+            <label class="field"><span>Project type</span>
+              <select name="qtype"><option value="Interior Painting">Interior Painting</option><option value="Exterior Painting">Exterior Painting</option><option value="Commercial Painting">Commercial Painting</option><option value="Pressure Washing">Pressure Washing</option><option value="Epoxy Garage Floor">Epoxy / Polyaspartic Floor</option><option value="Multiple / Not sure">Multiple / Not sure</option></select></label>
+            <label class="field"><span>When do you want to start?</span>
+              <select name="qwhen"><option value="As soon as possible">As soon as possible</option><option value="Within 2 weeks">Within 2 weeks</option><option value="Within a month">Within a month</option><option value="Just planning ahead">Just planning ahead</option></select></label>
+          </div>
+          <div class="field"><span>Surfaces</span>
+            <div class="chips sm">
+              <label class="chip"><input type="checkbox" name="surf" value="Walls"><span>Walls</span></label>
+              <label class="chip"><input type="checkbox" name="surf" value="Ceilings"><span>Ceilings</span></label>
+              <label class="chip"><input type="checkbox" name="surf" value="Trim & Doors"><span>Trim &amp; Doors</span></label>
+              <label class="chip"><input type="checkbox" name="surf" value="Siding"><span>Siding</span></label>
+              <label class="chip"><input type="checkbox" name="surf" value="Fence / Deck"><span>Fence / Deck</span></label>
+              <label class="chip"><input type="checkbox" name="surf" value="Garage Floor"><span>Garage Floor</span></label>
+            </div>
+          </div>
+          <label class="field"><span>Describe the project</span><textarea name="qdesc" rows="3" placeholder="Example: 3 bedrooms and a hallway, light gray walls, white trim."></textarea></label>
+          <div class="field"><span>Add photos (optional)</span>
+            <label class="drop" id="drop">
+              <input type="file" id="qPhotos" accept="image/*" multiple>
+              <svg viewBox="0 0 24 24"><path d="M4 16v4h16v-4"/><path d="M12 4v12M7 9l5-5 5 5"/></svg>
+              <b>Upload photos of the space</b><small>Helps us quote faster and more accurately</small>
+            </label>
+            <div class="thumbs" id="thumbs"></div>
+          </div>
+          <div class="grid2">
+            <label class="field"><span>Full name</span><input name="qname" autocomplete="name" placeholder="Jane Smith"></label>
+            <label class="field"><span>Phone</span><input name="qphone" type="tel" autocomplete="tel" placeholder="(407) 555-0123"></label>
+          </div>
+          <label class="field"><span>Email</span><input name="qemail" type="email" autocomplete="email" placeholder="you@email.com"></label>
+          <label class="field"><span>Preferred contact</span>
+            <div class="seg"><label><input type="radio" name="qpref" value="Call" checked><span>Call</span></label><label><input type="radio" name="qpref" value="Text"><span>Text</span></label><label><input type="radio" name="qpref" value="Email"><span>Email</span></label></div>
+          </label>
+          <p class="err" id="qErr">Please add your name, phone and a valid email.</p>
+          <button class="btn btn-block" type="submit">Send My Quote Request</button>
+        </form>
+        <div class="done" id="quoteDone" hidden>
+          <span class="done-ic"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span>
+          <h3>Quote request received</h3>
+          <p id="quoteSummary"></p>
+          <p class="ref">Request <b id="quoteRef"></b></p>
+          <button class="btn btn-line" id="quoteAgain">Send another</button>
+        </div>
+      </div>
+    </div>
+    <p class="placeholder-note center">Preview only: requests stay on this page. On your live site they go straight to your own admin portal, with instant text and email alerts.</p>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section class="section alt" id="reviews">
+  <div class="wrap">
+    <p class="kicker">Reviews</p>
+    <h2>What neighbors are saying</h2>
+    <div class="rev-grid">
+      <article class="rev"><div class="stars" aria-label="5 stars"><i></i><i></i><i></i><i></i><i></i></div><p>JA Paint Pro's real Google reviews pull in here automatically.</p><span>Google review slot</span></article>
+      <article class="rev"><div class="stars" aria-label="5 stars"><i></i><i></i><i></i><i></i><i></i></div><p>Each card shows the customer's name, rating and the date of the review.</p><span>Google review slot</span></article>
+      <article class="rev"><div class="stars" aria-label="5 stars"><i></i><i></i><i></i><i></i><i></i></div><p>A "Leave us a review" button links straight to their Google profile.</p><span>Google review slot</span></article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section" id="faq">
+  <div class="wrap narrow">
+    <p class="kicker">Questions</p>
+    <h2>Good to know</h2>
+    <details><summary>Are estimates really free?</summary><p>Yes. We visit, measure and leave a written quote with no obligation.</p></details>
+    <details><summary>Do I need to move my furniture?</summary><p>No. We move and cover furniture, protect floors and put everything back when we finish.</p></details>
+    <details><summary>How long does a typical job take?</summary><p>Most interior rooms take one day. A full home interior is usually 3 to 5 days, exteriors 4 to 7 depending on size and weather.</p></details>
+    <details><summary>What paint do you use?</summary><p>Premium lines from trusted brands, matched to the surface and Florida's climate. Your quote lists the exact product.</p></details>
+    <details><summary>How long before I can park on my new garage floor?</summary><p>Most garages are coated in a single day. At your estimate we'll tell you exactly when you can walk on it and when you can park on it.</p></details>
+    <details><summary>Are you licensed and insured?</summary><p>Yes. Proof of license and insurance is available on request before any work begins.</p></details>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section contact" id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div>
+        <p class="kicker">Contact</p>
+        <h2>Let's talk color</h2>
+        <ul class="contact-list">
+          <li><span class="ci"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></svg></span><div><small>Call or text</small><a href="tel:+14073017117">(407) 301-7117</a></div></li>
+          <li><span class="ci"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></span><div><small>Follow us</small><a href="https://www.instagram.com/japaintpro" target="_blank" rel="noopener">Instagram @japaintpro</a><br><a href="https://www.facebook.com/japaintpro" target="_blank" rel="noopener">Facebook @japaintpro</a></div></li>
+          <li><span class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><small>Hours</small><p>Mon - Fri: 7:00 AM - 6:00 PM<br>Sat: 8:00 AM - 2:00 PM<br>Sun: Closed</p></div></li>
+          <li><span class="ci"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg></span><div><small>Service area</small><p>Central Florida: Orlando, Kissimmee, Sanford, Deltona and nearby</p></div></li>
+        </ul>
+        <div class="contact-btns">
+          <a class="btn" href="tel:+14073017117">Call Now</a>
+          <a class="btn btn-line" href="sms:+14073017117?&body=Hi%20JA%20Paint%20Pro%2C%20I%27d%20like%20a%20free%20estimate.">Send a Text</a>
+        </div>
+        <p class="placeholder-note">Hours and service area are placeholders until you confirm them.</p>
+      </div>
+      <form class="msg-card" id="msgForm" novalidate>
+        <h3>Quick message</h3>
+        <label class="field"><span>Name</span><input name="mname" placeholder="Your name" autocomplete="name"></label>
+        <label class="field"><span>Phone or email</span><input name="mcontact" placeholder="How should we reach you?"></label>
+        <label class="field"><span>Message</span><textarea name="mmsg" rows="4" placeholder="How can we help?"></textarea></label>
+        <p class="err" id="mErr">Please fill in all three fields.</p>
+        <button class="btn btn-block" type="submit">Send Message</button>
+        <p class="sent" id="mSent" hidden>Thanks! JA Paint Pro will get back to you within one business day.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <span class="logo-text"><b>JA</b> PAINT<em class="pro">PRO</em></span>
+    <p>&copy; <span id="yr"></span> JA Paint Pro. All rights reserved.</p>
+    <a class="credit" href="https://finessemedia.pro" target="_blank" rel="noopener">Crafted by Finesse Media</a>
+  </div>
+</footer>
+
+
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Project photo">
+  <button class="lb-btn lb-close" id="lbClose" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="Previous photo"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+  <img id="lbImg" alt="">
+  <button class="lb-btn lb-next" id="lbNext" aria-label="Next photo"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+  <p class="lb-cap" id="lbCap"></p>
+</div>
+
+<!-- ============ DESIGN PICKER (mockup only) ============ -->
+<aside class="picker" id="picker" aria-label="Design picker">
+  <button class="pk-toggle" id="pkToggle" aria-expanded="true" aria-label="Hide or show the design picker"><svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg></button>
+  <div class="pk-body">
+    <div class="pk-row pk-act">
+      <span class="pk-label">I want <b id="pkName">JA Paint Pro</b></span>
+      <a class="pk-btn pk-wa" id="pkWa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1112 20a8 8 0 01-4-1z"/><path d="M9 9.5c.3 2 2.2 4 4.4 4.6l1-1.1 1.6.8c-.2 1-1 1.6-2 1.5-3-.4-5.6-3-6-6-.1-1 .5-1.8 1.5-2l.8 1.6z"/></svg>WhatsApp</a>
+      <a class="pk-btn pk-sms" id="pkSms" href="#"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg>Text</a>
+    </div>
+    <div class="pk-row pk-looks" role="tablist">
+      <button class="pk-look active" data-look="brand"><i style="background:linear-gradient(110deg,#1B1C1F 0 50%,#D9232A 50%)"></i>JA Paint Pro<span class="pk-new">BRAND</span></button>
+      <button class="pk-look" data-look="propop"><i style="background:linear-gradient(90deg,#FF8A00,#E5266E,#6D3BFF);box-shadow:0 0 0 2px #131315,0 0 0 3px #F5C400"></i>Pro Pop<span class="pk-new">NEW</span></button>
+      <button class="pk-look" data-look="safetypop"><i style="background:linear-gradient(180deg,#F5C400 60%,#E5266E 60%)"></i>Safety Pop<span class="pk-new">NEW</span></button>
+      <button class="pk-look" data-look="paintchip"><i style="background:linear-gradient(90deg,#6D3BFF,#E5266E,#FF8A00)"></i>Paint Chip<span class="pk-new">NEW</span></button>
+      <button class="pk-look" data-look="jobsite"><i style="background:#F5C400"></i>Job Site</button>
+    </div>
+  </div>
+</aside>
+
+<script src="js/gallery-data.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
