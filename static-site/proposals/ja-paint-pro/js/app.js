@@ -213,19 +213,34 @@
     var grid = $("#galGrid"); grid.innerHTML = "";
     lbList.forEach(function (g, i) {
       var b = document.createElement("button"); b.type = "button"; b.className = "gal-item";
-      var im = document.createElement("img"); im.src = g.src; im.alt = g.alt || catLabel(g); im.loading = "lazy";
+      var im;
+      if (g.kind === "video") {
+        im = document.createElement("video"); im.src = g.src + "#t=0.1"; im.muted = true; im.playsInline = true; im.preload = "metadata";
+        im.setAttribute("aria-hidden", "true"); b.classList.add("is-video");
+        var pl = document.createElement("i"); pl.className = "gal-play"; b.appendChild(pl);
+        b.setAttribute("aria-label", t("Play video") + (g.alt ? ": " + g.alt : ""));
+      } else { im = document.createElement("img"); im.src = g.src; im.alt = g.alt || catLabel(g); im.loading = "lazy"; }
       var tag = document.createElement("span"); tag.textContent = catLabel(g);
-      b.appendChild(im); b.appendChild(tag);
+      b.insertBefore(im, b.firstChild); b.appendChild(tag);
       b.addEventListener("click", function () { openLb(i); });
       grid.appendChild(b);
     });
   }
+  window.JA_setGallery = function (list) {
+    GAL = list || [];
+    if (galCat !== "all" && !GAL.some(function (g) { return cats(g).indexOf(galCat) > -1; })) galCat = "all";
+    if (!$("#lightbox").hidden) closeLb();
+    renderGallery();
+  };
   function showLb() {
-    var g = lbList[lbIdx]; $("#lbImg").src = g.src; $("#lbImg").alt = g.alt || "";
+    var g = lbList[lbIdx], v = $("#lbVid"), im = $("#lbImg");
+    if (v) { v.pause(); v.hidden = g.kind !== "video"; if (g.kind === "video") { v.src = g.src; } else { v.removeAttribute("src"); v.load(); } }
+    im.hidden = g.kind === "video";
+    if (g.kind !== "video") { im.src = g.src; im.alt = g.alt || ""; }
     $("#lbCap").textContent = (lbIdx + 1) + " / " + lbList.length + "  \u00B7  " + catLabel(g);
   }
   function openLb(i) { lbIdx = i; showLb(); $("#lightbox").hidden = false; document.body.style.overflow = "hidden"; $("#lbClose").focus(); }
-  function closeLb() { $("#lightbox").hidden = true; document.body.style.overflow = ""; }
+  function closeLb() { var v = $("#lbVid"); if (v) v.pause(); $("#lightbox").hidden = true; document.body.style.overflow = ""; }
   function stepLb(d) { lbIdx = (lbIdx + d + lbList.length) % lbList.length; showLb(); }
   $("#lbClose").addEventListener("click", closeLb);
   $("#lbPrev").addEventListener("click", function () { stepLb(-1); });
@@ -450,6 +465,7 @@
     renderCal(); renderSlots(); bookText(); quoteText(); renderGallery();
     bNext.textContent = t(step === 3 ? "Confirm Booking" : "Continue");
     applyLang();
+    if (window.JA_LIVE) window.JA_LIVE.apply();
   }
   $$(".lang-btn").forEach(function (b) {
     b.addEventListener("click", function () { setLang(b.getAttribute("data-lang")); });

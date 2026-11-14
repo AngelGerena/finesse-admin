@@ -53,26 +53,26 @@
       <div class="tape tape-top"></div>
       <div class="tape tape-bottom"></div>
       <div class="wall-hint">
-        <p class="wall-line">Every great room starts as a blank wall.</p>
+        <p class="wall-line" data-edit="wall">Every great room starts as a blank wall.</p>
         <div class="scroll-cue"><span></span></div>
-        <p class="wall-small">Scroll to paint</p>
+        <p class="wall-small" data-edit="wallcue">Scroll to paint</p>
       </div>
     </div>
 
     <!-- the fresh paint, revealed by the roller -->
     <div class="painted" id="painted">
       <div class="painted-inner">
-        <p class="eyebrow" data-copy="eyebrow">Painting &middot; Epoxy &middot; Pressure Wash</p>
-        <h1 data-copy="h1">Fresh color. Flawless lines.</h1>
-        <p class="hero-sub" data-copy="sub">JA Paint Pro turns tired walls into rooms you are proud of, with careful prep, crisp edges and a crew that respects your home.</p>
+        <p class="eyebrow" data-copy="eyebrow" data-edit="eyebrow">Painting &middot; Epoxy &middot; Pressure Wash</p>
+        <h1 data-copy="h1" data-edit="h1">Fresh color. Flawless lines.</h1>
+        <p class="hero-sub" data-copy="sub" data-edit="sub">JA Paint Pro turns tired walls into rooms you are proud of, with careful prep, crisp edges and a crew that respects your home.</p>
         <div class="hero-ctas">
-          <a href="#book" class="btn btn-onpaint" data-tab="book">Book a Free Estimate</a>
-          <a href="#book" class="btn btn-ghost-onpaint" data-tab="quote">Request a Quote</a>
+          <a href="#book" class="btn btn-onpaint" data-tab="book" data-edit="cta1">Book a Free Estimate</a>
+          <a href="#book" class="btn btn-ghost-onpaint" data-tab="quote" data-edit="cta2">Request a Quote</a>
         </div>
         <ul class="hero-trust">
-          <li><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.7-7 9-4-1.3-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Licensed &amp; Insured</li>
-          <li><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg>Free Written Estimates</li>
-          <li><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg>5-Star Service</li>
+          <li><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.7-7 9-4-1.3-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg><span data-edit="trust1">Licensed &amp; Insured</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg><span data-edit="trust2">Free Written Estimates</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg><span data-edit="trust3">5-Star Service</span></li>
         </ul>
       </div>
     </div>
@@ -106,10 +106,10 @@
 <!-- ============ TRUST STRIP ============ -->
 <section class="strip">
   <div class="strip-inner">
-    <div><b data-count="20">20+</b><span>Years of experience</span></div>
-    <div><b>1,200+</b><span>Rooms painted</span></div>
-    <div><b>3-Year</b><span>Workmanship warranty</span></div>
-    <div><b>100%</b><span>Clean-up, every job</span></div>
+    <div><b data-count="20" data-edit="stat1n">20+</b><span data-edit="stat1l">Years of experience</span></div>
+    <div><b data-edit="stat2n">1,200+</b><span data-edit="stat2l">Rooms painted</span></div>
+    <div><b data-edit="stat3n">3-Year</b><span data-edit="stat3l">Workmanship warranty</span></div>
+    <div><b data-edit="stat4n">100%</b><span data-edit="stat4l">Clean-up, every job</span></div>
   </div>
   <p class="placeholder-note">Sample numbers for now. I'll swap in your real stats.</p>
 </section>
@@ -117,45 +117,45 @@
 <!-- ============ SERVICES ============ -->
 <section class="section" id="services">
   <div class="wrap">
-    <p class="kicker">What we do</p>
-    <h2>Painting services, start to finish</h2>
-    <p class="lead">From one accent wall to a full commercial repaint, every job gets the same prep, protection and pride.</p>
+    <p class="kicker" data-edit="svc_k">What we do</p>
+    <h2 data-edit="svc_h">Painting services, start to finish</h2>
+    <p class="lead" data-edit="svc_l">From one accent wall to a full commercial repaint, every job gets the same prep, protection and pride.</p>
     <div class="svc-grid">
       <article class="svc">
         <span class="svc-ic"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9H3z"/><path d="M9 20v-6h6v6"/></svg></span>
-        <h3>Interior Painting</h3><p>Walls, ceilings, trim and doors with clean cut-ins and zero mess left behind.</p>
+        <h3 data-edit="svc1_t">Interior Painting</h3><p data-edit="svc1_d">Walls, ceilings, trim and doors with clean cut-ins and zero mess left behind.</p>
         <button class="svc-book" data-svc="Interior Painting">Book this</button>
       </article>
       <article class="svc">
         <span class="svc-ic"><svg viewBox="0 0 24 24"><path d="M2 12l10-8 10 8"/><path d="M5 10v10h14V10"/><path d="M2 20h20"/></svg></span>
-        <h3>Exterior Painting</h3><p>Florida-tough coatings that stand up to sun, rain and humidity for years.</p>
+        <h3 data-edit="svc2_t">Exterior Painting</h3><p data-edit="svc2_d">Florida-tough coatings that stand up to sun, rain and humidity for years.</p>
         <button class="svc-book" data-svc="Exterior Painting">Book this</button>
       </article>
       <article class="svc">
         <span class="svc-ic"><svg viewBox="0 0 24 24"><path d="M3 21V8l6-4 6 4v13"/><path d="M15 21V11h6v10"/><path d="M7 11h4M7 15h4"/></svg></span>
-        <h3>Commercial Painting</h3><p>Offices, retail, churches and HOAs, scheduled around your hours.</p>
+        <h3 data-edit="svc3_t">Commercial Painting</h3><p data-edit="svc3_d">Offices, retail, churches and HOAs, scheduled around your hours.</p>
         <button class="svc-book" data-svc="Commercial Painting">Book this</button>
       </article>
       <article class="svc">
         <span class="svc-ic"><svg viewBox="0 0 24 24"><path d="M4 14c0-3 3-4 3-8M12 14c0-3 3-4 3-8"/><path d="M3 18h18"/><path d="M6 21h12"/></svg></span>
-        <h3>Pressure Washing</h3><p>Driveways, siding, decks and roofs prepped and restored to like-new.</p>
+        <h3 data-edit="svc4_t">Pressure Washing</h3><p data-edit="svc4_d">Driveways, siding, decks and roofs prepped and restored to like-new.</p>
         <button class="svc-book" data-svc="Pressure Washing">Book this</button>
       </article>
       <article class="svc svc-feature">
         <div class="svc-feature-text">
           <span class="svc-ic"><svg viewBox="0 0 24 24"><path d="M3 21V9l9-5 9 5v12"/><path d="M6 21v-9h12v9"/><path d="M6 15h12M6 18h12"/></svg></span>
-          <h3>Epoxy &amp; Polyaspartic Floors</h3>
-          <p>We grind, repair and coat your garage, patio or shop floor with a tough base coat, decorative color flakes and a polyaspartic topcoat. It resists stains, oil, hot tires and Florida sun, and it cleans up with a mop.</p>
+          <h3 data-edit="ep_t">Epoxy &amp; Polyaspartic Floors</h3>
+          <p data-edit="ep_d">We grind, repair and coat your garage, patio or shop floor with a tough base coat, decorative color flakes and a polyaspartic topcoat. It resists stains, oil, hot tires and Florida sun, and it cleans up with a mop.</p>
           <ul class="feat-list">
-            <li>Full flake or partial flake finish</li>
-            <li>Dozens of flake color blends</li>
-            <li>Polyaspartic topcoat that resists UV yellowing</li>
-            <li>Most garages finished in just 1 day</li>
+            <li data-edit="ep_b1">Full flake or partial flake finish</li>
+            <li data-edit="ep_b2">Dozens of flake color blends</li>
+            <li data-edit="ep_b3">Polyaspartic topcoat that resists UV yellowing</li>
+            <li data-edit="ep_b4">Most garages finished in just 1 day</li>
           </ul>
           <div class="pkg-row">
-            <div class="pkg"><small>1-car garage</small><b>$1,250</b></div>
-            <div class="pkg"><small>2-car garage</small><b>$2,250</b></div>
-            <div class="pkg"><small>3-car garage</small><b>$3,250</b></div>
+            <div class="pkg"><small data-edit="pkg1_l">1-car garage</small><b data-edit="pkg1_p">$1,250</b></div>
+            <div class="pkg"><small data-edit="pkg2_l">2-car garage</small><b data-edit="pkg2_p">$2,250</b></div>
+            <div class="pkg"><small data-edit="pkg3_l">3-car garage</small><b data-edit="pkg3_p">$3,250</b></div>
           </div>
           <button class="svc-book" data-svc="Epoxy Garage Floor">Book this</button>
         </div>
@@ -177,9 +177,9 @@
 <!-- ============ WORK: BEFORE / AFTER ============ -->
 <section class="section alt" id="work">
   <div class="wrap">
-    <p class="kicker">Our work</p>
-    <h2>Drag to see the difference</h2>
-    <p class="lead">Slide the handle to see what a fresh coat does to a tired Florida home.</p>
+    <p class="kicker" data-edit="wk_k">Our work</p>
+    <h2 data-edit="wk_h">Drag to see the difference</h2>
+    <p class="lead" data-edit="wk_l">Slide the handle to see what a fresh coat does to a tired Florida home.</p>
 
     <div class="ba" id="ba">
       <div class="ba-layer ba-after">
@@ -245,13 +245,13 @@
 <!-- ============ PROCESS ============ -->
 <section class="section" id="process">
   <div class="wrap">
-    <p class="kicker">How it works</p>
-    <h2>Four simple steps to a fresh finish</h2>
+    <p class="kicker" data-edit="pr_k">How it works</p>
+    <h2 data-edit="pr_h">Four simple steps to a fresh finish</h2>
     <ol class="steps">
-      <li><b>01</b><h3>Book your estimate</h3><p>Pick a day and time online in under a minute.</p></li>
-      <li><b>02</b><h3>Free on-site visit</h3><p>We measure, talk colors and leave a clear written quote.</p></li>
-      <li><b>03</b><h3>Prep and paint</h3><p>Furniture covered, surfaces prepped, two coats applied right.</p></li>
-      <li><b>04</b><h3>Final walkthrough</h3><p>We walk the job with you and touch up until you love it.</p></li>
+      <li><b>01</b><h3 data-edit="step1_t">Book your estimate</h3><p data-edit="step1_d">Pick a day and time online in under a minute.</p></li>
+      <li><b>02</b><h3 data-edit="step2_t">Free on-site visit</h3><p data-edit="step2_d">We measure, talk colors and leave a clear written quote.</p></li>
+      <li><b>03</b><h3 data-edit="step3_t">Prep and paint</h3><p data-edit="step3_d">Furniture covered, surfaces prepped, two coats applied right.</p></li>
+      <li><b>04</b><h3 data-edit="step4_t">Final walkthrough</h3><p data-edit="step4_d">We walk the job with you and touch up until you love it.</p></li>
     </ol>
   </div>
 </section>
@@ -259,9 +259,9 @@
 <!-- ============ BOOKING PLATFORM ============ -->
 <section class="section book-sec" id="book">
   <div class="wrap">
-    <p class="kicker">Book online</p>
-    <h2>Schedule an estimate or request a quote</h2>
-    <p class="lead">Choose a time that works for you. You will get a confirmation right away.</p>
+    <p class="kicker" data-edit="bk_k">Book online</p>
+    <h2 data-edit="bk_h">Schedule an estimate or request a quote</h2>
+    <p class="lead" data-edit="bk_l">Choose a time that works for you. You will get a confirmation right away.</p>
 
     <div class="book-card">
       <div class="tabs" role="tablist">
@@ -430,13 +430,13 @@
 <section class="section" id="faq">
   <div class="wrap narrow">
     <p class="kicker">Questions</p>
-    <h2>Good to know</h2>
-    <details><summary>Are estimates really free?</summary><p>Yes. We visit, measure and leave a written quote with no obligation.</p></details>
-    <details><summary>Do I need to move my furniture?</summary><p>No. We move and cover furniture, protect floors and put everything back when we finish.</p></details>
-    <details><summary>How long does a typical job take?</summary><p>Most interior rooms take one day. A full home interior is usually 3 to 5 days, exteriors 4 to 7 depending on size and weather.</p></details>
-    <details><summary>What paint do you use?</summary><p>Premium lines from trusted brands, matched to the surface and Florida's climate. Your quote lists the exact product.</p></details>
-    <details><summary>How long before I can park on my new garage floor?</summary><p>Most garages are coated in a single day. At your estimate we'll tell you exactly when you can walk on it and when you can park on it.</p></details>
-    <details><summary>Are you licensed and insured?</summary><p>Yes. Proof of license and insurance is available on request before any work begins.</p></details>
+    <h2 data-edit="fq_h">Good to know</h2>
+    <details><summary data-edit="fq1_q">Are estimates really free?</summary><p data-edit="fq1_a">Yes. We visit, measure and leave a written quote with no obligation.</p></details>
+    <details><summary data-edit="fq2_q">Do I need to move my furniture?</summary><p data-edit="fq2_a">No. We move and cover furniture, protect floors and put everything back when we finish.</p></details>
+    <details><summary data-edit="fq3_q">How long does a typical job take?</summary><p data-edit="fq3_a">Most interior rooms take one day. A full home interior is usually 3 to 5 days, exteriors 4 to 7 depending on size and weather.</p></details>
+    <details><summary data-edit="fq4_q">What paint do you use?</summary><p data-edit="fq4_a">Premium lines from trusted brands, matched to the surface and Florida's climate. Your quote lists the exact product.</p></details>
+    <details><summary data-edit="fq5_q">How long before I can park on my new garage floor?</summary><p data-edit="fq5_a">Most garages are coated in a single day. At your estimate we'll tell you exactly when you can walk on it and when you can park on it.</p></details>
+    <details><summary data-edit="fq6_q">Are you licensed and insured?</summary><p data-edit="fq6_a">Yes. Proof of license and insurance is available on request before any work begins.</p></details>
   </div>
 </section>
 
@@ -446,12 +446,12 @@
     <div class="contact-grid">
       <div>
         <p class="kicker">Contact</p>
-        <h2>Let's talk color</h2>
+        <h2 data-edit="ct_h">Let's talk color</h2>
         <ul class="contact-list">
           <li><span class="ci"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></svg></span><div><small>Call or text</small><a href="tel:+14073017117">(407) 301-7117</a></div></li>
           <li><span class="ci"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></span><div><small>Follow us</small><a href="https://www.instagram.com/japaintpro" target="_blank" rel="noopener">Instagram @japaintpro</a><br><a href="https://www.facebook.com/japaintpro" target="_blank" rel="noopener">Facebook @japaintpro</a></div></li>
-          <li><span class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><small>Hours</small><p>Mon - Fri: 7:00 AM - 6:00 PM<br>Sat: 8:00 AM - 2:00 PM<br>Sun: Closed</p></div></li>
-          <li><span class="ci"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg></span><div><small>Service area</small><p>Central Florida: Orlando, Kissimmee, Sanford, Deltona and nearby</p></div></li>
+          <li><span class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><small>Hours</small><p data-edit="hours">Mon - Fri: 7:00 AM - 6:00 PM<br>Sat: 8:00 AM - 2:00 PM<br>Sun: Closed</p></div></li>
+          <li><span class="ci"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg></span><div><small>Service area</small><p data-edit="area">Central Florida: Orlando, Kissimmee, Sanford, Deltona and nearby</p></div></li>
         </ul>
         <div class="contact-btns">
           <a class="btn" href="tel:+14073017117">Call Now</a>
@@ -485,6 +485,7 @@
   <button class="lb-btn lb-close" id="lbClose" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <button class="lb-btn lb-prev" id="lbPrev" aria-label="Previous photo"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
   <img id="lbImg" alt="">
+  <video id="lbVid" controls playsinline preload="metadata" hidden></video>
   <button class="lb-btn lb-next" id="lbNext" aria-label="Next photo"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
   <p class="lb-cap" id="lbCap"></p>
 </div>
@@ -509,5 +510,8 @@
 <script src="js/i18n.js"></script>
 <script src="js/app.js"></script>
 <script src="js/gate.js"></script>
+<script src="js/site-fields.js"></script>
+<script src="js/media-store.js"></script>
+<script src="js/live.js"></script>
 </body>
 </html>

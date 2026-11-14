@@ -1,6 +1,7 @@
 /* JA Paint Pro - English / Spanish translations (Finesse Media) */
 window.JA_I18N = {
   ES: {
+    "Play video": "Ver video",
     "Painting": "Painting",
     "Services": "Servicios",
     "Our Work": "Trabajos",
