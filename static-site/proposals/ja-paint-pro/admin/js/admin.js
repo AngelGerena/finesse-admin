@@ -299,23 +299,6 @@
       }).join("") + "</div>";
   }
 
-  function vGallery() {
-    return head("Gallery", "Photos marked live show on your website.", '<label class="btn">' + ic("up") + 'Upload photos<input type="file" accept="image/*" multiple id="galUpload" hidden></label>') +
-      '<div class="gal">' + S.media.map(function (m) {
-        return '<figure class="gal-i' + (m.published ? "" : " off") + '"><img src="' + esc(m.src) + '" alt="' + esc(m.cat) + ' project photo" loading="lazy"><figcaption><select data-act="mediaCat" data-id="' + m.id + '" aria-label="Category">' +
-          ["exterior", "interior", "floors", "commercial", "pressure"].map(function (c) { return '<option value="' + c + '"' + (c === m.cat ? " selected" : "") + ">" + c + "</option>"; }).join("") +
-          '</select><button class="btn xs ' + (m.published ? "" : "ghost") + '" data-act="mediaPub" data-id="' + m.id + '">' + (m.published ? "Live" : "Hidden") + "</button></figcaption></figure>";
-      }).join("") + "</div>";
-  }
-
-  function vSite() {
-    return head("Site Editor", "Change what your website says. Leave a field empty to go back to the original.") +
-      '<form class="card form" id="siteForm"><label class="field"><span>Headline (English)</span><input name="h1en" value="Paint it right. Coat it tough."></label><label class="field"><span>Headline (Spanish)</span><input name="h1es" value="Bien pintado. Bien protegido."></label>' +
-      '<label class="field"><span>Short description (English)</span><textarea name="suben" rows="2">Interior and exterior painting, epoxy and polyaspartic floors and pressure washing for homes and businesses across Central Florida.</textarea></label>' +
-      '<label class="field"><span>Short description (Spanish)</span><textarea name="subes" rows="2">Pintura interior y exterior, pisos de epoxy y poliaspártico y lavado a presión para casas y negocios en toda Florida Central.</textarea></label>' +
-      '<div class="form-a"><button class="btn" type="submit" id="siteSave" disabled>Save changes</button><span class="saved" id="siteSaved" hidden>' + ic("check") + "Saved</span></div></form>";
-  }
-
   function vSettings() {
     var b = S.businessSettings;
     return head("Settings", "Your business details show on your website, quotes and invoices.") +
@@ -337,6 +320,280 @@
   function tipsOn() { return !window.JA_TIPS || window.JA_TIPS.on(); }
   function field(label, name, val, hint) {
     return '<label class="field"><span>' + label + '</span><input name="' + name + '" value="' + esc(val) + '"' + (name === "depositPct" ? ' inputmode="numeric"' : "") + ">" + (hint ? "<small>" + hint + "</small>" : "") + "</label>";
+  }
+
+  /* ---------- gallery: photos and videos ---------- */
+  var galTab = "all", MS = window.JA_MEDIA;
+  var GAL_CATS = [["exterior", "Exterior", "Exterior"], ["interior", "Interior", "Interior"], ["floors", "Epoxy floors", "Pisos de epoxy"], ["commercial", "Commercial", "Comercial"], ["pressure", "Pressure washing", "Lavado a presión"]];
+  function firstCat(c) { return [].concat(c)[0]; }
+  (function loadMedia() {
+    if (!MS) return;
+    var meta = MS.meta();
+    S.media.forEach(function (m) { var x = meta[m.id]; if (!x) return; ["cat", "alt", "published", "deleted", "purged"].forEach(function (k) { if (x[k] !== undefined) m[k] = x[k]; }); });
+    MS.all().then(function (ups) {
+      if (!ups.length) return;
+      ups.sort(function (a, b) { return b.created - a.created; }).forEach(function (u) {
+        if (u.purged || !u.blob) return;
+        S.media.unshift({ id: u.id, kind: u.kind, cat: u.cat, alt: u.alt || "", published: u.published, deleted: !!u.deleted, created: u.created, name: u.name, src: URL.createObjectURL(u.blob), rec: u });
+      });
+      if (view === "gallery") render();
+    });
+  })();
+  function saveMedia(m) {
+    if (!MS) return Promise.resolve();
+    var p;
+    if (m.builtIn) {
+      var meta = MS.meta(); meta[m.id] = { cat: m.cat, alt: m.alt, published: m.published, deleted: !!m.deleted, purged: !!m.purged };
+      MS.setMeta(meta); p = Promise.resolve();
+    } else if (m.rec) {
+      m.rec.cat = m.cat; m.rec.alt = m.alt; m.rec.published = m.published; m.rec.deleted = !!m.deleted;
+      p = m.purged ? MS.del(m.id) : MS.put(m.rec);
+    } else p = Promise.resolve();
+    return p.then(function () { MS.ping(); }).catch(function () { toast(L("Couldn't save that in this browser. Try again.", "No se pudo guardar en este navegador. Intenta otra vez.")); });
+  }
+  function mediaById(id) { return S.media.filter(function (m) { return m.id === id; })[0]; }
+  function galCounts() {
+    var c = { all: 0, live: 0, hidden: 0, trash: 0 };
+    S.media.forEach(function (m) { if (m.purged) return; if (m.deleted) { c.trash++; return; } c.all++; if (m.published) c.live++; else c.hidden++; });
+    return c;
+  }
+  function vGallery() {
+    var c = galCounts();
+    var list = S.media.filter(function (m) {
+      if (m.purged) return false;
+      if (galTab === "trash") return m.deleted;
+      if (m.deleted) return false;
+      return galTab === "all" || (galTab === "live" ? m.published : !m.published);
+    });
+    var tabs = [["all", L("All", "Todas"), c.all], ["live", L("Live", "En vivo"), c.live], ["hidden", L("Hidden", "Ocultas"), c.hidden], ["trash", L("Trash", "Papelera"), c.trash]];
+    return head("Gallery", L("Photos and videos marked Live show on your website.", "Las fotos y videos En vivo salen en tu sitio web."),
+        '<label class="btn" id="galAdd">' + ic("plus") + L("Add photos or videos", "Agregar fotos o videos") + '<input type="file" accept="image/*,video/*" multiple class="gal-file" hidden></label>') +
+      '<label class="drop" id="galDrop"><input type="file" accept="image/*,video/*" multiple class="gal-file" hidden>' + ic("up") +
+        '<b>' + L("Tap to add photos or videos", "Toca para agregar fotos o videos") + '</b><small>' + L("Or drag them here from your computer. New uploads go live on your website right away.", "O arrástralos aquí desde tu computadora. Lo que subas sale en tu sitio web de inmediato.") + '</small><span class="drop-prog" id="galProg" hidden></span></label>' +
+      '<div class="seg-tabs" id="galTabs">' + tabs.map(function (t) { return '<button class="' + (galTab === t[0] ? "on" : "") + '" data-act="galTab" data-tab="' + t[0] + '">' + t[1] + " (" + t[2] + ")</button>"; }).join("") + "</div>" +
+      (galTab === "trash" && list.length ? '<p class="muted small gal-note">' + L("Deleted items wait here. Restore puts them back where they were.", "Lo que borras espera aquí. Restaurar lo devuelve a donde estaba.") + "</p>" : "") +
+      (list.length ? '<div class="gal">' + list.map(galCard).join("") + "</div>" :
+        '<div class="empty">' + ic("image") + "<p>" + (galTab === "trash" ? L("Trash is empty.", "La papelera está vacía.") : galTab === "hidden" ? L("Nothing hidden. Everything here is on your website.", "Nada oculto. Todo lo de aquí está en tu sitio web.") : L("No photos yet. Add your first job photo above.", "Todavía no hay fotos. Agrega tu primera foto arriba.")) + "</p></div>");
+  }
+  function galCard(m) {
+    var cat = firstCat(m.cat), media = m.kind === "video"
+      ? '<div class="gal-media is-video"><video src="' + esc(m.src) + '#t=0.1" muted playsinline preload="metadata"></video><i class="gal-play" aria-hidden="true"></i><span class="gal-kind">' + L("Video", "Video") + "</span></div>"
+      : '<div class="gal-media"><img src="' + esc(m.src) + '" alt="' + esc(m.alt || cat) + '" loading="lazy"></div>';
+    var body = m.deleted
+      ? '<div class="gal-row"><button class="btn xs" data-act="mediaRestore" data-id="' + m.id + '">' + ic("refresh") + L("Restore", "Restaurar") + '</button><button class="btn xs ghost danger-t" data-act="mediaPurge" data-id="' + m.id + '">' + L("Delete forever", "Borrar para siempre") + "</button></div>"
+      : '<select data-act="mediaCat" data-id="' + m.id + '" aria-label="' + L("Category", "Categoría") + '">' + GAL_CATS.map(function (g) { return '<option value="' + g[0] + '"' + (g[0] === cat ? " selected" : "") + ">" + L(g[1], g[2]) + "</option>"; }).join("") + "</select>" +
+        '<input class="gal-cap" data-act="mediaAlt" data-id="' + m.id + '" value="' + esc(m.alt) + '" placeholder="' + L("Short description (optional)", "Descripción corta (opcional)") + '" aria-label="' + L("Short description", "Descripción corta") + '" maxlength="140">' +
+        '<div class="gal-row"><button class="btn xs ' + (m.published ? "" : "ghost") + '" data-act="mediaPub" data-id="' + m.id + '" aria-pressed="' + !!m.published + '">' + (m.published ? L("Live", "En vivo") : L("Hidden", "Oculta")) + '</button><button class="btn xs ghost icon-b" data-act="mediaDel" data-id="' + m.id + '" aria-label="' + L("Move to trash", "Mover a la papelera") + '">' + ic("trash") + "</button></div>";
+    return '<figure class="gal-i' + (m.published || m.deleted ? "" : " off") + '" data-noi18n>' + media + "<figcaption>" + body + "</figcaption></figure>";
+  }
+  function shrinkImage(f) {
+    /* phone photos are resized to 2000px wide so the website stays fast */
+    return new Promise(function (res) {
+      if (f.size < 900000 || !/^image\/(jpeg|png|webp)$/.test(f.type)) { res(f); return; }
+      var u = URL.createObjectURL(f), im = new Image();
+      im.onload = function () {
+        var max = 2000, w = im.naturalWidth, h = im.naturalHeight, k = Math.min(1, max / Math.max(w, h));
+        var cv = document.createElement("canvas"); cv.width = Math.round(w * k); cv.height = Math.round(h * k);
+        cv.getContext("2d").drawImage(im, 0, 0, cv.width, cv.height); URL.revokeObjectURL(u);
+        cv.toBlob(function (b) { res(b && b.size < f.size ? b : f); }, "image/jpeg", 0.85);
+      };
+      im.onerror = function () { URL.revokeObjectURL(u); res(f); };
+      im.src = u;
+    });
+  }
+  function addFiles(files) {
+    files = Array.prototype.slice.call(files || []);
+    if (!files.length) return;
+    var ok = [], bad = [];
+    files.forEach(function (f) {
+      var vid = /^video\//.test(f.type), img = /^image\//.test(f.type);
+      if (!vid && !img) bad.push(f.name + L(" (not a photo or video)", " (no es foto ni video)"));
+      else if (vid && f.size > 50 * 1048576) bad.push(f.name + L(" (videos up to 50 MB)", " (videos de hasta 50 MB)"));
+      else if (img && f.size > 25 * 1048576) bad.push(f.name + L(" (photos up to 25 MB)", " (fotos de hasta 25 MB)"));
+      else ok.push(f);
+    });
+    if (bad.length) toast(L("Skipped: ", "No se subió: ") + bad.join(", "));
+    if (!ok.length) return;
+    var prog = $("#galProg"); if (prog) { prog.hidden = false; prog.textContent = L("Adding ", "Agregando ") + ok.length + "..."; }
+    var defCat = galTab === "trash" ? "exterior" : "exterior", saved = 0, failed = 0;
+    Promise.all(ok.map(function (f, i) {
+      var vid = /^video\//.test(f.type);
+      return (vid ? Promise.resolve(f) : shrinkImage(f)).then(function (blob) {
+        var rec = { id: "u" + Date.now() + "-" + i, kind: vid ? "video" : "image", cat: defCat, alt: "", published: true, deleted: false, created: Date.now() + i, name: f.name, blob: blob };
+        S.media.unshift({ id: rec.id, kind: rec.kind, cat: rec.cat, alt: "", published: true, deleted: false, created: rec.created, name: f.name, src: URL.createObjectURL(blob), rec: rec });
+        return MS ? MS.put(rec).then(function () { saved++; }, function () { failed++; }) : null;
+      });
+    })).then(function () {
+      if (MS) MS.ping();
+      if (galTab === "trash" || galTab === "hidden") galTab = "all";
+      render();
+      var n = ok.length, vids = ok.filter(function (f) { return /^video\//.test(f.type); }).length;
+      toast(failed ? L("Added, but this browser couldn't keep them. They'll be gone after a refresh.", "Se agregaron, pero este navegador no pudo guardarlas. Se borran al recargar.")
+        : L(n + (n > 1 ? " items" : (vids ? " video" : " photo")) + " added and live on your website. Pick a category for each.", n + (n > 1 ? " archivos agregados" : (vids ? " video agregado" : " foto agregada")) + " y en tu sitio web. Escoge la categoría de cada uno."));
+    });
+  }
+
+  /* ---------- site editor: every word on the website, with restore ---------- */
+  var FIELDS = window.JA_FIELDS || [], FM = {}, seQuery = "", seOpen = {};
+  FIELDS.forEach(function (f) { FM[f.k] = f; });
+  S.siteDraft = {};
+  function readJ(k, d) { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } }
+  function writeJ(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } }
+  function sitePub() { return readJ("ja-site-content", {}); }
+  function siteVersions() { return readJ("ja-site-versions", []); }
+  function pubVal(pub, k, l) { var o = pub[k]; return (o && o[l]) ? o[l] : FM[k][l]; }
+  function norm(k, l, v) { return (v == null || !String(v).trim()) ? FM[k][l] : String(v).replace(/\r/g, ""); }
+  function draftVal(pub, k, l) { var d = S.siteDraft[k]; return d && d[l] !== undefined ? norm(k, l, d[l]) : pubVal(pub, k, l); }
+  function unsavedKeys() {
+    var pub = sitePub();
+    return Object.keys(S.siteDraft).filter(function (k) { return FM[k] && (draftVal(pub, k, "en") !== pubVal(pub, k, "en") || draftVal(pub, k, "es") !== pubVal(pub, k, "es")); });
+  }
+  function overrideCount(pub) { return Object.keys(pub).filter(function (k) { return FM[k]; }).length; }
+  var WD = { en: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], es: ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"] };
+  var MO = { en: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], es: ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"] };
+  function stamp(ms) {
+    var d = new Date(ms), h = d.getHours(), mm = ("0" + d.getMinutes()).slice(-2), ap = h < 12 ? "AM" : "PM", h12 = h % 12 || 12, l = lang === "es" ? "es" : "en";
+    return l === "es" ? WD.es[d.getDay()] + ", " + d.getDate() + " " + MO.es[d.getMonth()] + " a las " + h12 + ":" + mm + " " + ap
+      : WD.en[d.getDay()] + ", " + MO.en[d.getMonth()] + " " + d.getDate() + " at " + h12 + ":" + mm + " " + ap;
+  }
+  function seField(f, pub) {
+    var en = draftVal(pub, f.k, "en"), es = draftVal(pub, f.k, "es"), changed = en !== f.en || es !== f.es;
+    var tag = f.ml ? "textarea" : "input", rows = f.ml ? ' rows="' + Math.min(5, Math.max(2, Math.ceil(f.en.length / 60) + (f.en.split("\n").length - 1))) + '"' : "";
+    function box(l, v) {
+      var lab = l === "en" ? "EN" : "ES";
+      return '<label class="se-box"><span class="se-lang">' + lab + "</span>" + (f.ml
+        ? "<" + tag + ' class="se-in" data-k="' + f.k + '" data-l="' + l + '"' + rows + ' placeholder="' + esc(f[l]) + '">' + esc(v) + "</" + tag + ">"
+        : '<input class="se-in" data-k="' + f.k + '" data-l="' + l + '" value="' + esc(v) + '" placeholder="' + esc(f[l]) + '">') + "</label>";
+    }
+    return '<div class="se-f' + (changed ? " is-changed" : "") + '" data-k="' + f.k + '" data-noi18n><div class="se-fh"><b>' + esc(L(f.l[0], f.l[1])) + '</b><span class="badge se-badge">' + L("Changed", "Cambiado") + '</span><button type="button" class="btn xs ghost se-undo" data-act="seUndo" data-k="' + f.k + '">' + ic("refresh") + L("Use original", "Usar original") + "</button></div>" +
+      '<div class="se-two">' + box("en", en) + box("es", es) + "</div></div>";
+  }
+  function vSite() {
+    var pub = sitePub(), vers = siteVersions(), secs = [], bySec = {}, q = seQuery.toLowerCase();
+    FIELDS.forEach(function (f) {
+      if (q && [f.en, f.es, f.l[0], f.l[1], f.sl[0], f.sl[1], draftVal(pub, f.k, "en"), draftVal(pub, f.k, "es")].join(" ").toLowerCase().indexOf(q) < 0) return;
+      if (!bySec[f.s]) { bySec[f.s] = []; secs.push(f); }
+      bySec[f.s].push(f);
+    });
+    var siteHref = ($(".tb-site") && $(".tb-site").getAttribute("href")) || "../";
+    var html = head("Site Editor", L("Change any words on your website, in English and Spanish.", "Cambia cualquier texto de tu sitio web, en inglés y en español."),
+        '<a class="btn ghost" id="seOpenSite" href="' + esc(siteHref) + '" target="_blank" rel="noopener">' + ic("click") + L("Open my website", "Abrir mi sitio") + "</a>") +
+      '<section class="card se-safe">' + ic("shield") + '<div><b>' + L("You can't break your site from here", "Desde aquí no puedes dañar tu sitio") + '</b><p class="muted small">' + L("Only the words change, never the design. Nothing goes live until you tap Save, and every save is kept below so you can go back. Leave a box empty to use the original words.", "Solo cambian las palabras, nunca el diseño. Nada sale en el sitio hasta que tocas Guardar, y cada vez que guardas queda abajo para que puedas volver. Deja una casilla vacía para usar el texto original.") + "</p></div></section>" +
+      '<label class="field se-search"><span class="sr-only">' + L("Find text", "Buscar texto") + '</span><input type="search" id="seSearch" value="' + esc(seQuery) + '" placeholder="' + L("Find a word or section, like warranty or hours", "Busca una palabra o sección, como garantía u horario") + '" autocomplete="off"></label>' +
+      '<div id="seList">' + (secs.length ? secs.map(function (s0) {
+        var fs = bySec[s0.s], nCh = fs.filter(function (f) { return draftVal(pub, f.k, "en") !== f.en || draftVal(pub, f.k, "es") !== f.es; }).length;
+        var open = q || seOpen[s0.s];
+        return '<details class="card se-sec" data-sec="' + s0.s + '"' + (open ? " open" : "") + '><summary data-noi18n><span class="grow"><b>' + esc(L(s0.sl[0], s0.sl[1])) + "</b><small>" + fs.length + L(" items", " textos") + (nCh ? " · " + nCh + L(" changed", " cambiados") : "") + "</small></span>" + ic("down") + "</summary>" +
+          fs.map(function (f) { return seField(f, pub); }).join("") + "</details>";
+      }).join("") : '<div class="empty">' + ic("pen") + "<p>" + L("Nothing matches that. Try another word.", "Nada coincide. Prueba con otra palabra.") + "</p></div>") + "</div>" +
+      '<p class="muted small se-note">' + L("Quote prices and your business hours on quotes are set in Settings.", "Los precios de las cotizaciones y el horario en las cotizaciones se cambian en Ajustes.") + "</p>" +
+      '<section class="card" id="seHistory"><h3>' + L("Saved versions", "Versiones guardadas") + '</h3><p class="muted small">' + L("Every save is kept here. Restore any version to put your website back the way it was.", "Cada vez que guardas queda aquí. Restaura cualquier versión para dejar tu sitio como estaba.") + '</p><ul class="rows">' +
+        (vers.length ? vers.map(function (v, i) {
+          return '<li class="row"><div class="grow"><b>' + (i === 0 ? L("Live now", "En vivo ahora") : esc(noteText(v) || L("Saved", "Guardado"))) + "</b><small>" + stamp(v.at) + L(" by ", " por ") + esc(v.by) + " · " + (i === 0 && noteText(v) ? esc(noteText(v)) + " · " : "") + v.count + (v.count === 1 ? L(" change from the original", " cambio del original") : L(" changes from the original", " cambios del original")) + "</small></div>" +
+            (i === 0 ? '<span class="badge ok">' + L("Current", "Actual") + "</span>" : '<button class="btn sm ghost" data-act="seRestore" data-id="' + v.id + '">' + ic("refresh") + L("Restore", "Restaurar") + "</button>") + "</li>";
+        }).join("") : '<li class="row"><div class="grow"><small>' + L("No saves yet. Your website is showing the original words.", "Todavía no has guardado. Tu sitio muestra el texto original.") + "</small></div></li>") + "</ul></section>" +
+      '<section class="card se-reset"><h3>' + L("Start over", "Empezar de nuevo") + '</h3><p class="muted small">' + L("Puts every word back to the original website. Your current version is saved first, so you can still restore it.", "Regresa todo el texto al sitio original. Tu versión actual se guarda antes, así que todavía la puedes restaurar.") + '</p><button class="btn danger" data-act="seReset"' + (overrideCount(pub) ? "" : " disabled") + ">" + ic("refresh") + L("Reset whole site to original", "Regresar todo el sitio al original") + "</button></section>" +
+      '<div class="se-bar" id="seBar" data-noi18n><span id="seCount"></span><button class="btn ghost sm" data-act="seDiscard" id="seDiscard">' + L("Discard", "Descartar") + '</button><button class="btn sm" data-act="seSave" id="seSave">' + ic("check") + L("Save", "Guardar") + "</button></div>";
+    return html;
+  }
+  function noteText(v) {
+    var n = v.note; if (!n) return "";
+    if (n.type === "restored") return L("Restored from ", "Restaurada del ") + stamp(n.from);
+    if (n.type === "reset") return L("Reset to original", "Regresado al original");
+    if (n.type === "original") return L("Original website", "Sitio original");
+    return "";
+  }
+  function seBar() {
+    var n = unsavedKeys().length, bar = $("#seBar"); if (!bar) return;
+    bar.classList.toggle("on", n > 0);
+    $("#seCount").textContent = n ? n + (n === 1 ? L(" unsaved change", " cambio sin guardar") : L(" unsaved changes", " cambios sin guardar")) : L("Everything is saved", "Todo está guardado");
+    $("#seSave").disabled = !n; $("#seDiscard").disabled = !n;
+  }
+  function seFieldState(k) {
+    var row = document.querySelector('.se-f[data-k="' + k + '"]'); if (!row) return;
+    var pub = sitePub(), f = FM[k];
+    row.classList.toggle("is-changed", draftVal(pub, k, "en") !== f.en || draftVal(pub, k, "es") !== f.es);
+  }
+  function wireSite() {
+    var list = $("#seList"); if (!list) return;
+    list.addEventListener("input", function (e) {
+      var el = e.target; if (!el.classList.contains("se-in")) return;
+      var k = el.dataset.k; S.siteDraft[k] = S.siteDraft[k] || {};
+      S.siteDraft[k][el.dataset.l] = el.value; seFieldState(k); seBar();
+      if (el.tagName === "TEXTAREA") grow(el);
+    });
+    function grow(t) { t.style.height = "auto"; t.style.height = (t.scrollHeight + 2) + "px"; }
+    function growAll(root) { $$("textarea.se-in", root).forEach(grow); }
+    growAll(list);
+    list.addEventListener("toggle", function (e) { if (e.target.open) growAll(e.target); }, true);
+    list.addEventListener("toggle", function (e) { if (e.target.dataset && e.target.dataset.sec && !seQuery) seOpen[e.target.dataset.sec] = e.target.open; }, true);
+    var sr = $("#seSearch"), tm;
+    if (sr) sr.addEventListener("input", function () {
+      clearTimeout(tm); tm = setTimeout(function () { seQuery = sr.value.trim(); render(); var s2 = $("#seSearch"); s2.focus(); s2.setSelectionRange(s2.value.length, s2.value.length); }, 250);
+    });
+    seBar();
+  }
+  function pushVersion(data, note) {
+    var vers = siteVersions();
+    vers.unshift({ id: "v" + Date.now(), at: Date.now(), by: userName(), count: overrideCount(data), note: note || null, data: data });
+    if (vers.length > 20) vers.length = 20;
+    var ok = writeJ("ja-site-versions", vers) && writeJ("ja-site-content", data);
+    if (!ok) toast(L("This browser is full. Couldn't save.", "Este navegador está lleno. No se pudo guardar."));
+    return ok;
+  }
+  function ensureBaseline() {
+    /* the very first save also records the original, so it can always be restored */
+    if (!siteVersions().length) writeJ("ja-site-versions", [{ id: "v0", at: Date.now() - 1000, by: "Finesse Media", count: 0, note: { type: "original" }, data: {} }]);
+  }
+  function seAct(name) {
+    return {
+      seSave: function () {
+        var keys = unsavedKeys(); if (!keys.length) return;
+        var pub = sitePub(), next = JSON.parse(JSON.stringify(pub));
+        keys.forEach(function (k) {
+          var o = {}, en = draftVal(pub, k, "en"), es = draftVal(pub, k, "es");
+          if (en !== FM[k].en) o.en = en; if (es !== FM[k].es) o.es = es;
+          if (o.en || o.es) next[k] = o; else delete next[k];
+        });
+        ensureBaseline();
+        if (pushVersion(next, null)) {
+          S.siteDraft = {}; render();
+          toast(L("Saved. Your website is updated.", "Guardado. Tu sitio web ya está actualizado."));
+        }
+      },
+      seDiscard: function () { S.siteDraft = {}; render(); toast(L("Changes discarded", "Cambios descartados")); },
+      seUndo: function (el) {
+        var k = el.dataset.k; S.siteDraft[k] = { en: "", es: "" };
+        $$('.se-in[data-k="' + k + '"]').forEach(function (i) { i.value = FM[k][i.dataset.l]; });
+        seFieldState(k); seBar();
+      },
+      seRestore: function (el) {
+        var v = siteVersions().filter(function (x) { return x.id === el.dataset.id; })[0]; if (!v) return;
+        var pending = unsavedKeys().length;
+        modal(L("Restore this version?", "¿Restaurar esta versión?"),
+          "<p>" + L("Your website goes back to how it was on ", "Tu sitio vuelve a como estaba el ") + "<b>" + stamp(v.at) + "</b>.</p><p class=\"muted small\">" +
+          L("The version showing now stays in your list, so you can switch back anytime.", "La versión de ahora se queda en tu lista, así que puedes volver cuando quieras.") +
+          (pending ? " " + L("Your unsaved changes will be discarded.", "Tus cambios sin guardar se van a descartar.") : "") + "</p>",
+          '<button class="btn ghost" data-act="closeModal">' + L("Cancel", "Cancelar") + '</button><button class="btn" data-act="seRestoreGo" data-id="' + v.id + '">' + L("Restore", "Restaurar") + "</button>");
+      },
+      seRestoreGo: function (el) {
+        var v = siteVersions().filter(function (x) { return x.id === el.dataset.id; })[0]; if (!v) return;
+        if (pushVersion(JSON.parse(JSON.stringify(v.data)), { type: "restored", from: v.at })) {
+          S.siteDraft = {}; closeModal(); render(); toast(L("Restored. Your website is back to that version.", "Restaurado. Tu sitio volvió a esa versión."));
+        }
+      },
+      seReset: function () {
+        modal(L("Reset whole site?", "¿Regresar todo el sitio?"),
+          "<p>" + L("Every word goes back to the original website. Your current version is saved first.", "Todo el texto vuelve al sitio original. Tu versión actual se guarda antes.") + "</p><p>" + L("Type ", "Escribe ") + "<b>" + L("RESET", "RESTABLECER") + "</b>" + L(" to confirm.", " para confirmar.") + '</p><label class="field"><span>' + L("Confirm", "Confirmar") + '</span><input id="seResetIn" autocomplete="off" autocapitalize="characters"></label>',
+          '<button class="btn ghost" data-act="closeModal">' + L("Cancel", "Cancelar") + '</button><button class="btn danger" data-act="seResetGo">' + L("Reset to original", "Regresar al original") + "</button>");
+      },
+      seResetGo: function () {
+        var v = ($("#seResetIn").value || "").trim().toUpperCase();
+        if (v !== "RESET" && v !== "RESTABLECER") { $("#seResetIn").focus(); toast(L("Type RESET to confirm", "Escribe RESTABLECER para confirmar")); return; }
+        ensureBaseline();
+        if (pushVersion({}, { type: "reset" })) { S.siteDraft = {}; closeModal(); render(); toast(L("Your website is back to the original words.", "Tu sitio volvió al texto original.")); }
+      }
+    }[name];
   }
 
   var VIEWS = { dashboard: vDashboard, inbox: vInbox, jobs: vJobs, quotes: vQuotes, customers: vCustomers, leads: vLeads, marketing: vMarketing, seo: vSeo, blog: vBlog, gallery: vGallery, site: vSite, settings: vSettings };
@@ -364,7 +621,14 @@
     });
   }
   function wireForms() {
-    dirty("#siteForm", "#siteSave", "#siteSaved", function () {});
+    wireSite();
+    $$(".gal-file").forEach(function (inp) { inp.addEventListener("change", function () { addFiles(inp.files); inp.value = ""; }); });
+    var dz = $("#galDrop");
+    if (dz) {
+      ["dragenter", "dragover"].forEach(function (ev) { dz.addEventListener(ev, function (e) { e.preventDefault(); dz.classList.add("over"); }); });
+      ["dragleave", "drop"].forEach(function (ev) { dz.addEventListener(ev, function (e) { e.preventDefault(); dz.classList.remove("over"); }); });
+      dz.addEventListener("drop", function (e) { addFiles(e.dataTransfer && e.dataTransfer.files); });
+    }
     dirty("#bizForm", "#bizSave", "#bizSaved", function (d) {
       Object.keys(d).forEach(function (k) { S.businessSettings[k] = k === "depositPct" ? Number(d[k]) || 0 : d[k]; });
       if (d.licenseNumber) markSetup("s3");
@@ -382,14 +646,6 @@
         markSetup("s1"); render(); toast(L("Logo saved. It's on your quotes now.", "Logo guardado. Ya sale en tus cotizaciones."));
       };
       rd.readAsDataURL(f);
-    });
-    var up = $("#galUpload");
-    if (up) up.addEventListener("change", function () {
-      Array.prototype.slice.call(up.files).forEach(function (f, i) {
-        S.media.unshift({ id: "m" + Date.now() + i, src: URL.createObjectURL(f), cat: "exterior", published: false });
-      });
-      toast(up.files.length + L(" photo" + (up.files.length > 1 ? "s" : "") + " added. Mark them live to show on your site.", (up.files.length > 1 ? " fotos agregadas" : " foto agregada") + ". Márcalas en vivo para que salgan en tu sitio."));
-      render();
     });
   }
   function markSetup(id) { S.setupChecklist.forEach(function (s) { if (s.id === id) s.done = true; }); }
@@ -511,7 +767,15 @@
     },
     publishPost: function (el) { setStatus(S.blogPosts, el.dataset.id, "published"); toast("Published to your blog"); },
     unpublishPost: function (el) { setStatus(S.blogPosts, el.dataset.id, "draft"); toast("Moved back to drafts"); },
-    mediaPub: function (el) { S.media.forEach(function (m) { if (m.id === el.dataset.id) { m.published = !m.published; toast(m.published ? "Now showing on your site" : "Hidden from your site"); } }); render(); },
+    mediaPub: function (el) { var m = mediaById(el.dataset.id); if (!m) return; m.published = !m.published; saveMedia(m); render(); toast(m.published ? L("Now showing on your website", "Ya sale en tu sitio web") : L("Hidden from your website", "Oculta de tu sitio web")); },
+    galTab: function (el) { galTab = el.dataset.tab; render(); },
+    mediaDel: function (el) { var m = mediaById(el.dataset.id); if (!m) return; m.deleted = true; saveMedia(m); render(); toast(L("Moved to Trash. Restore it from the Trash tab.", "Se movió a la Papelera. Restáurala desde la pestaña Papelera.")); },
+    mediaRestore: function (el) { var m = mediaById(el.dataset.id); if (!m) return; m.deleted = false; saveMedia(m); render(); toast(m.published ? L("Restored and back on your website", "Restaurada y de vuelta en tu sitio") : L("Restored", "Restaurada")); },
+    mediaPurge: function (el) {
+      modal(L("Delete forever?", "¿Borrar para siempre?"), "<p>" + L("This can't be undone. The file is removed for good.", "Esto no se puede deshacer. El archivo se borra para siempre.") + "</p>",
+        '<button class="btn ghost" data-act="closeModal">' + L("Cancel", "Cancelar") + '</button><button class="btn danger" data-act="mediaPurgeGo" data-id="' + el.dataset.id + '">' + L("Delete forever", "Borrar para siempre") + "</button>");
+    },
+    mediaPurgeGo: function (el) { var m = mediaById(el.dataset.id); if (!m) return; m.purged = true; saveMedia(m); closeModal(); render(); toast(L("Deleted for good", "Borrada para siempre")); },
     clearDemo: function () {
       modal("Clear demo data", '<p>This removes the sample customers, requests, quotes and jobs. Type <b>' + L("CLEAR", "BORRAR") + '</b> to confirm.</p><label class="field"><span>Confirm</span><input id="clearConfirm" autocomplete="off"></label>',
         '<button class="btn ghost" data-act="closeModal">Cancel</button><button class="btn danger" data-act="clearDemoGo">Clear demo data</button>');
@@ -536,11 +800,14 @@
   document.addEventListener("change", function (e) {
     var a = e.target.closest("[data-act]");
     if (!a) return;
-    if (a.dataset.act === "mediaCat") { S.media.forEach(function (m) { if (m.id === a.dataset.id) m.cat = a.value; }); toast("Category updated"); }
+    if (a.dataset.act === "mediaCat") { var m = mediaById(a.dataset.id); if (m) { m.cat = a.value; saveMedia(m); } toast(L("Category updated", "Categoría actualizada")); }
+    else if (a.dataset.act === "mediaAlt") { var m2 = mediaById(a.dataset.id); if (m2) { m2.alt = a.value.trim(); saveMedia(m2); } toast(L("Description saved", "Descripción guardada")); }
     else if (ACT[a.dataset.act]) ACT[a.dataset.act](a);
   });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") { closeModal(); closeMore(); } });
 
+  ["seSave", "seDiscard", "seUndo", "seRestore", "seRestoreGo", "seReset", "seResetGo"].forEach(function (n) { ACT[n] = seAct(n); });
+  window.addEventListener("beforeunload", function (e) { if (unsavedKeys().length) { e.preventDefault(); e.returnValue = ""; } });
   window.JA_ADMIN = { view: function () { return view; }, toast: function (m) { toast(m); } };
   function setLang(l) {
     lang = l === "es" ? "es" : "en";
@@ -554,6 +821,10 @@
   if (h === "inbox-quotes") { view = "inbox"; inboxTab = "quotes"; }
   else if (VIEWS[h]) view = h;
   renderNav(); render();
+  window.addEventListener("hashchange", function () {
+    var h2 = (location.hash || "").replace("#", "");
+    if (h2 === "inbox-quotes") { inboxTab = "quotes"; go("inbox"); } else if (VIEWS[h2] && h2 !== view) go(h2);
+  });
   if (fromSite) setTimeout(function () {
     toast(fromSite === 1 ? L("1 new request from your website", "1 solicitud nueva de tu sitio web") : L(fromSite + " new requests from your website", fromSite + " solicitudes nuevas de tu sitio web"));
   }, 600);

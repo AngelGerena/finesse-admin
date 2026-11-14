@@ -88,13 +88,18 @@
       { id: "p2", titleEn: "Polyaspartic vs epoxy: what a Sanford garage taught us", titleEs: "Poliaspártico vs epoxy: lo que aprendimos en un garaje de Sanford", city: "Sanford", status: "draft", date: day(0), source: "SEO agent draft", isDemo: true }
     ],
 
+    /* the 10 photos already on the website; uploads are added from this browser */
     media: [
-      { id: "m1", src: "images/gallery/exterior-01.jpg", cat: "exterior", published: true },
-      { id: "m2", src: "images/gallery/floor-02.jpg", cat: "floors", published: true },
-      { id: "m3", src: "images/gallery/exterior-02.jpg", cat: "exterior", published: true },
-      { id: "m4", src: "images/gallery/floor-03.jpg", cat: "commercial", published: true },
-      { id: "m5", src: "images/gallery/exterior-04.jpg", cat: "exterior", published: false },
-      { id: "m6", src: "images/gallery/floor-01.jpg", cat: "floors", published: true }
+      { id: "b-exterior-01", src: "images/gallery/exterior-01.jpg", kind: "image", cat: "exterior", alt: "Two-story stucco home repainted, before and after", published: true, builtIn: true },
+      { id: "b-floor-02", src: "images/gallery/floor-02.jpg", kind: "image", cat: "floors", alt: "Garage floor before and after a flake coating", published: true, builtIn: true },
+      { id: "b-exterior-02", src: "images/gallery/exterior-02.jpg", kind: "image", cat: "exterior", alt: "Green home repainted gray with dark trim, before and after", published: true, builtIn: true },
+      { id: "b-exterior-03", src: "images/gallery/exterior-03.jpg", kind: "image", cat: "exterior", alt: "Brown two-story home repainted light gray, before and after", published: true, builtIn: true },
+      { id: "b-floor-01", src: "images/gallery/floor-01.jpg", kind: "image", cat: "floors", alt: "Two-car garage floor before and after a flake coating", published: true, builtIn: true },
+      { id: "b-floor-03", src: "images/gallery/floor-03.jpg", kind: "image", cat: "floors", alt: "Shop floor before and after a flake coating", published: true, builtIn: true },
+      { id: "b-exterior-04", src: "images/gallery/exterior-04.jpg", kind: "image", cat: "exterior", alt: "Cream home repainted blue with white trim, before and after", published: true, builtIn: true },
+      { id: "b-exterior-05", src: "images/gallery/exterior-05.jpg", kind: "image", cat: "exterior", alt: "Front of a cream home repainted blue, before and after", published: true, builtIn: true },
+      { id: "b-exterior-06", src: "images/gallery/exterior-06.jpg", kind: "image", cat: "exterior", alt: "Ranch home refreshed with new exterior paint, before and after", published: true, builtIn: true },
+      { id: "b-floor-04", src: "images/gallery/floor-04.jpg", kind: "image", cat: "floors", alt: "Large shop floor before and after a flake coating", published: true, builtIn: true }
     ],
 
     agents: {

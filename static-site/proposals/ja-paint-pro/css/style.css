@@ -591,7 +591,11 @@ body[data-theme="brand"] .feat-list li::before{background:#D9232A}
 @media (max-width:520px){.gal-grid{grid-template-columns:repeat(2,1fr);gap:8px}}
 .lightbox{position:fixed;inset:0;z-index:200;background:rgba(10,10,12,.94);display:flex;align-items:center;justify-content:center;padding:60px 12px}
 .lightbox[hidden]{display:none}
-.lightbox img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px}
+.lightbox img,.lightbox video{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px}
+.lightbox img[hidden],.lightbox video[hidden]{display:none}
+.gal-item video{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.gal-play{position:absolute;left:50%;top:50%;width:52px;height:52px;margin:-26px 0 0 -26px;border-radius:50%;background:rgba(0,0,0,.55);z-index:1}
+.gal-play::after{content:"";position:absolute;left:21px;top:16px;border-style:solid;border-width:10px 0 10px 16px;border-color:transparent transparent transparent #fff}
 .lb-btn{position:absolute;width:48px;height:48px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;cursor:pointer;display:grid;place-items:center}
 .lb-btn svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
 .lb-close{top:14px;right:14px}.lb-prev{left:10px;top:50%;margin-top:-24px}.lb-next{right:10px;top:50%;margin-top:-24px}
