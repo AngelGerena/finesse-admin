@@ -298,12 +298,13 @@
   }
   function replace() { if (trail) place(find(trail.steps[trail.i].sel)); }
   window.addEventListener("resize", replace);
-  window.addEventListener("scroll", function () { replace(); hideHover(); }, true);
+  window.addEventListener("scroll", function () { replace(); hideHover(); closeMenu(); }, true);
 
   /* ---------- help menu in the top bar ---------- */
   function openMenu(btn) {
     ensure(); stop();
     menu.innerHTML =
+      '<div class="tip-menu-h"><span>' + (lang === "es" ? "Ayuda" : "Help") + '</span><button type="button" class="tip-menu-x" data-tip-act="close-menu" aria-label="' + (lang === "es" ? "Cerrar" : "Close") + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>' +
       '<button type="button" data-tip-act="replay-page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 3-6.2M4 4v4h4"/></svg>' + (lang === "es" ? "Ver consejos de esta página" : "Show tips for this page") + "</button>" +
       '<button type="button" role="switch" aria-checked="' + isOn() + '" data-tip-act="toggle" class="tip-sw' + (isOn() ? " on" : "") + '"><i></i>' + (isOn() ? (lang === "es" ? "Consejos prendidos" : "Tips are on") : (lang === "es" ? "Consejos apagados" : "Tips are off")) + "</button>";
     menu.hidden = false;
@@ -340,9 +341,16 @@
     else if (a === "off") setOn(false);
     else if (a === "menu") { if (menu && !menu.hidden) closeMenu(); else openMenu(b); }
     else if (a === "replay-page") { closeMenu(); start(view, true); }
-    else if (a === "toggle") { setOn(!isOn()); if (menu && !menu.hidden) openMenu(document.getElementById("tipsBtn")); }
+    else if (a === "toggle") { setOn(!isOn()); closeMenu(); }
+    else if (a === "close-menu") closeMenu();
     else if (a === "replay-all") { store(seenKey(), "[]"); setOn(true); start(view, true); }
   }, true);
+  document.addEventListener("pointerdown", function (e) {
+    if (menu && !menu.hidden && !e.target.closest(".tip-menu") && !e.target.closest("#tipsBtn")) closeMenu();
+  }, true);
+  document.addEventListener("touchstart", function (e) {
+    if (menu && !menu.hidden && !e.target.closest(".tip-menu") && !e.target.closest("#tipsBtn")) closeMenu();
+  }, { capture: true, passive: true });
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") { if (trail) { e.stopPropagation(); stop(); } closeMenu(); hideHover(); }
     else if (trail && e.key === "ArrowRight") { var n = bub.querySelector('[data-tip-act="next"]'); if (n) n.click(); }
@@ -377,7 +385,7 @@
   document.addEventListener("ja:render", function (e) {
     lang = e.detail.lang;
     syncCard();
-    if (e.detail.view !== lastView) { lastView = e.detail.view; hideHover(); if (trail && trail.view !== lastView) stop(); }
+    if (e.detail.view !== lastView) { lastView = e.detail.view; hideHover(); closeMenu(); if (trail && trail.view !== lastView) stop(); }
     if (trail) { setTimeout(show, 0); return; } /* re-render during a trail: re-point at the fresh element */
     if (isOn() && seen().indexOf(lastView) < 0) setTimeout(function () { if (!trail && window.JA_ADMIN.view() === lastView) start(lastView, false); }, 500);
   });
