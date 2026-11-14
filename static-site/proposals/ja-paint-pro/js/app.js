@@ -53,12 +53,12 @@
   var ANGEL = "14079609004";
   var I18N = window.JA_I18N || { ES: {}, HERO_ES: {} };
   var lang = "en";
-  try { lang = localStorage.getItem("ja-lang") === "es" ? "es" : "en"; } catch (e) {}
+  try { lang = (localStorage.getItem("ja-lang") || localStorage.getItem("ja-admin-lang")) === "es" ? "es" : "en"; } catch (e) {}
   function t(en) { return lang === "es" && I18N.ES[en] ? I18N.ES[en] : en; }
   function applyLang() {
     document.documentElement.lang = lang;
     var walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT, {
-      acceptNode: function (n) { return n.parentElement.closest("script,.picker,.lang") ? 2 : 1; }
+      acceptNode: function (n) { return n.parentElement.closest("script,.picker,.lang,[data-pv]") ? 2 : 1; }
     });
     var n;
     while ((n = walker.nextNode())) {
@@ -69,7 +69,7 @@
       n.__shown = out;
     }
     $$("[placeholder],[aria-label]").forEach(function (el) {
-      if (el.closest(".picker,.lang")) return;
+      if (el.closest(".picker,.lang,[data-pv]")) return;
       el.__srcAttr = el.__srcAttr || {};
       el.__shownAttr = el.__shownAttr || {};
       ["placeholder", "aria-label"].forEach(function (a) {
@@ -88,24 +88,40 @@
   var current = "brand";
 
   function setLook(key) {
-    if (!LOOKS[key]) key = "brand";
+    key = "brand"; /* Javier picked the JA Paint Pro look */
     current = key;
     body.setAttribute("data-theme", key);
     var L = LOOKS[key];
     var HE = lang === "es" && I18N.HERO_ES[key] ? I18N.HERO_ES[key] : L;
     $$("[data-copy]").forEach(function (el) { el.textContent = HE[el.getAttribute("data-copy")]; });
-    $$(".pk-look").forEach(function (b) { b.classList.toggle("active", b.getAttribute("data-look") === key); });
-    $("#pkName").textContent = L.name;
-    var msg = "Hi Angel! For the JA Paint Pro website, I want the \"" + L.name + "\" design.";
-    $("#pkWa").href = "https://wa.me/" + ANGEL + "?text=" + encodeURIComponent(msg);
-    $("#pkSms").href = "sms:+" + ANGEL + "?&body=" + encodeURIComponent(msg);
-    try { localStorage.setItem("ja-look3", key); } catch (e) {}
+    pvText();
     readColors();
     paint();
   }
-  $$(".pk-look").forEach(function (b) {
-    b.addEventListener("click", function () { setLook(b.getAttribute("data-look")); });
-  });
+  /* Preview bar and "See it in your admin" links follow the language toggle */
+  function pvText() {
+    $$("[data-pv-en]").forEach(function (el) { el.textContent = lang === "es" ? el.getAttribute("data-pv-es") : el.getAttribute("data-pv-en"); });
+    var msg = lang === "es"
+      ? "¡Hola Angel! Vi la vista previa del sitio web y el panel de JA Paint Pro. Esto es lo que pienso: "
+      : "Hi Angel! I checked out the JA Paint Pro website and admin preview. Here are my thoughts: ";
+    $("#pkWa").href = "https://wa.me/" + ANGEL + "?text=" + encodeURIComponent(msg);
+    $("#pkSms").href = "sms:+" + ANGEL + "?&body=" + encodeURIComponent(msg);
+  }
+
+  /* Preview only: hand the request to the admin preview in this same browser, so it shows up in Requests */
+  function toAdmin(rec) {
+    try {
+      var list = JSON.parse(localStorage.getItem("ja-demo-inbox") || "[]");
+      rec.id = String(Date.now()); rec.lang = lang;
+      list.push(rec);
+      localStorage.setItem("ja-demo-inbox", JSON.stringify(list.slice(-20)));
+    } catch (e) {}
+  }
+  function slotISO(d, tm) {
+    var x = new Date(d), m = /(\d+):(\d+)\s*(AM|PM)/i.exec(tm || "");
+    if (m) { var h = +m[1] % 12 + (m[3].toUpperCase() === "PM" ? 12 : 0); x.setHours(h, +m[2], 0, 0); }
+    return x.toISOString();
+  }
   $("#pkToggle").addEventListener("click", function () {
     var min = $("#picker").classList.toggle("min");
     this.setAttribute("aria-expanded", String(!min));
@@ -301,6 +317,10 @@
       date: selDate, time: selTime, email: f.email.value.trim(), sms: f.sms.checked
     };
     bookText();
+    toAdmin({ kind: "booking", name: f.name.value.trim(), phone: f.phone.value.trim(), email: lastBook.email,
+      address: f.address.value.trim(), service: lastBook.svcs[0] || "Interior Painting",
+      notes: (lastBook.svcs.length > 1 ? lastBook.svcs.join(", ") + ". " : "") + ((f.notes && f.notes.value.trim()) || ""),
+      when: slotISO(selDate, selTime) });
     $("#bookRef").textContent = refCode();
     bForm.hidden = true;
     $(".stepper").hidden = true; $(".bar").hidden = true;
@@ -388,6 +408,9 @@
       pref: qForm.querySelector('input[name="qpref"]:checked').value
     };
     quoteText();
+    toAdmin({ kind: "quote", name: f.qname.value.trim(), phone: f.qphone.value.trim(), email: f.qemail.value.trim(),
+      service: f.qtype.value, timeline: f.qwhen.value, description: (f.qdesc && f.qdesc.value.trim()) || "",
+      photos: ($("#qPhotos").files || []).length, when: new Date().toISOString() });
     $("#quoteRef").textContent = refCode();
     qForm.hidden = true; $("#quoteDone").hidden = false;
   });
@@ -419,10 +442,10 @@
 
   /* ---------------- INIT ---------------- */
   var saved = "brand";
-  try { saved = localStorage.getItem("ja-look3") || "brand"; } catch (e) {}
+
   function setLang(l) {
     lang = l === "es" ? "es" : "en";
-    try { localStorage.setItem("ja-lang", lang); } catch (e) {}
+    try { localStorage.setItem("ja-lang", lang); localStorage.setItem("ja-admin-lang", lang); } catch (e) {}
     setLook(current);
     renderCal(); renderSlots(); bookText(); quoteText(); renderGallery();
     bNext.textContent = t(step === 3 ? "Confirm Booking" : "Continue");

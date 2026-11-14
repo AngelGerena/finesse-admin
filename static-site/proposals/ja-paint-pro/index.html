@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>JA Paint Pro | Website Design Preview</title>
+<title>JA Paint Pro | Website and Admin Preview</title>
 <meta name="robots" content="noindex, nofollow, noarchive">
-<meta name="description" content="Website design preview for JA Paint Pro by Finesse Media LLC.">
+<meta name="description" content="Website and admin portal preview for JA Paint Pro by Finesse Media LLC.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="JA Paint Pro | Website Design Preview">
-<meta property="og:description" content="Pick your favorite look. Crafted by Finesse Media LLC.">
+<meta property="og:title" content="JA Paint Pro | Website and Admin Preview">
+<meta property="og:description" content="Your new website and admin portal. Tap around and try everything. Crafted by Finesse Media LLC.">
 <meta property="og:url" content="https://finessemedia.pro/proposals/ja-paint-pro/">
 <meta property="og:image" content="https://finessemedia.pro/proposals/ja-paint-pro/images/gallery/exterior-01.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -355,6 +355,7 @@
           <h3>You are booked!</h3>
           <p id="bookSummary"></p>
           <p class="ref">Confirmation <b id="bookRef"></b></p>
+          <a class="btn see-admin" data-pv href="admin/#inbox" data-pv-en="See it in your admin" data-pv-es="Míralo en tu panel">See it in your admin</a>
           <button class="btn btn-line" id="bookAgain">Book another</button>
         </div>
       </div>
@@ -403,6 +404,7 @@
           <h3>Quote request received</h3>
           <p id="quoteSummary"></p>
           <p class="ref">Request <b id="quoteRef"></b></p>
+          <a class="btn see-admin" data-pv href="admin/#inbox-quotes" data-pv-en="See it in your admin" data-pv-es="Míralo en tu panel">See it in your admin</a>
           <button class="btn btn-line" id="quoteAgain">Send another</button>
         </div>
       </div>
@@ -488,20 +490,17 @@
 </div>
 
 <!-- ============ DESIGN PICKER (mockup only) ============ -->
-<aside class="picker" id="picker" aria-label="Design picker">
-  <button class="pk-toggle" id="pkToggle" aria-expanded="true" aria-label="Hide or show the design picker"><svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg></button>
+<aside class="picker pv" id="picker" aria-label="Preview">
+  <button class="pk-toggle" id="pkToggle" aria-expanded="true" aria-label="Hide or show the preview bar"><svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg></button>
   <div class="pk-body">
     <div class="pk-row pk-act">
-      <span class="pk-label">I want <b id="pkName">JA Paint Pro</b></span>
+      <span class="pk-label" data-pv-en="Your preview" data-pv-es="Tu vista previa">Your preview</span>
       <a class="pk-btn pk-wa" id="pkWa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1112 20a8 8 0 01-4-1z"/><path d="M9 9.5c.3 2 2.2 4 4.4 4.6l1-1.1 1.6.8c-.2 1-1 1.6-2 1.5-3-.4-5.6-3-6-6-.1-1 .5-1.8 1.5-2l.8 1.6z"/></svg>WhatsApp</a>
-      <a class="pk-btn pk-sms" id="pkSms" href="#"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg>Text</a>
+      <a class="pk-btn pk-sms" id="pkSms" href="#"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg><span data-pv-en="Text" data-pv-es="Texto">Text</span></a>
     </div>
-    <div class="pk-row pk-looks" role="tablist">
-      <button class="pk-look active" data-look="brand"><i style="background:linear-gradient(110deg,#1B1C1F 0 50%,#D9232A 50%)"></i>JA Paint Pro<span class="pk-new">BRAND</span></button>
-      <button class="pk-look" data-look="propop"><i style="background:linear-gradient(90deg,#FF8A00,#E5266E,#6D3BFF);box-shadow:0 0 0 2px #131315,0 0 0 3px #F5C400"></i>Pro Pop<span class="pk-new">NEW</span></button>
-      <button class="pk-look" data-look="safetypop"><i style="background:linear-gradient(180deg,#F5C400 60%,#E5266E 60%)"></i>Safety Pop<span class="pk-new">NEW</span></button>
-      <button class="pk-look" data-look="paintchip"><i style="background:linear-gradient(90deg,#6D3BFF,#E5266E,#FF8A00)"></i>Paint Chip<span class="pk-new">NEW</span></button>
-      <button class="pk-look" data-look="jobsite"><i style="background:#F5C400"></i>Job Site</button>
+    <div class="pk-row pv-seg" role="group" aria-label="Preview pages">
+      <a class="pv-tab on" href="./" aria-current="page"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18M8 21h8"/></svg><span data-pv-en="Website" data-pv-es="Sitio web">Website</span></a>
+      <a class="pv-tab" href="admin/"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg><span data-pv-en="Admin portal" data-pv-es="Panel de admin">Admin portal</span></a>
     </div>
   </div>
 </aside>
