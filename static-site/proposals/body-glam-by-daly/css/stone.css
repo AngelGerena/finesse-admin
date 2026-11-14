@@ -34,7 +34,7 @@ h1,h2,h3{font-weight:400;letter-spacing:.01em}
 .steps{padding:110px 0;background:#f4efe7}
 .s-grid{display:grid;gap:40px}
 @media (min-width:860px){.s-grid{grid-template-columns:repeat(4,1fr)}}
-.s-grid span{font-family:"Italiana",serif;font-size:54px;color:var(--accent2)}
+.s-grid>div>span{font-family:"Italiana",serif;font-size:54px;color:var(--accent2)}
 .s-grid h3{font-size:30px;margin:6px 0}
 .s-grid p{color:var(--muted)}
 .cat{border:0}

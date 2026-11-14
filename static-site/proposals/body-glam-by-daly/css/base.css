@@ -112,7 +112,7 @@ h3{font-size:clamp(23px,2.2vw,28px)}
 .story-img img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:var(--r)}
 .story-txt p{color:var(--muted);margin-top:16px}
 .story-txt h2{margin-bottom:6px}
-.sig{font-family:"Pinyon",cursive;font-size:52px;color:var(--accent)!important;line-height:1.2}
+.signame{font-family:"Pinyon",cursive;font-size:52px;color:var(--accent)!important;line-height:1.2}
 .pillars{padding:90px 0;background:var(--bg2)}
 .pgrid{display:grid;gap:18px;margin-top:20px}
 @media (min-width:800px){.pgrid{grid-template-columns:repeat(3,1fr)}}
