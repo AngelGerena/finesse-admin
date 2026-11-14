@@ -9,15 +9,17 @@
   var KEY_ON = "ja-tips-on", KEY_SEEN = "ja-tips-seen";
   function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
   function isOn() { return store(KEY_ON) !== "0"; }
-  function seen() { try { return JSON.parse(store(KEY_SEEN) || "[]"); } catch (e) { return []; } }
-  function markSeen(v) { var s = seen(); if (s.indexOf(v) < 0) { s.push(v); store(KEY_SEEN, JSON.stringify(s)); } }
+  /* tips are remembered per person, so Javier and Xiomara each get the full tour */
+  function seenKey() { var u = window.JA_USER ? window.JA_USER() : ""; return KEY_SEEN + (u ? "-" + u.toLowerCase() : ""); }
+  function seen() { try { return JSON.parse(store(seenKey()) || "[]"); } catch (e) { return []; } }
+  function markSeen(v) { var s = seen(); if (s.indexOf(v) < 0) { s.push(v); store(seenKey(), JSON.stringify(s)); } }
   var lang = "en";
-  function T(pair) { return lang === "es" ? pair[1] : pair[0]; }
+  function T(pair) { var n = window.JA_USER ? window.JA_USER() : "Javier"; return (lang === "es" ? pair[1] : pair[0]).replace("{name}", n); }
 
   /* ---------- tip trails, one per page ---------- */
   var TRAILS = {
     dashboard: [
-      { sel: null, t: ["Welcome to your admin, Javier", "Bienvenido a tu panel, Javier"],
+      { sel: null, t: ["Welcome to your admin, {name}", "Te damos la bienvenida, {name}"],
         d: ["This is where you run JA Paint Pro: requests, quotes, jobs and your AI helpers. Here's a quick tour. You can turn these tips off anytime.",
             "Aquí manejas JA Paint Pro: solicitudes, cotizaciones, trabajos y tus ayudantes de IA. Te damos un recorrido rápido. Puedes apagar estos consejos cuando quieras."] },
       { sel: ".lang", t: ["English or Spanish", "Inglés o español"],
@@ -30,6 +32,8 @@
         d: ["A few things only you can do, like adding your license number. Each one checks itself off once it's done.", "Algunas cosas que solo tú puedes hacer, como agregar tu número de licencia. Cada una se marca sola cuando la completas."] },
       { sel: "#view .grid2 > .card:last-child", t: ["Your AI team", "Tu equipo de IA"],
         d: ["Three helpers work in the background: one keeps you on Google, one emails you a weekly marketing lesson, and one finds new customers. Tap Open to see each one.", "Tres ayudantes trabajan en segundo plano: uno te mantiene en Google, otro te manda una lección de marketing cada semana y otro encuentra clientes nuevos. Toca Abrir para ver cada uno."] },
+      { sel: ".tb-site", t: ["Your secret door", "Tu puerta secreta"],
+        d: ["To get back here from your website, press and hold your logo at the top left for 5 seconds, then enter your PIN. Customers never see it.", "Para volver aquí desde tu sitio web, mantén presionado tu logo de arriba a la izquierda por 5 segundos y escribe tu PIN. Los clientes nunca lo ven."] },
       { sel: "#tipsBtn", t: ["Need help again?", "¿Necesitas ayuda otra vez?"],
         d: ["Tap this button anytime to replay the tips for the page you're on, or to turn them off.", "Toca este botón cuando quieras para repetir los consejos de la página en la que estás, o para apagarlos."] }
     ],
@@ -337,7 +341,7 @@
     else if (a === "menu") { if (menu && !menu.hidden) closeMenu(); else openMenu(b); }
     else if (a === "replay-page") { closeMenu(); start(view, true); }
     else if (a === "toggle") { setOn(!isOn()); if (menu && !menu.hidden) openMenu(document.getElementById("tipsBtn")); }
-    else if (a === "replay-all") { store(KEY_SEEN, "[]"); setOn(true); start(view, true); }
+    else if (a === "replay-all") { store(seenKey(), "[]"); setOn(true); start(view, true); }
   }, true);
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") { if (trail) { e.stopPropagation(); stop(); } closeMenu(); hideHover(); }

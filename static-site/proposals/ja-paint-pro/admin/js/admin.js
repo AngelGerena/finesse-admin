@@ -83,6 +83,9 @@
       ? "Hola " + first + ", soy Javier de " + b.businessName + ". Aquí está su cotización " + q.id + ": total " + money(tot) + ", depósito para agendar " + money(dep) + ". Véala aquí: " + quoteLink(q) + " Cualquier pregunta, llámeme al " + b.phone + "."
       : "Hi " + first + ", this is Javier with " + b.businessName + ". Here's your quote " + q.id + ": total " + money(tot) + ", deposit to schedule " + money(dep) + ". See it here: " + quoteLink(q) + " Any questions, call me at " + b.phone + ".";
   }
+  /* Who is signed in: set by the PIN screen on the website (Javier or Xiomara) */
+  function userName() { var n = ""; try { n = localStorage.getItem("ja-admin-user") || ""; } catch (e) {} return n || S.businessSettings.ownerName; }
+  window.JA_USER = userName;
   function total(q) { return q.items.reduce(function (a, i) { return a + i.qty * i.price; }, 0); }
   function toast(msg) {
     var t = $("#toast"); t.textContent = tr(msg); t.classList.add("show");
@@ -143,7 +146,7 @@
     var won = S.jobs.filter(function (j) { return ["scheduled", "progress", "done"].indexOf(j.stage) > -1; }).reduce(function (a, j) { return a + j.value; }, 0);
     var todo = S.setupChecklist.filter(function (s) { return !s.done; });
     var hr = new Date().getHours();
-    return head((hr < 12 ? L("Good morning, ", "Buenos días, ") : hr < 18 ? L("Good afternoon, ", "Buenas tardes, ") : L("Good evening, ", "Buenas noches, ")) + S.businessSettings.ownerName, "Here's what's happening with JA Paint Pro.") +
+    return head((hr < 12 ? L("Good morning, ", "Buenos días, ") : hr < 18 ? L("Good afternoon, ", "Buenas tardes, ") : L("Good evening, ", "Buenas noches, ")) + userName(), "Here's what's happening with JA Paint Pro.") +
             '<div class="kpis">' +
       kpi("New requests", newCount(), "inbox", "Waiting for you") +
       kpi("Estimates this week", upcoming.length, "cal", "Booked online") +
@@ -342,6 +345,7 @@
     var label = NAV.filter(function (x) { return x.id === view; })[0].label;
     $("#crumb").textContent = label;
     wireForms(); applyLang();
+    var av = $(".avatar"); if (av) { av.textContent = userName().charAt(0); av.setAttribute("aria-label", L("Signed in as ", "Sesión de ") + userName()); }
     document.dispatchEvent(new CustomEvent("ja:render", { detail: { view: view, lang: lang } }));
   }
 
