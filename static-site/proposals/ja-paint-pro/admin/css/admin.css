@@ -451,3 +451,8 @@ body[data-theme="brocha"] .tab{font-size:12.5px}
 .logo-card h3{margin-top:0}
 @media (max-width:560px){.logo-card{flex-direction:column;align-items:stretch}.logo-prev{width:auto}.qdoc-h{flex-direction:column}.qdoc-biz{text-align:left}.qdoc-logo{max-width:70%}}
 .qdoc-h .logo-ph b{display:inline;font-size:inherit;font-family:inherit;font-weight:inherit}
+
+.tip-menu-h{display:flex;align-items:center;justify-content:space-between;padding:2px 2px 4px 10px;font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.tip-menu .tip-menu-x{min-height:36px;width:36px;padding:0;justify-content:center;border-radius:8px}
+.tip-menu .tip-menu-x svg{width:18px;height:18px;flex-basis:18px}
+.tip-menu[hidden],.tip-bub[hidden],.tip-ring[hidden],.tip-shield[hidden],.tip-hover[hidden]{display:none!important}
