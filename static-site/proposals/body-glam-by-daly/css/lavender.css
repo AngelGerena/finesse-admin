@@ -1,0 +1,47 @@
+/* LAVENDER MIST — lavender, lilac, soft gold: calm massage rituals */
+:root{--bg:#f7f4fb;--bg2:#ece6f5;--ink:#3a2f4d;--muted:#6c6280;--accent:#7b63a6;--accent2:#c2a15a;--on:#fff;--line:rgba(58,47,77,.12);--card:#fff;--fd:"Cormorant",Georgia,serif;--r:26px;--rb:999px}
+.announce{background:linear-gradient(90deg,#8d76b6,#b19bd3)}
+.btn.primary{background:linear-gradient(135deg,#8d76b6,#6a5296)}
+.hero{position:relative;min-height:calc(100svh - 110px);display:flex;align-items:center;overflow:hidden;padding:90px 0}
+.hero-img{position:absolute;inset:0}
+.hero-img img{width:100%;height:100%;object-fit:cover}
+.kb img{animation:kb 28s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1.02) translate(0,0)}to{transform:scale(1.14) translate(-2%,-2%)}}
+.hero-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(247,244,251,.96) 0%,rgba(236,230,245,.82) 42%,rgba(236,230,245,.1) 75%)}
+@media (max-width:800px){.hero-veil{background:linear-gradient(180deg,rgba(247,244,251,.35),rgba(247,244,251,.94) 58%)}.hero{align-items:flex-end}}
+.hero-txt{position:relative}
+.hero h1{font-size:clamp(56px,8vw,118px);line-height:.98;max-width:720px}
+.hero h1 em{color:var(--accent)}
+.breath{padding:110px 0}
+.br-grid{display:grid;gap:50px;align-items:center}
+@media (min-width:860px){.br-grid{grid-template-columns:.8fr 1.2fr}}
+.orb{position:relative;width:min(70vw,300px);aspect-ratio:1;margin:0 auto}
+.orb span{position:absolute;inset:0;border-radius:50%;animation:breathe 10s ease-in-out infinite}
+.orb span:nth-child(1){background:radial-gradient(circle,rgba(166,144,201,.5),transparent 70%)}
+.orb span:nth-child(2){inset:14%;border:1px solid rgba(123,99,166,.35);animation-delay:-.4s}
+.orb span:nth-child(3){inset:30%;background:radial-gradient(circle,#fff,rgba(194,161,90,.25));animation-delay:-.8s}
+@keyframes breathe{0%,100%{transform:scale(.82)}50%{transform:scale(1.06)}}
+.rituals{padding:110px 0;background:var(--bg2)}
+.sec-head.center .lede{margin:16px auto 0}
+.rit-grid{display:grid;gap:22px}
+@media (min-width:900px){.rit-grid{grid-template-columns:repeat(3,1fr)}}
+.rit{background:#fff;border-radius:26px;overflow:hidden;display:flex;flex-direction:column}
+.rit-img img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.rit-txt{padding:26px;display:flex;flex-direction:column;gap:10px;flex:1}
+.rit-txt h3{font-size:34px}
+.rit-txt p{color:var(--muted)}
+.rit-txt ul{list-style:none;margin:0 0 10px;padding:0;display:flex;flex-wrap:wrap;gap:6px;flex:1;align-content:flex-start}
+.rit-txt li{padding:6px 12px;border-radius:999px;background:var(--bg2);font-size:14px}
+.rit-txt .btn{align-self:flex-start}
+.mosaic{padding:110px 0 40px}
+.mo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.mo-grid img{width:100%;height:100%;min-height:200px;object-fit:cover;border-radius:26px}
+@media (min-width:900px){.mo-grid{grid-template-columns:repeat(4,1fr);grid-template-rows:240px 240px}.m1{grid-column:span 2;grid-row:span 2}}
+.journey{padding:100px 0 120px}
+.j-grid{display:grid;gap:40px}
+@media (min-width:900px){.j-grid{grid-template-columns:.8fr 1.2fr}}
+.jl{list-style:none;margin:0;padding:0;counter-reset:j}
+.jl li{counter-increment:j;position:relative;padding:20px 0 20px 64px;border-bottom:1px solid var(--line);color:var(--muted)}
+.jl li::before{content:counter(j);position:absolute;left:0;top:18px;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--bg2);color:var(--accent);font-family:var(--fd);font-size:22px}
+.jl b{display:block;font-family:var(--fd);font-size:28px;font-weight:500;color:var(--ink)}
+.cat{border:0;border-radius:26px}

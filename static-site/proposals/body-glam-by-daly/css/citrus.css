@@ -1,0 +1,58 @@
+/* CITRUS BLOOM — cream, lemon, olive, terracotta: fresh and playful */
+:root{--bg:#fffaf0;--bg2:#fbf0d5;--ink:#2c2a1f;--muted:#6a6550;--accent:#c4622f;--accent2:#7f8f4e;--on:#fff;--line:rgba(44,42,31,.12);--card:#fff;--fd:"Fraunces",Georgia,serif;--fb:"DM Sans","Jost",system-ui,sans-serif;--r:28px;--rb:999px}
+h1,h2,h3{font-weight:600;letter-spacing:-.02em}
+.announce{background:#7f8f4e}
+.wordmark{font-family:"Fraunces",serif;font-weight:600}
+.btn.primary{background:#c4622f;box-shadow:0 8px 0 #8f4320;transform:translateY(-2px)}
+.btn.primary:active{box-shadow:0 2px 0 #8f4320;transform:translateY(4px)}
+.btn.ghost{border:2px solid var(--ink)}
+.bento{padding:30px 0 80px}
+.bgrid{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+.b{position:relative;border-radius:28px;overflow:hidden;min-height:200px}
+.b img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.tag{position:absolute;left:14px;bottom:14px;padding:7px 14px;border-radius:999px;background:#fffaf0;font-weight:700;font-size:14px}
+.b-main{grid-column:1/-1;background:#f6e27f;padding:40px 30px;display:flex;flex-direction:column;justify-content:center}
+.b-main h1{font-size:clamp(50px,7.4vw,104px);line-height:.95}
+.b-main h1 em{color:#c4622f;font-style:italic;font-weight:400}
+.b-main .lede{color:#4a4630}
+.b-photo1{min-height:300px}
+.b-photo2{min-height:300px}
+.b-stat{background:#7f8f4e;color:#fffaf0;padding:24px;display:flex;flex-direction:column;justify-content:flex-end}
+.b-stat b{font-family:"Fraunces",serif;font-size:90px;line-height:.9}
+.b-verse{background:#c4622f;color:#fff3e6;padding:24px;display:flex;flex-direction:column;justify-content:flex-end}
+.b-verse p{font-family:"Fraunces",serif;font-style:italic;font-size:26px;line-height:1.15}
+.b-photo3{min-height:260px}
+.b-ig{background:#2c2a1f;color:#f6e27f;display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;font-weight:700;padding:20px}
+@media (min-width:960px){
+  .bgrid{grid-template-columns:repeat(4,1fr);grid-template-rows:260px 260px 220px}
+  .b-main{grid-column:1/3;grid-row:1/3}
+  .b-photo1{grid-column:3;grid-row:1/3}
+  .b-photo2{grid-column:4;grid-row:1}
+  .b-stat{grid-column:4;grid-row:2}
+  .b-verse{grid-column:1;grid-row:3}
+  .b-photo3{grid-column:2/4;grid-row:3}
+  .b-ig{grid-column:4;grid-row:3}
+}
+.finder{padding:100px 0;background:#fbf0d5}
+.f-grid{display:grid;gap:30px;align-items:center}
+@media (min-width:900px){.f-grid{grid-template-columns:1fr 1fr;gap:60px}}
+.goals{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.goal{min-height:52px;padding:0 22px;border-radius:999px;border:2px solid #2c2a1f;background:#fffaf0;font-weight:700;cursor:pointer;font-size:16px}
+.goal[aria-pressed="true"]{background:#2c2a1f;color:#f6e27f}
+.f-out{min-height:320px;padding:34px;border-radius:28px;background:#fff;box-shadow:0 20px 50px rgba(44,42,31,.1)}
+.f-empty{font-family:"Fraunces",serif;font-style:italic;font-size:26px;color:var(--muted)}
+.f-list{list-style:none;margin:0;padding:0;counter-reset:f}
+.f-list li{counter-increment:f;display:flex;gap:14px;align-items:center;padding:16px 0;border-bottom:2px dashed var(--line);font-family:"Fraunces",serif;font-size:28px;font-weight:600;animation:pop .45s cubic-bezier(.2,1.4,.4,1) both}
+.f-list li::before{content:counter(f);display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#f6e27f;font-family:"DM Sans",sans-serif;font-size:15px}
+.f-list li:nth-child(2){animation-delay:.07s}.f-list li:nth-child(3){animation-delay:.14s}
+@keyframes pop{from{opacity:0;transform:scale(.9) translateY(10px)}}
+.f-cta{margin-top:22px}
+.cat{border:2px solid #2c2a1f;border-radius:28px}
+.perks{padding:100px 0}
+.pk-grid{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+@media (min-width:900px){.pk-grid{grid-template-columns:repeat(4,1fr)}}
+.pk{padding:28px 22px;border-radius:28px;background:#fff;border:2px solid #2c2a1f}
+.pk .ico{width:30px;height:30px;color:#c4622f;margin-bottom:12px}
+.pk p{color:var(--muted);font-size:15.5px;margin-top:6px}
+.tsec-img img,.story-img img,.ggrid img{border-radius:28px}
+.mini{border:2px solid #2c2a1f;color:#2c2a1f}
