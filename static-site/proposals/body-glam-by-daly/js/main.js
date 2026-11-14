@@ -24,17 +24,17 @@
     var msg = "Hi Angel, this is Daly from Body Glam by Daly. I want the " + name + " design for my website.";
     pick.href = WA + encodeURIComponent(msg);
     pickSms.href = SMS + encodeURIComponent(msg);
-    try{ localStorage.setItem("bgbd-site", id); }catch(e){}
+    try{ localStorage.setItem("bgbd-site2", id); }catch(e){}
   }
   tabs.forEach(function(t, i){
-    t.addEventListener("click", function(){ show(t.dataset.look); window.scrollTo({top:0}); });
+    t.addEventListener("click", function(){ show(t.dataset.look); window.scrollTo({top:0}); kick(); });
     t.addEventListener("keydown", function(e){
       var d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0; if(!d) return;
       var n = tabs[(i + d + tabs.length) % tabs.length]; n.focus(); show(n.dataset.look);
     });
   });
   var start = "s1";
-  try{ start = localStorage.getItem("bgbd-site") || "s1"; }catch(e){}
+  try{ start = localStorage.getItem("bgbd-site2") || "s1"; }catch(e){}
   if(!document.getElementById(start)) start = "s1";
   show(start);
 
@@ -276,17 +276,158 @@
     }
   });
 
-  // Floating Book button appears after the hero
-  function fab(){
-    document.querySelectorAll(".site:not([hidden]) .fab").forEach(function(f){ f.classList.toggle("show", window.scrollY > 520); });
-  }
-  window.addEventListener("scroll", fab, {passive:true}); fab();
 
-  // Mobile menu
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function cur(){ return document.querySelector(".site:not([hidden])"); }
+
+  // Overlay menu
   cards.forEach(function(site){
-    var m = site.querySelector("[data-menu]"), links = site.querySelector(".links");
-    if(!m) return;
-    m.addEventListener("click", function(){ var o = links.classList.toggle("open"); m.setAttribute("aria-expanded", o ? "true" : "false"); });
-    links.querySelectorAll("a").forEach(function(a){ a.addEventListener("click", function(){ links.classList.remove("open"); m.setAttribute("aria-expanded","false"); }); });
+    var m = site.querySelector("[data-menu]"), ov = site.querySelector(".overlay");
+    function close(){ ov.hidden = true; m.setAttribute("aria-expanded","false"); document.body.classList.remove("ov-open"); }
+    m.addEventListener("click", function(){
+      var open = ov.hidden; ov.hidden = !open; m.setAttribute("aria-expanded", open ? "true" : "false");
+      document.body.classList.toggle("ov-open", open);
+    });
+    ov.querySelectorAll("a").forEach(function(a){ a.addEventListener("click", close); });
+    document.addEventListener("keydown", function(e){ if(e.key === "Escape" && !ov.hidden) close(); });
+  });
+
+  // Split manifesto text into words for the scroll-lit effect
+  document.querySelectorAll("[data-lit]").forEach(function(p){
+    function split(){
+      var txt = p.textContent.trim(), words = txt.split(/\s+/);
+      var gold = /^(beauty|inside|glowing|belleza|dentro|brillando)/i;
+      p.querySelectorAll("span[data-es]").forEach(function(sp){
+        var w = sp.textContent.trim().split(/\s+/);
+        sp.innerHTML = w.map(function(x){ return '<span class="wd' + (gold.test(x) ? ' g' : '') + '">' + x + '</span>'; }).join(" ");
+      });
+    }
+    split(); p._split = split;
+  });
+
+  // Reveal on scroll
+  var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } }); }, {rootMargin:"0px 0px -8% 0px"});
+  document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+
+  // Gold dust
+  var dusts = [];
+  document.querySelectorAll(".dust").forEach(function(cv){
+    var ctx = cv.getContext("2d"), pts = [];
+    for(var i=0;i<70;i++) pts.push({x:Math.random(),y:Math.random(),r:Math.random()*1.8+.3,v:Math.random()*.0006+.0002,a:Math.random()*.6+.2,d:Math.random()*Math.PI*2});
+    dusts.push({cv:cv,ctx:ctx,pts:pts});
+  });
+  function drawDust(){
+    dusts.forEach(function(d){
+      if(!d.cv.closest(".site") || d.cv.closest(".site").hidden) return;
+      var r = d.cv.getBoundingClientRect(); if(r.bottom < 0 || r.top > innerHeight) return;
+      var w = d.cv.width = d.cv.clientWidth, h = d.cv.height = d.cv.clientHeight, c = d.ctx;
+      c.clearRect(0,0,w,h);
+      d.pts.forEach(function(p){
+        p.y -= p.v; p.d += .01; if(p.y < -.02) p.y = 1.02;
+        c.beginPath(); c.arc((p.x + Math.sin(p.d)*.01)*w, p.y*h, p.r, 0, 6.3);
+        c.fillStyle = "rgba(240,200,110," + (p.a * (.6 + .4*Math.sin(p.d*3))) + ")"; c.fill();
+      });
+    });
+  }
+
+  // Scroll engine: pinned scenes write --p (0 to 1)
+  function prog(el){
+    var r = el.getBoundingClientRect(), span = r.height - innerHeight;
+    return span <= 0 ? 0 : Math.max(0, Math.min(1, -r.top / span));
+  }
+  function frame(){
+    var site = cur(); if(!site) return;
+    site.querySelectorAll("[data-pin]").forEach(function(sec){
+      var p = prog(sec); sec.style.setProperty("--p", p.toFixed(4));
+      if(sec.classList.contains("bloom")){
+        var st = p < .12 ? 0 : p < .38 ? 1 : p < .62 ? 2 : 3;
+        sec.classList.remove("s-0","s-1","s-2","s-3"); sec.classList.add("s-" + st);
+        sec.querySelector(".rays").style.setProperty("--p", p);
+        var foot = sec.querySelector(".bloom-foot"); if(st === 3) foot.removeAttribute("inert"); else foot.setAttribute("inert","");
+      }
+      if(sec.hasAttribute("data-hscroll")){
+        var tr = sec.querySelector(".h-track"), max = tr.scrollWidth - innerWidth;
+        var q = Math.max(0, Math.min(1, (p - .05) / .9));
+        tr.style.transform = "translate3d(" + (-q * max) + "px,0,0)";
+        sec.querySelector(".h-bar").style.setProperty("--p", q);
+      }
+      var lit = sec.querySelector("[data-lit]");
+      if(lit){
+        var ws = lit.querySelectorAll(".wd"), n = Math.round(Math.max(0, Math.min(1, (p - .05) / .8)) * ws.length);
+        ws.forEach(function(w, i){ w.classList.toggle("on", i < n); });
+      }
+    });
+    site.querySelectorAll("[data-par]").forEach(function(el){
+      var r = el.getBoundingClientRect(), c = (r.top + r.height/2 - innerHeight/2) / innerHeight;
+      el.style.transform = "translate3d(0," + (c * parseFloat(el.dataset.par)) + "px,0)";
+    });
+  }
+  // Footer giant word fits its row exactly
+  function fitGiant(){
+    var s = cur(); if(!s) return;
+    s.querySelectorAll(".giant").forEach(function(g){
+      g.style.fontSize = "100px"; g.style.whiteSpace = "nowrap";
+      var cs = getComputedStyle(g.parentNode), w = g.parentNode.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight), sw = g.scrollWidth || 1;
+      g.style.fontSize = Math.floor(100 * w / sw * .98) + "px";
+    });
+  }
+  window.addEventListener("resize", fitGiant);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(fitGiant);
+  function loop(){ frame(); if(!reduce) drawDust(); requestAnimationFrame(loop); }
+  function kick(){ frame(); fitGiant(); }
+  requestAnimationFrame(loop); setTimeout(fitGiant, 50);
+  window.addEventListener("resize", kick);
+
+  // Re-split lit text after a language switch
+  cards.forEach(function(site){
+    var b = site.querySelector("[data-lang]");
+    if(b) b.addEventListener("click", function(){ site.querySelectorAll("[data-lit]").forEach(function(p){ p._split && p._split(); }); });
+  });
+
+  // Atelier: services filter
+  document.querySelectorAll(".ix-filter").forEach(function(g){
+    var btns = g.querySelectorAll(".fb"), items = g.closest(".index").querySelectorAll(".ix");
+    btns.forEach(function(b){ b.addEventListener("click", function(){
+      btns.forEach(function(o){ o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
+      items.forEach(function(it){ it.hidden = b.dataset.f !== "all" && it.dataset.cat !== b.dataset.f; });
+    }); });
+  });
+
+  // Atelier: treatment finder
+  var ESN = window.ESN || {};
+  document.querySelectorAll("[data-goals]").forEach(function(box){
+    var map = {}; box.dataset.goals.split(";").forEach(function(x){ var k = x.split(":"); map[k[0]] = k[1].split("|"); });
+    var site = box.closest(".site"), out = site.querySelector(".fd-out"), list = out.querySelector(".fd-list"), empty = out.querySelector(".fd-empty"), cta = out.querySelector(".fd-cta");
+    box.querySelectorAll(".goal").forEach(function(g){ g.addEventListener("click", function(){
+      box.querySelectorAll(".goal").forEach(function(o){ o.setAttribute("aria-pressed", o === g ? "true" : "false"); });
+      var es = site.dataset.lang === "es";
+      list.innerHTML = map[g.dataset.goal].map(function(n){ return "<li>" + (es && ESN[n] ? ESN[n] : n) + "</li>"; }).join("");
+      empty.hidden = true; cta.hidden = false;
+    }); });
+  });
+
+  // Sculpt: glow plan builder (message goes to Daly)
+  document.querySelectorAll(".pl-box").forEach(function(box){
+    var site = box.closest(".site"), wa = site.querySelector("#planWa"), sms = site.querySelector("#planSms");
+    var list = box.querySelector(".pl-list"), empty = box.querySelector(".pl-empty");
+    function upd(){
+      var es = site.dataset.lang === "es";
+      var picks = [].slice.call(box.querySelectorAll(".pk[data-pk][aria-pressed=true]")).map(function(b){ return b.textContent.trim(); });
+      var f = box.querySelector(".pk[data-freq][aria-pressed=true]");
+      var freq = f ? (es ? f.dataset.freqEs : f.dataset.freq) : "";
+      list.innerHTML = picks.map(function(p){ return "<li>" + p + "</li>"; }).join("") + (freq ? "<li>" + (es ? "Frecuencia: " : "How often: ") + freq + "</li>" : "");
+      empty.hidden = picks.length > 0;
+      if(!picks.length){ wa.setAttribute("aria-disabled","true"); sms.setAttribute("aria-disabled","true"); wa.href = "https://wa.me/14073500061"; sms.href = "sms:+14073500061"; return; }
+      var msg = es ? "Hola Daly, armé mi plan de brillo en tu página: " + picks.join(", ") + (freq ? ". Frecuencia: " + freq : "") + ". ¿Me ayudas a reservar?"
+                   : "Hi Daly, I built my glow plan on your website: " + picks.join(", ") + (freq ? ". How often: " + freq : "") + ". Can you help me book?";
+      wa.href = "https://wa.me/14073500061?text=" + encodeURIComponent(msg);
+      sms.href = "sms:+14073500061?&body=" + encodeURIComponent(msg);
+      wa.removeAttribute("aria-disabled"); sms.removeAttribute("aria-disabled");
+    }
+    box.querySelectorAll(".pk[data-pk]").forEach(function(b){ b.addEventListener("click", function(){ b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") === "true" ? "false" : "true"); upd(); }); });
+    box.querySelectorAll(".pk[data-freq]").forEach(function(b){ b.addEventListener("click", function(){
+      box.querySelectorAll(".pk[data-freq]").forEach(function(o){ o.setAttribute("aria-pressed", o === b && o.getAttribute("aria-pressed") !== "true" ? "true" : "false"); }); upd(); }); });
+    var lb = site.querySelector("[data-lang]"); if(lb) lb.addEventListener("click", function(){ setTimeout(upd, 0); });
+    upd();
   });
 })();
