@@ -286,9 +286,10 @@
     function close(){ ov.hidden = true; m.setAttribute("aria-expanded","false"); document.body.classList.remove("ov-open"); }
     m.addEventListener("click", function(){
       var open = ov.hidden; ov.hidden = !open; m.setAttribute("aria-expanded", open ? "true" : "false");
-      document.body.classList.toggle("ov-open", open);
+      document.body.classList.toggle("ov-open", open); if(open) ov.querySelector("[data-ov-close]").focus();
     });
     ov.querySelectorAll("a").forEach(function(a){ a.addEventListener("click", close); });
+    ov.querySelector("[data-ov-close]").addEventListener("click", function(){ close(); m.focus(); });
     document.addEventListener("keydown", function(e){ if(e.key === "Escape" && !ov.hidden) close(); });
   });
 
@@ -351,6 +352,11 @@
         tr.style.transform = "translate3d(" + (-q * max) + "px,0,0)";
         sec.querySelector(".h-bar").style.setProperty("--p", q);
       }
+      if(sec.classList.contains("journey")){
+        var js = p < .34 ? 1 : p < .67 ? 2 : 3;
+        sec.classList.remove("j-1","j-2","j-3"); sec.classList.add("j-" + js);
+        sec.querySelector(".j-pct span").textContent = "0" + js;
+      }
       var lit = sec.querySelector("[data-lit]");
       if(lit){
         var ws = lit.querySelectorAll(".wd"), n = Math.round(Math.max(0, Math.min(1, (p - .05) / .8)) * ws.length);
@@ -366,8 +372,9 @@
   function fitGiant(){
     var s = cur(); if(!s) return;
     s.querySelectorAll(".giant").forEach(function(g){
-      g.style.fontSize = "100px"; g.style.whiteSpace = "nowrap";
-      var cs = getComputedStyle(g.parentNode), w = g.parentNode.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight), sw = g.scrollWidth || 1;
+      g.style.fontSize = "100px"; g.style.whiteSpace = "nowrap"; g.style.display = "inline-block"; g.style.width = "auto";
+      var cs = getComputedStyle(g.parentNode), w = g.parentNode.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight), sw = g.getBoundingClientRect().width || 1;
+      g.style.display = ""; g.style.width = "";
       g.style.fontSize = Math.floor(100 * w / sw * .98) + "px";
     });
   }
@@ -430,4 +437,85 @@
     var lb = site.querySelector("[data-lang]"); if(lb) lb.addEventListener("click", function(){ setTimeout(upd, 0); });
     upd();
   });
+
+  // Contour: body-area picker
+  document.querySelectorAll("[data-areas]").forEach(function(box){
+    var map = {}; box.dataset.areas.split(";").forEach(function(x){ var k = x.split(":"); map[k[0]] = k[1].split("|"); });
+    var site = box.closest(".site"), out = site.querySelector(".a-out"), list = out.querySelector(".a-list"), empty = out.querySelector(".a-empty"), title = out.querySelector(".a-title"), cta = out.querySelector(".a-cta");
+    box.querySelectorAll(".area").forEach(function(a){ a.addEventListener("click", function(){
+      box.querySelectorAll(".area").forEach(function(o){ o.setAttribute("aria-pressed", o === a ? "true" : "false"); });
+      var es = site.dataset.lang === "es";
+      title.textContent = (es ? "Plan para: " : "Sculpt plan for: ") + a.textContent.trim();
+      list.innerHTML = map[a.dataset.area].map(function(n){ return "<li>" + (es && ESN[n] ? ESN[n] : n) + "</li>"; }).join("");
+      empty.hidden = true; cta.hidden = false;
+    }); });
+  });
+
+  // Contour: before / after slider
+  document.querySelectorAll(".ba-box").forEach(function(b){
+    var r = b.querySelector(".ba-range");
+    function set(){ b.style.setProperty("--x", r.value + "%"); }
+    r.addEventListener("input", set); set();
+  });
+
+  // Unwind: massage ritual builder (message goes to Daly)
+  document.querySelectorAll(".r5-box").forEach(function(box){
+    var site = box.closest(".site"), wa = site.querySelector("#ritWa"), sms = site.querySelector("#ritSms");
+    var list = box.querySelector(".r5-list"), empty = box.querySelector(".r5-empty");
+    var L = {type:["Massage","Masaje"], pressure:["Pressure","Presión"], focus:["Focus","Enfoque"], addon:["Add-ons","Extras"]};
+    function upd(){
+      var es = site.dataset.lang === "es", parts = [], rows = [];
+      ["type","pressure","focus","addon"].forEach(function(g){
+        var v = [].slice.call(box.querySelectorAll('.rc[data-g="' + g + '"][aria-pressed=true]')).map(function(b){ return (es ? b.dataset.es2 : b.dataset.en).replace("&amp;","&"); });
+        if(v.length){ rows.push("<li>" + L[g][es ? 1 : 0] + ": " + v.join(", ") + "</li>"); parts.push(L[g][es ? 1 : 0] + ": " + v.join(", ")); }
+      });
+      var hasType = !!box.querySelector('.rc[data-g="type"][aria-pressed=true]');
+      list.innerHTML = rows.join(""); empty.hidden = rows.length > 0;
+      if(!hasType){ wa.setAttribute("aria-disabled","true"); sms.setAttribute("aria-disabled","true"); wa.href = "https://wa.me/14073500061"; sms.href = "sms:+14073500061"; return; }
+      var msg = (es ? "Hola Daly, diseñé mi ritual de masaje en tu página. " : "Hi Daly, I designed my massage ritual on your website. ") + parts.join(". ") + (es ? ". ¿Me ayudas a reservar?" : ". Can you help me book?");
+      wa.href = "https://wa.me/14073500061?text=" + encodeURIComponent(msg);
+      sms.href = "sms:+14073500061?&body=" + encodeURIComponent(msg);
+      wa.removeAttribute("aria-disabled"); sms.removeAttribute("aria-disabled");
+    }
+    box.querySelectorAll(".rcs").forEach(function(g){
+      var single = g.hasAttribute("data-single");
+      g.querySelectorAll(".rc").forEach(function(b){ b.addEventListener("click", function(){
+        var on = b.getAttribute("aria-pressed") === "true";
+        if(single) g.querySelectorAll(".rc").forEach(function(o){ o.setAttribute("aria-pressed","false"); });
+        b.setAttribute("aria-pressed", on ? "false" : "true"); upd();
+      }); });
+    });
+    var lb = site.querySelector("[data-lang]"); if(lb) lb.addEventListener("click", function(){ setTimeout(upd, 0); });
+    upd();
+  });
+
+  // Sculpt Lab: session planner
+  (function(){
+    var r = document.getElementById("pnRange"); if(!r) return;
+    var site = r.closest(".site"), bars = document.getElementById("pnBars"), val = document.getElementById("pnVal"), note = document.getElementById("pnNote");
+    var wa = document.getElementById("pnWa"), sms = document.getElementById("pnSms");
+    for(var i=1;i<=12;i++){ var b = document.createElement("i"); b.style.height = (18 + i * 6) + "%"; bars.appendChild(b); }
+    function upd(){
+      var n = +r.value, es = site.dataset.lang === "es";
+      val.textContent = n;
+      [].forEach.call(bars.children, function(b, i){ b.classList.toggle("on", i < n); });
+      note.textContent = es
+        ? (n < 3 ? "Ideal para probar y ver cómo responde tu cuerpo." : n < 7 ? "Una serie clásica: moldeo constante con descansos entre sesiones." : "Un plan completo de transformación, con mantenimiento al final.")
+        : (n < 3 ? "A great way to try it and see how your body responds." : n < 7 ? "A classic series: steady sculpting with rest days between sessions." : "A full transformation plan, with maintenance at the end.");
+      var msg = es ? "Hola Daly, vi tu página y me interesa una serie de " + n + " sesiones de moldeo. ¿Qué me recomiendas?" : "Hi Daly, I saw your website and I'm interested in a " + n + "-session sculpt series. What do you recommend?";
+      wa.href = "https://wa.me/14073500061?text=" + encodeURIComponent(msg);
+      sms.href = "sms:+14073500061?&body=" + encodeURIComponent(msg);
+    }
+    r.addEventListener("input", upd);
+    var lb = site.querySelector("[data-lang]"); if(lb) lb.addEventListener("click", function(){ setTimeout(upd, 0); });
+    upd();
+  })();
+
+  // Sculpt Lab: counters
+  var cio = new IntersectionObserver(function(es){ es.forEach(function(e){
+    if(!e.isIntersecting) return; cio.unobserve(e.target);
+    var el = e.target, to = +el.dataset.count, t0 = performance.now();
+    (function step(t){ var k = Math.min(1, (t - t0) / 1400); el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))); if(k < 1) requestAnimationFrame(step); })(t0);
+  }); });
+  document.querySelectorAll("[data-count]").forEach(function(el){ if(reduce) el.textContent = el.dataset.count; else cio.observe(el); });
 })();
