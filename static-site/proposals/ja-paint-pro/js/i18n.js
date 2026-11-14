@@ -17,7 +17,7 @@ window.JA_I18N = {
     "5-Star Service": "Servicio 5 Estrellas",
     "Years of experience": "Años de experiencia",
     "Rooms painted": "Cuartos pintados",
-    "2-Year": "2 Años",
+    "3-Year": "3 Años",
     "Workmanship warranty": "De garantía en mano de obra",
     "Clean-up, every job": "Limpieza en cada trabajo",
     "Sample numbers for now. I'll swap in your real stats.": "Números de muestra por ahora. Los cambio por tus datos reales.",

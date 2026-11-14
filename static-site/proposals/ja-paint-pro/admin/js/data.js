@@ -35,9 +35,9 @@
       { id: "svc2", nameEn: "Exterior Painting", nameEs: "Pintura Exterior", priceNote: "Free estimate", active: true },
       { id: "svc3", nameEn: "Commercial Painting", nameEs: "Pintura Comercial", priceNote: "Free estimate", active: true },
       { id: "svc4", nameEn: "Pressure Washing", nameEs: "Lavado a Presión", priceNote: "Free estimate", active: true },
-      { id: "svc5", nameEn: "Epoxy Floor - 1 car garage", nameEs: "Piso de Epoxy - 1 carro", price: 1000, active: true },
-      { id: "svc6", nameEn: "Epoxy Floor - 2 car garage", nameEs: "Piso de Epoxy - 2 carros", price: 2000, active: true },
-      { id: "svc7", nameEn: "Epoxy Floor - 3 car garage", nameEs: "Piso de Epoxy - 3 carros", price: 3000, active: true }
+      { id: "svc5", nameEn: "Epoxy Floor - 1 car garage", nameEs: "Piso de Epoxy - 1 carro", price: 1250, active: true },
+      { id: "svc6", nameEn: "Epoxy Floor - 2 car garage", nameEs: "Piso de Epoxy - 2 carros", price: 2250, active: true },
+      { id: "svc7", nameEn: "Epoxy Floor - 3 car garage", nameEs: "Piso de Epoxy - 3 carros", price: 3250, active: true }
     ],
 
     contacts: [
@@ -61,15 +61,15 @@
     ],
 
     quotes: [
-      { id: "Q-260014", contactId: "c3", status: "sent", issued: day(-2), items: [{ desc: "Epoxy Floor - 3 car garage (polyaspartic topcoat)", qty: 1, price: 3000 }], isDemo: true },
-      { id: "Q-260013", contactId: "c2", status: "accepted", issued: day(-6), items: [{ desc: "Epoxy Floor - 2 car garage", qty: 1, price: 2000 }, { desc: "Crack repair", qty: 1, price: 150 }], isDemo: true },
+      { id: "Q-260014", contactId: "c3", status: "sent", issued: day(-2), items: [{ desc: "Epoxy Floor - 3 car garage (polyaspartic topcoat)", qty: 1, price: 3250 }], isDemo: true },
+      { id: "Q-260013", contactId: "c2", status: "accepted", issued: day(-6), items: [{ desc: "Epoxy Floor - 2 car garage", qty: 1, price: 2250 }, { desc: "Crack repair", qty: 1, price: 150 }], isDemo: true },
       { id: "Q-260012", contactId: "c1", status: "draft", issued: day(0), items: [{ desc: "Exterior repaint, two-story stucco", qty: 1, price: 6800 }], isDemo: true }
     ],
 
     jobs: [
-      { id: "j1", title: "Brooks garage floor", contactId: "c2", stage: "scheduled", value: 2150, start: day(5, 8, 0), isDemo: true },
+      { id: "j1", title: "Brooks garage floor", contactId: "c2", stage: "scheduled", value: 2400, start: day(5, 8, 0), isDemo: true },
       { id: "j2", title: "Rivera exterior repaint", contactId: "c1", stage: "estimate", value: 6800, start: day(1, 9, 30), isDemo: true },
-      { id: "j3", title: "Ortega shop floor", contactId: "c3", stage: "quoted", value: 3000, start: null, isDemo: true },
+      { id: "j3", title: "Ortega shop floor", contactId: "c3", stage: "quoted", value: 3250, start: null, isDemo: true },
       { id: "j4", title: "Whitfield interior", contactId: "c5", stage: "estimate", value: 3400, start: day(3, 13, 0), isDemo: true },
       { id: "j5", title: "Lake Mary office repaint", contactId: "c4", stage: "progress", value: 9200, start: day(-1, 7, 0), isDemo: true },
       { id: "j6", title: "Ortega driveway wash", contactId: "c3", stage: "done", value: 350, start: day(-2, 8, 0), isDemo: true }
