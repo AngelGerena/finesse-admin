@@ -176,7 +176,7 @@ function divider(to) { return '<svg class="divider to-' + to + '" viewBox="0 0 1
 function render() {
   var s = CONTENT.settings, L = LOOKS[look], h = '';
 
-  h += '<header class="nav"><a class="nav-brand" href="#top"><img src="images/logo.jpg" alt="' + s.name + '" width="44" height="44"><span><small>' + t(s.kicker) + '</small>' + s.name + '</span></a>';
+  h += '<header class="nav"><a class="nav-brand" href="#top"><img src="images/logo-sm.webp" alt="' + s.name + '" width="44" height="44"><span><small>' + t(s.kicker) + '</small>' + s.name + '</span></a>';
   h += '<nav class="nav-links">' + UI.nav.map(function (n) { return '<a href="' + n.href + '">' + n[lang] + '</a>'; }).join('') + '</nav>';
   h += '<div class="nav-tools"><div class="lang" role="group" aria-label="' + t(UI.langLabel) + '" data-on="' + lang + '"><span class="lang-thumb" aria-hidden="true"></span>';
   h += '<button type="button" data-lang="es" aria-pressed="' + (lang === 'es') + '">ES</button><button type="button" data-lang="en" aria-pressed="' + (lang === 'en') + '">EN</button></div>';
@@ -186,7 +186,7 @@ function render() {
   h += '<section class="hero" id="top"><div class="hero-glow" aria-hidden="true"></div><div class="hero-in">';
   h += '<div class="hero-copy"><p class="script">' + t(s.kicker) + '</p><h1>' + t(L.h1) + '</h1><p class="lede">' + t(s.tagline) + '</p>';
   h += '<div class="cta-row"><a class="btn" href="#sec-visit">' + t(UI.plan) + ic('arrow') + '</a><a class="btn btn-ghost" href="' + s.facebook + '" target="_blank" rel="noopener">' + ic('play') + t(UI.watch) + '</a></div></div>';
-  h += '<div class="hero-mark"><div class="rays" aria-hidden="true"></div><img src="images/logo.jpg" alt="" width="420" height="420"></div>';
+  h += '<div class="hero-mark"><div class="rays" aria-hidden="true"></div><img src="images/logo.webp" alt="" width="420" height="420"></div>';
   h += '</div>';
   h += '<div class="ticker" aria-hidden="true"><div class="ticker-track">' + [0, 1].map(function () { return CONTENT.services.map(function (v) { return '<span>' + t(v.day) + ' ' + v.time + '</span><i></i>'; }).join(''); }).join('') + '</div></div>';
   h += '</section>';
@@ -223,7 +223,7 @@ function render() {
   h += '<li>' + ic('clock') + '<span>' + CONTENT.services.map(function (v) { return t(v.day) + ' ' + v.time; }).join('<br>') + '</span></li></ul></div>';
   h += '<div class="map"><span>' + ic('pin') + t(UI.mapSoon) + '</span></div></div></section>';
 
-  h += '<footer class="foot"><div class="wrap foot-in"><div class="foot-brand"><img src="images/logo.jpg" alt="" width="64" height="64"><div><small>' + t(s.kicker) + '</small><strong>' + s.name + '</strong><span>' + s.city + '</span></div></div>';
+  h += '<footer class="foot"><div class="wrap foot-in"><div class="foot-brand"><img src="images/logo-sm.webp" alt="" width="64" height="64"><div><small>' + t(s.kicker) + '</small><strong>' + s.name + '</strong><span>' + s.city + '</span></div></div>';
   h += '<div class="foot-links"><b>' + t(UI.follow) + '</b><a href="' + s.facebook + '" target="_blank" rel="noopener">Facebook</a><a href="' + s.instagram + '" target="_blank" rel="noopener">Instagram ' + s.igHandle + '</a></div></div>';
   h += '<div class="wrap foot-base"><span>&copy; 2026 ' + s.name + '. ' + t(UI.rights) + '</span><a href="https://finessemedia.pro" target="_blank" rel="noopener">' + t(UI.crafted) + ' Finesse Media</a></div></footer>';
 
