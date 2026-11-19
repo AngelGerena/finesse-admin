@@ -473,3 +473,57 @@ html.intro-open body{overflow:hidden}
 /* Single look: dark-section options are the only choice */
 .pk-variants{order:0;width:auto;padding-top:0}
 @media(max-width:760px){.pk-variants{width:100%;order:1}.pk-actions{order:2}}
+
+/* ===== HOW IT'S MADE ===== */
+.built{background:#232326;color:#f4f1ec;--ink:#f4f1ec;--muted:#b9b3ab;--line:#3a383b;--card:#2d2d31}
+.built-head{max-width:720px;margin:0 auto 38px;text-align:center}
+.built-head p:last-child{color:var(--muted);margin:0}
+.b-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.b-step{display:flex;flex-direction:column;text-align:left;color:inherit;background:#2d2d31;border:1px solid #3a383b;border-radius:var(--radius);overflow:hidden;padding:0 0 20px;transition:transform .25s,box-shadow .25s}
+.b-step:hover{transform:translateY(-4px);box-shadow:0 24px 50px -28px rgba(0,0,0,.9)}
+.b-media{position:relative;display:block;aspect-ratio:4/3;background:#0b0b0c;overflow:hidden}
+.b-loop{width:100%;height:100%;object-fit:cover;display:block}
+.b-play{position:absolute;right:12px;bottom:12px;width:40px;height:40px;border-radius:50%;background:var(--brand);display:grid;place-items:center;box-shadow:0 6px 16px -6px rgba(0,0,0,.7);transition:transform .2s}
+.b-step:hover .b-play{transform:scale(1.1)}
+.b-play svg{width:16px;height:16px;fill:#141414;margin-left:2px}
+.b-num{font:600 .8rem var(--body);letter-spacing:.12em;color:var(--brand);margin:16px 20px 4px}
+.b-title{font-family:var(--head);font-size:1.25rem;font-weight:700;margin:0 20px 6px;color:#fff}
+.b-text{font-size:.94rem;color:var(--muted);margin:0 20px;line-height:1.5}
+.g-head{text-align:center;margin:60px 0 22px;font-size:1.5rem;color:#fff}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:190px;grid-auto-flow:dense;gap:14px}
+.g-item{position:relative;overflow:hidden;border-radius:calc(var(--radius) * .7);background:#0b0b0c;padding:0}
+.g-item.g-tall{grid-row:span 2}
+.g-item:not(.g-tall){grid-column:span 2}
+.g-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.g-item:hover img{transform:scale(1.05)}
+.g-cap{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 12px;background:linear-gradient(transparent,rgba(0,0,0,.75));color:#fff;font-size:.82rem;font-weight:500;text-align:left}
+.look-f .divider.d5{background:#232326}
+.look-f .divider.d5::after{background:var(--bg)}
+.modal-box .vmodal-vid.tall{aspect-ratio:auto;max-height:76vh;width:auto;max-width:100%;margin:0 auto}
+.vmodal-img{display:block;width:auto;max-width:100%;max-height:78vh;margin:0 auto;border-radius:12px}
+@media(max-width:900px){.b-steps{grid-template-columns:1fr 1fr}.gallery{grid-template-columns:repeat(2,1fr);grid-auto-rows:170px}}
+@media(max-width:600px){
+  .b-steps{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin:0 -18px;padding:0 18px 8px;scrollbar-width:none}
+  .b-steps::-webkit-scrollbar{display:none}
+  .b-step{flex:0 0 82%;scroll-snap-align:center}
+  .gallery{grid-auto-rows:150px;gap:10px}
+  .g-head{margin-top:44px}
+}
+.g-item.g-big{grid-column:span 2;grid-row:span 2}
+/* gallery: masonry columns, no gaps */
+.gallery{display:block;column-count:3;column-gap:14px}
+.g-item,.g-item.g-tall,.g-item.g-big,.g-item:not(.g-tall){display:block;width:100%;margin:0 0 14px;break-inside:avoid;grid-row:auto;grid-column:auto}
+.g-item img{height:auto}
+@media(max-width:900px){.gallery{column-count:2}}
+@media(max-width:600px){.gallery{column-gap:10px}.g-item,.g-item.g-tall,.g-item.g-big,.g-item:not(.g-tall){margin-bottom:10px}.g-cap{font-size:.74rem;padding:20px 10px 9px}}
+/* gallery: final clean layout (5 portraits, then 2 wide) */
+.gallery{display:grid;column-count:auto;grid-template-columns:repeat(10,1fr);gap:14px;grid-auto-rows:auto}
+.gallery .g-item{margin:0;grid-column:span 2;aspect-ratio:3/4}
+.gallery .g-item:not(.g-tall){grid-column:span 5;aspect-ratio:16/10;order:1}
+.gallery .g-item img{height:100%}
+@media(max-width:900px){
+  .gallery{grid-template-columns:1fr 1fr;gap:10px}
+  .gallery .g-item{grid-column:span 1;margin:0}
+  .gallery .g-item:first-child{grid-column:span 2;aspect-ratio:4/3}
+  .gallery .g-item:not(.g-tall){grid-column:span 2;margin:0}
+}
