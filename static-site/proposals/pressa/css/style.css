@@ -204,7 +204,7 @@ h1 em{font-style:normal;color:var(--brand);display:block}
 
 /* ===== DIVIDERS (big, smooth, full width) ===== */
 .divider{position:relative;height:clamp(48px,7vw,96px);background:var(--top,var(--bg));margin-top:-1px}
-.divider::after{content:"";position:absolute;inset:0;background:var(--alt)}
+.divider::after{content:"";position:absolute;inset:0;background:var(--bot,var(--alt))}
 .d3{--top:var(--band)}
 .look-a .divider::after{clip-path:ellipse(72% 100% at 50% 100%)}
 
@@ -443,3 +443,29 @@ html.intro-open body{overflow:hidden}
 .look-f #how .num{color:#141414}
 .look-f #how .feat-img{box-shadow:0 18px 40px -24px rgba(0,0,0,.8)}
 .look-f .d1::after{background:var(--bot,#232326)}
+
+/* ===== Dark contrast sections ===== */
+.dk,.dk2{--bg:#141414;--alt:#141414;--ink:#f4f1ec;--muted:#b4aea6;--line:#2f2d2b;--card:#1f1f21;--panel:var(--brand);background:#141414!important;color:var(--ink)}
+.dk2{--bg:#1c1c1f;--alt:#1c1c1f;--card:#26262a;background:#1c1c1f!important}
+.dk .btn-ghost,.dk2 .btn-ghost{border-color:#f4f1ec;color:#f4f1ec}
+.dk .btn-ghost:hover,.dk2 .btn-ghost:hover{background:#f4f1ec;color:#141414}
+.dk .hero-facts,.dk2 .hero-facts{border-color:#2f2d2b}
+.dk .hero-media .play,.dk2 .hero-media .play{background:#141414}
+.dk .eyebrow,.dk2 .eyebrow{color:var(--brand)}
+.dk .contact-form input,.dk .contact-form textarea{background:#141414}
+.dk .shop-media,.dk2 .shop-media{background:var(--brand)}
+.dk .pay li,.dk2 .pay li{background:transparent}
+.dk .stepper svg,.dk2 .stepper svg{fill:#f4f1ec}
+.dk .stepper button:hover,.dk2 .stepper button:hover{background:#2a2a2d}
+.foot.dk .policies button,.foot.dk .patent,.foot.dk .copy{color:#b4aea6}
+.foot.dk{border-top-color:#2f2d2b}
+.look-f .dk .num,.look-f .dk2 .num{color:#141414}
+.look-f .dk .step,.look-f .dk2 .step{background:#1f1f21}
+
+/* Look F variant row in the picker */
+.pk-variants{order:5;width:100%;display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding-top:2px}
+.pkv-label{font-size:.72rem;font-weight:600;color:#8a7a55;letter-spacing:.04em;margin-right:4px}
+.vchip{font-size:.76rem;font-weight:500;padding:6px 11px;border-radius:999px;border:1px solid #ddd6c6;background:#fff;white-space:nowrap}
+.vchip.on{background:#e8681c;border-color:#e8681c;color:#141414}
+@media(max-width:760px){.pk-variants{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.pk-variants::-webkit-scrollbar{display:none}.pkv-label{white-space:nowrap}}
+@media(max-width:760px){.pk-variants{order:1}.pk-actions{order:2}}

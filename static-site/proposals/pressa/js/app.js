@@ -3,7 +3,28 @@
   var ANGEL = "14079609004";
   var LOOKS = { a: "A (Studio)", b: "B (Precision)", c: "C (Editorial)", d: "D (Steel)", e: "E (Red Block)", f: "F (Black & Orange)" };
   var PRICE = 299; // sample price until Hiram confirms
-  var current = "a";
+  var current = "a", variant = "1";
+  var VNAMES = { "1": ["Bookends", "Extremos"], "2": ["Alternating", "Alternado"], "3": ["Full Contrast", "Contraste total"] };
+  var G = "#232326", D = "#141414", W = "#ffffff", A = "#f5f3f0", O = "#e8681c";
+  var VARIANTS = {
+    "1": { dk: [".hero", "footer.foot"], div: { d1: [D, G], d2: [W, A], d3: [O, A], d4: [W, A] } },
+    "2": { dk: ["#how", "#story"], div: { d1: [W, D], d2: [W, A], d3: [O, D], d4: [W, A] } },
+    "3": { dk: [".hero", ".made", "#story", "#contact", "footer.foot"], div: { d1: [D, G], d2: [D, A], d3: [O, D], d4: [W, D] } }
+  };
+  function clearVariant() {
+    document.querySelectorAll("main .dk, footer.dk").forEach(function (e) { e.classList.remove("dk", "dk2"); });
+    document.querySelectorAll(".divider").forEach(function (d) { d.style.removeProperty("--top"); d.style.removeProperty("--bot"); });
+  }
+  function applyVariant() {
+    clearVariant();
+    var box = document.getElementById("fVariants");
+    if (box) box.hidden = current !== "f";
+    if (current !== "f") return;
+    var v = VARIANTS[variant];
+    v.dk.forEach(function (sel) { var e = document.querySelector(sel); if (e) e.classList.add("dk"); });
+    Object.keys(v.div).forEach(function (k) { var d = document.querySelector(".divider." + k); if (d) { d.style.setProperty("--top", v.div[k][0]); d.style.setProperty("--bot", v.div[k][1]); } });
+    document.querySelectorAll(".vchip").forEach(function (c) { c.classList.toggle("on", c.dataset.v === variant); });
+  }
 
   // ---------- picker height -> sticky nav offset ----------
   var picker = document.getElementById("picker");
@@ -31,16 +52,22 @@
     root.classList.add("look-" + k);
     chips.forEach(function (c) { c.classList.toggle("on", c.dataset.look === k); if (c.dataset.look === k && c.parentNode.scrollWidth > c.parentNode.clientWidth) { c.parentNode.scrollLeft = c.offsetLeft - c.parentNode.offsetLeft - 8; } });
     try { localStorage.setItem("pressa-look2", k); } catch (e) {}
+    applyVariant(); setPk && setPk();
     updateWant();
   }
   chips.forEach(function (c) { c.addEventListener("click", function () { setLook(c.dataset.look); }); });
+  document.querySelectorAll(".vchip").forEach(function (c) {
+    c.addEventListener("click", function () { variant = c.dataset.v; applyVariant(); updateWant(); });
+  });
 
   // ---------- "I want this one" (WhatsApp + SMS backup to Angel) ----------
   var wa = document.getElementById("wantWa"), sms = document.getElementById("wantSms");
   function updateWant() {
-    var msg = root.lang === "es"
-      ? "Hola Angel, soy Hiram. Quiero el estilo " + LOOKS[current] + " para la página de Pressa."
-      : "Hi Angel, it's Hiram. I want Look " + LOOKS[current] + " for the Pressa website.";
+    var es = root.lang === "es";
+    var extra = current === "f" ? (es ? ", secciones oscuras opción " + variant + " (" + VNAMES[variant][1] + ")" : ", dark sections option " + variant + " (" + VNAMES[variant][0] + ")") : "";
+    var msg = es
+      ? "Hola Angel, soy Hiram. Quiero el estilo " + LOOKS[current] + extra + " para la página de Pressa."
+      : "Hi Angel, it's Hiram. I want Look " + LOOKS[current] + extra + " for the Pressa website.";
     var t = encodeURIComponent(msg);
     wa.href = "https://wa.me/" + ANGEL + "?text=" + t;
     var ios = /iPad|iPhone|iPod/.test(navigator.userAgent);
