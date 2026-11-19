@@ -142,3 +142,37 @@
   setLook(LOOKS[savedLook] ? savedLook : "a");
   setLang(savedLang === "en" ? "en" : "es");
 })();
+
+// ---------- landing intro ----------
+(function () {
+  var root = document.documentElement, intro = document.getElementById("intro");
+  if (!intro) return;
+  var bg = intro.querySelector(".intro-bg");
+  root.classList.add("intro-open");
+  if (bg) { bg.muted = true; var p = bg.play(); if (p && p.catch) p.catch(function () {}); }
+  function enter() {
+    if (intro.classList.contains("gone")) return;
+    window.scrollTo(0, 0);
+    intro.classList.add("gone");
+    root.classList.remove("intro-open");
+    setTimeout(function () { intro.classList.add("hidden"); if (bg) bg.pause(); }, 950);
+  }
+  function show() {
+    intro.classList.remove("hidden");
+    requestAnimationFrame(function () { intro.classList.remove("gone"); });
+    root.classList.add("intro-open");
+    if (bg) { var p = bg.play(); if (p && p.catch) p.catch(function () {}); }
+  }
+  document.getElementById("introEnter").addEventListener("click", enter);
+  document.getElementById("introScroll").addEventListener("click", enter);
+  intro.addEventListener("wheel", function (e) { if (e.deltaY > 30) enter(); }, { passive: true });
+  var ty = null;
+  intro.addEventListener("touchstart", function (e) { ty = e.touches[0].clientY; }, { passive: true });
+  intro.addEventListener("touchend", function (e) {
+    if (ty !== null && ty - e.changedTouches[0].clientY > 70 && intro.scrollTop + intro.clientHeight >= intro.scrollHeight - 4) enter();
+    ty = null;
+  }, { passive: true });
+  document.addEventListener("keydown", function (e) { if (!intro.classList.contains("gone") && (e.key === "Enter" || e.key === "ArrowDown" || e.key === " ")) { if (document.activeElement && document.activeElement.closest && document.activeElement.closest("#picker")) return; e.preventDefault(); enter(); } });
+  var logo = document.querySelector(".nav .logo");
+  if (logo) logo.addEventListener("click", function (e) { e.preventDefault(); show(); });
+})();
