@@ -64,10 +64,9 @@
   var wa = document.getElementById("wantWa"), sms = document.getElementById("wantSms");
   function updateWant() {
     var es = root.lang === "es";
-    var extra = current === "f" ? (es ? ", secciones oscuras opción " + variant + " (" + VNAMES[variant][1] + ")" : ", dark sections option " + variant + " (" + VNAMES[variant][0] + ")") : "";
     var msg = es
-      ? "Hola Angel, soy Hiram. Quiero el estilo " + LOOKS[current] + extra + " para la página de Pressa."
-      : "Hi Angel, it's Hiram. I want Look " + LOOKS[current] + extra + " for the Pressa website.";
+      ? "Hola Angel, soy Hiram. Quiero la opción " + variant + " (" + VNAMES[variant][1] + ") para la página de Pressa."
+      : "Hi Angel, it's Hiram. I want option " + variant + " (" + VNAMES[variant][0] + ") for the Pressa website.";
     var t = encodeURIComponent(msg);
     wa.href = "https://wa.me/" + ANGEL + "?text=" + t;
     var ios = /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -166,7 +165,7 @@
   // ---------- init ----------
   var savedLook = "a", savedLang = "es";
   try { savedLook = localStorage.getItem("pressa-look2") || "a"; savedLang = localStorage.getItem("pressa-lang") || "es"; } catch (e) {}
-  setLook(LOOKS[savedLook] ? savedLook : "a");
+  setLook("f");
   setLang(savedLang === "en" ? "en" : "es");
 })();
 

@@ -469,3 +469,7 @@ html.intro-open body{overflow:hidden}
 .vchip.on{background:#e8681c;border-color:#e8681c;color:#141414}
 @media(max-width:760px){.pk-variants{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.pk-variants::-webkit-scrollbar{display:none}.pkv-label{white-space:nowrap}}
 @media(max-width:760px){.pk-variants{order:1}.pk-actions{order:2}}
+
+/* Single look: dark-section options are the only choice */
+.pk-variants{order:0;width:auto;padding-top:0}
+@media(max-width:760px){.pk-variants{width:100%;order:1}.pk-actions{order:2}}
