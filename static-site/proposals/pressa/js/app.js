@@ -142,7 +142,7 @@
 
   // ---------- policies modal ----------
   var POL = {
-    returns: ["Returns and Refunds", "Devoluciones y reembolsos", "30-day return window. Full policy drafted by Finesse Media for your attorney to review.", "30 días para devolver. Política completa redactada por Finesse Media para revisión de tu abogado."],
+    returns: ["Returns and Refunds", "Devoluciones y reembolsos", "Return and refund terms will be listed here once confirmed.", "Los términos de devoluciones y reembolsos se publicarán aquí una vez confirmados."],
     shipping: ["Shipping Policy", "Política de envíos", "USA only, real carrier rates at checkout, packed and shipped by Pressa from Florida.", "Solo EE. UU., tarifas reales al pagar, empacado y enviado por Pressa desde Florida."],
     warranty: ["Warranty", "Garantía", "Warranty terms go here once you confirm the coverage period.", "Los términos de garantía van aquí cuando confirmes el período de cobertura."],
     terms: ["Terms of Service", "Términos de servicio", "Standard store terms, drafted for attorney review.", "Términos estándar de la tienda, redactados para revisión legal."],
