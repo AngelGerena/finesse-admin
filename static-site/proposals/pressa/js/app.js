@@ -1,7 +1,7 @@
 (function () {
   var root = document.documentElement;
   var ANGEL = "14079609004";
-  var LOOKS = { a: "A (Studio)", b: "B (Precision)", c: "C (Editorial)", d: "D (Steel)", e: "E (Red Block)" };
+  var LOOKS = { a: "A (Studio)", b: "B (Precision)", c: "C (Editorial)", d: "D (Steel)", e: "E (Red Block)", f: "F (Black & Orange)" };
   var PRICE = 299; // sample price until Hiram confirms
   var current = "a";
 
@@ -27,7 +27,7 @@
   var chips = document.querySelectorAll(".chip");
   function setLook(k) {
     current = k;
-    root.classList.remove("look-a", "look-b", "look-c", "look-d", "look-e");
+    root.classList.remove("look-a", "look-b", "look-c", "look-d", "look-e", "look-f");
     root.classList.add("look-" + k);
     chips.forEach(function (c) { c.classList.toggle("on", c.dataset.look === k); if (c.dataset.look === k && c.parentNode.scrollWidth > c.parentNode.clientWidth) { c.parentNode.scrollLeft = c.offsetLeft - c.parentNode.offsetLeft - 8; } });
     try { localStorage.setItem("pressa-look2", k); } catch (e) {}
@@ -63,14 +63,12 @@
 
   var COLORS = { black: { en: "Black", es: "Negro", hex: "#1b1b1d" }, orange: { en: "Orange", es: "Anaranjada", hex: "#e8681c" } };
   var colorName = document.getElementById("colorName");
-  var shopArt = document.querySelector(".shop-media .stand-art");
   function setColor(k) {
     document.querySelectorAll(".sw").forEach(function (s) { s.classList.toggle("on", s.dataset.color === k); });
     colorName.innerHTML = '<span data-l="en">' + COLORS[k].en + '</span><span data-l="es">' + COLORS[k].es + "</span>";
-    shopArt.style.setProperty("--sw-color", COLORS[k].hex);
   }
   document.querySelectorAll(".sw").forEach(function (s) { s.addEventListener("click", function () { setColor(s.dataset.color); }); });
-  setColor("black");
+  setColor("orange");
 
   // ---------- toast ----------
   var toast = document.getElementById("toast"), tt;
@@ -82,14 +80,30 @@
     say("Preview only: this opens secure Stripe checkout at launch.", "Vista previa: aquí se abre el pago seguro de Stripe al lanzar.");
   });
 
-  // ---------- video placeholders ----------
+  // ---------- videos (play inside the page) ----------
+  var cine = document.getElementById("cine"), cineVid = document.getElementById("cineVid");
+  document.getElementById("cinePlay").addEventListener("click", function () {
+    cine.classList.add("playing"); cineVid.controls = true; cineVid.muted = false;
+    var p = cineVid.play(); if (p && p.catch) p.catch(function () {});
+  });
+  cineVid.addEventListener("ended", function () { cine.classList.remove("playing"); cineVid.controls = false; cineVid.currentTime = 0; });
   document.querySelectorAll("[data-video]").forEach(function (b) {
     b.addEventListener("click", function () {
-      openModal(root.lang === "es"
-        ? "<h3>Video</h3><p>Aquí se reproduce tu video " + (b.dataset.video === "made" ? "de fabricación" : "demostrativo") + " dentro de la página, sin salir a YouTube.</p>"
-        : "<h3>Video</h3><p>Your " + (b.dataset.video === "made" ? "manufacturing" : "demo") + " video plays right here on the page, without sending visitors off to YouTube.</p>");
+      openModal('<video class="vmodal-vid" controls playsinline autoplay poster="images/video-poster.jpg"><source src="video/pressa-video.mp4" type="video/mp4"></video>', true);
+      var v = body.querySelector("video"); var p = v.play(); if (p && p.catch) p.catch(function () {});
     });
   });
+  var heroVid = document.querySelector(".hero-vid");
+  if (heroVid) { heroVid.muted = true; var hp = heroVid.play(); if (hp && hp.catch) hp.catch(function () {}); }
+
+  // ---------- scroll reveal ----------
+  var rvs = document.querySelectorAll(".rv");
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    rvs.forEach(function (el) { io.observe(el); });
+  } else { rvs.forEach(function (el) { el.classList.add("in"); }); }
 
   // ---------- forms (preview) ----------
   document.querySelectorAll("form[data-form]").forEach(function (f) {
@@ -109,8 +123,9 @@
     privacy: ["Privacy Policy", "Política de privacidad", "How customer data, orders and accounts are handled.", "Cómo se manejan los datos, pedidos y cuentas de los clientes."]
   };
   var modal = document.getElementById("modal"), body = document.getElementById("modalBody");
-  function openModal(html) { body.innerHTML = html; modal.hidden = false; }
-  function closeModal() { modal.hidden = true; }
+  var box = document.querySelector(".modal-box");
+  function openModal(html, wide) { body.innerHTML = html; box.classList.toggle("wide", !!wide); modal.hidden = false; }
+  function closeModal() { var v = body.querySelector("video"); if (v) v.pause(); body.innerHTML = ""; modal.hidden = true; }
   document.getElementById("modalX").addEventListener("click", closeModal);
   modal.addEventListener("click", function (e) { if (e.target === modal) closeModal(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeModal(); });
