@@ -436,3 +436,10 @@ html.intro-open body{overflow:hidden}
   .intro-scroll{display:none}
 }
 @media (prefers-reduced-motion:reduce){.intro-in > *,.intro-bg{animation:none}.intro{transition:none}}
+
+/* Look F: dark charcoal "How it works" section */
+.look-f #how{--bg:#232326;--alt:#232326;--ink:#f4f1ec;--muted:#b9b3ab;--line:#3a383b;--card:#2d2d31;background:#232326;color:var(--ink)}
+.look-f #how .step{background:#2d2d31}
+.look-f #how .num{color:#141414}
+.look-f #how .feat-img{box-shadow:0 18px 40px -24px rgba(0,0,0,.8)}
+.look-f .d1::after{background:var(--bot,#232326)}
