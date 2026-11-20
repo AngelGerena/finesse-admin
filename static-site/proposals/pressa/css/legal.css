@@ -1,0 +1,38 @@
+/* Pressa legal pages */
+html{font-variant-emoji:text;-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:80px}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;max-width:100%;overflow-x:hidden}
+html[lang="en"] [data-l="es"],html[lang="es"] [data-l="en"]{display:none!important}
+body{background:#f5f3f0;color:#141414;font:16px/1.7 "Inter",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#c9550f}
+.lg-top{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 18px;background:#141414;color:#f4f1ec}
+.lg-back{display:inline-flex;align-items:center;gap:6px;color:#f4f1ec;text-decoration:none;font-weight:500;font-size:.92rem}
+.lg-back svg{width:18px;height:18px;fill:#e8681c}
+.lg-logo{height:40px;width:auto}
+.lg-lang{font:600 .78rem "Inter",sans-serif;width:40px;height:34px;border-radius:999px;border:1px solid #3a383b;background:#232326;color:#f4f1ec;cursor:pointer}
+.lg-wrap{max-width:820px;margin:0 auto;padding:28px 20px 60px}
+.lg-draft{display:flex;gap:12px;align-items:flex-start;background:#fff4ec;border:1px solid #f3c7a6;border-radius:14px;padding:14px 16px;margin-bottom:28px;font-size:.9rem;line-height:1.5}
+.lg-draft svg{width:22px;height:22px;fill:#c9550f;flex:none;margin-top:1px}
+.lg-draft p{margin:0}
+.lg-draft b{display:block;margin-bottom:2px}
+article{background:#fff;border:1px solid #e6e1da;border-radius:18px;padding:34px 32px}
+h1{font-family:"Outfit",sans-serif;font-size:clamp(1.9rem,4.5vw,2.6rem);line-height:1.1;margin:0 0 6px;letter-spacing:-.02em}
+.lg-meta{color:#7a746c;font-size:.88rem;margin:0 0 22px}
+h2{font-family:"Outfit",sans-serif;font-size:1.25rem;margin:34px 0 8px;scroll-margin-top:80px}
+p,li{color:#3a3632}
+ul{padding-left:1.2em}
+li{margin-bottom:6px}
+.lg-toc{background:#f5f3f0;border-radius:12px;padding:16px 20px;margin:20px 0 8px;font-size:.92rem}
+.lg-toc ol{margin:8px 0 0;padding-left:1.3em;columns:2;column-gap:28px}
+.lg-toc li{margin:0 0 4px;break-inside:avoid}
+.lg-toc a{color:#141414;text-decoration:none}
+.lg-toc a:hover{color:#c9550f;text-decoration:underline}
+.lg-callout{background:#141414;color:#f4f1ec;border-left:4px solid #e8681c;border-radius:10px;padding:16px 18px}
+.lg-callout b{color:#fff}
+.lg-foot{text-align:center;font-size:.85rem;color:#7a746c;padding:0 20px 40px}
+@media(max-width:600px){
+  .lg-wrap{padding:18px 14px 44px}
+  article{padding:24px 18px;border-radius:14px}
+  .lg-toc ol{columns:1}
+  .lg-back span{display:none}
+}

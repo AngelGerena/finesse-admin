@@ -567,3 +567,8 @@ html.intro-open body{overflow:hidden}
 .sunday-note{display:flex;gap:12px;align-items:flex-start;margin:24px 0 0;padding:14px 16px;border-radius:calc(var(--radius) * .6);border:1px solid var(--line);background:var(--card);font-size:.9rem;color:var(--muted);line-height:1.45}
 .sunday-note svg{width:22px;height:22px;fill:var(--brand);flex:none;margin-top:2px}
 .sunday-note b{display:block;color:var(--ink);font-size:.98rem;margin-bottom:2px}
+.policies .pol-link{font-size:.88rem;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.foot.dk .policies .pol-link{color:#b4aea6}
+.final-sale{font-size:.82rem;color:var(--muted);margin:-4px 0 14px;padding:10px 12px;border-left:3px solid var(--brand);background:var(--card);border-radius:6px}
+.final-sale b{color:var(--ink)}
+.final-sale a{color:var(--brand)}
