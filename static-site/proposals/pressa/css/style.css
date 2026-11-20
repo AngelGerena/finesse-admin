@@ -575,3 +575,11 @@ html.intro-open body{overflow:hidden}
 .ct-name{font-weight:600}
 .ct-stack{display:flex;flex-direction:column;gap:3px;min-width:0}
 .ct-tag{display:inline-block;align-self:flex-start;font-size:.74rem;font-weight:600;letter-spacing:.03em;color:var(--brand);border:1px solid var(--brand);border-radius:999px;padding:2px 9px;line-height:1.5}
+
+/* Video / photo pop-up: black and orange */
+.modal{background:rgba(0,0,0,.82)}
+.modal-box.wide{background:#0b0b0c;border:1.5px solid #e8681c;box-shadow:0 30px 80px -20px rgba(232,104,28,.35);padding:56px 14px 14px}
+.modal-box.wide .modal-x{top:12px;right:12px;width:38px;height:38px;background:#e8681c;box-shadow:0 6px 18px -6px rgba(232,104,28,.6)}
+.modal-box.wide .modal-x svg{fill:#141414}
+.modal-box.wide .modal-x:hover{background:#ff7a2b}
+.modal-box.wide .vmodal-vid,.modal-box.wide .vmodal-img{border-radius:10px}
