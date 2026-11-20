@@ -51,7 +51,7 @@
 
 <!-- ============ LANDING INTRO ============ -->
 <section class="intro" id="intro" aria-label="Pressa Stand 360">
-  <video class="intro-bg" autoplay muted loop playsinline preload="auto" poster="images/loop-poster.jpg" aria-hidden="true">
+  <video class="intro-bg px-intro" autoplay muted loop playsinline preload="auto" poster="images/loop-poster.jpg" aria-hidden="true">
     <source src="video/pressa-loop.mp4" type="video/mp4">
   </video>
   <div class="intro-shade" aria-hidden="true"></div>
@@ -90,7 +90,7 @@
 </section>
 
 <!-- ============ SITE ============ -->
-<header class="nav">
+<header class="nav" id="siteNav"><span class="scroll-bar" id="scrollBar" aria-hidden="true"></span>
   <div class="wrap nav-in">
     <a href="#top" class="logo"><img src="images/pressa-logo-mark.png" alt="Pressa Stand 360" width="290" height="224"></a>
     <nav class="nav-links">
@@ -135,7 +135,7 @@
       </div>
       <div class="hero-media">
         <div class="media-frame product-shot">
-          <video class="hero-vid" autoplay muted loop playsinline preload="auto" poster="images/loop-poster.jpg" aria-label="Pressa Stand 360 rotating a door">
+          <video class="hero-vid px" data-speed="0.12" autoplay muted loop playsinline preload="auto" poster="images/loop-poster.jpg" aria-label="Pressa Stand 360 rotating a door">
             <source src="video/pressa-loop.mp4" type="video/mp4">
           </video>
           <span class="live-tag"><i></i>360° <span data-l="en">rotation</span><span data-l="es">rotación</span></span>
@@ -171,22 +171,22 @@
       </div>
 
       <div class="features">
-        <div class="feat rv"><figure class="feat-img"><img src="images/f-rotate.jpg" alt="Full 360° rotation" loading="lazy" width="720" height="340"></figure>
+        <div class="feat rv"><figure class="feat-img"><img class="px" data-speed="0.08" src="images/f-rotate.jpg" alt="Full 360° rotation" loading="lazy" width="720" height="340"></figure>
           <h4><span data-l="en">Full 360° rotation</span><span data-l="es">Rotación completa de 360°</span></h4>
           <p><span data-l="en">Both faces and every edge, from one setup.</span><span data-l="es">Ambas caras y todos los bordes, en un solo montaje.</span></p></div>
-        <div class="feat rv"><figure class="feat-img"><img src="images/f-speed.jpg" alt="Faster production" loading="lazy" width="720" height="340"></figure>
+        <div class="feat rv"><figure class="feat-img"><img class="px" data-speed="0.08" src="images/f-speed.jpg" alt="Faster production" loading="lazy" width="720" height="340"></figure>
           <h4><span data-l="en">Faster production</span><span data-l="es">Producción más rápida</span></h4>
           <p><span data-l="en">Finish both sides without dead time between coats.</span><span data-l="es">Termina ambos lados sin tiempo muerto entre capas.</span></p></div>
-        <div class="feat rv"><figure class="feat-img"><img src="images/f-body.jpg" alt="Protects your body" loading="lazy" width="720" height="340"></figure>
+        <div class="feat rv"><figure class="feat-img"><img class="px" data-speed="0.08" src="images/f-body.jpg" alt="Protects your body" loading="lazy" width="720" height="340"></figure>
           <h4><span data-l="en">Protects your body</span><span data-l="es">Protege tu cuerpo</span></h4>
           <p><span data-l="en">Less bending and kneeling, less strain on back and knees.</span><span data-l="es">Menos agacharse y arrodillarse, menos carga en espalda y rodillas.</span></p></div>
-        <div class="feat rv"><figure class="feat-img"><img src="images/f-stack.jpg" alt="Stack doors, save space" loading="lazy" width="720" height="340"></figure>
+        <div class="feat rv"><figure class="feat-img"><img class="px" data-speed="0.08" src="images/f-stack.jpg" alt="Stack doors, save space" loading="lazy" width="720" height="340"></figure>
           <h4><span data-l="en">Stack doors, save space</span><span data-l="es">Apila puertas, ahorra espacio</span></h4>
           <p><span data-l="en">Anchor bars let you stack doors one above another.</span><span data-l="es">Las barras de anclaje te permiten apilar puertas una sobre otra.</span></p></div>
-        <div class="feat rv"><figure class="feat-img"><img src="images/f-aluminum.jpg" alt="Wood and aluminum" loading="lazy" width="720" height="340"></figure>
+        <div class="feat rv"><figure class="feat-img"><img class="px" data-speed="0.08" src="images/f-aluminum.jpg" alt="Wood and aluminum" loading="lazy" width="720" height="340"></figure>
           <h4><span data-l="en">Wood and aluminum</span><span data-l="es">Madera y aluminio</span></h4>
           <p><span data-l="en">Built for both, from shop doors to custom installs.</span><span data-l="es">Hecho para ambas, desde taller hasta instalaciones a la medida.</span></p></div>
-        <div class="feat rv"><figure class="feat-img"><img src="images/f-precise.jpg" alt="Fewer ruined doors" loading="lazy" width="720" height="340"></figure>
+        <div class="feat rv"><figure class="feat-img"><img class="px" data-speed="0.08" src="images/f-precise.jpg" alt="Fewer ruined doors" loading="lazy" width="720" height="340"></figure>
           <h4><span data-l="en">Fewer ruined doors</span><span data-l="es">Menos puertas dañadas</span></h4>
           <p><span data-l="en">Stable support means fewer dings, drips and rejects.</span><span data-l="es">Un soporte estable significa menos golpes, chorreos y desperdicio.</span></p></div>
       </div>
@@ -202,7 +202,7 @@
       <p class="sc-sub"><span data-l="en">One stand that holds, rotates and stacks your doors, so the work keeps moving.</span><span data-l="es">Un solo soporte que sostiene, gira y apila tus puertas para que el trabajo no se detenga.</span></p>
     </div>
     <figure class="sc-img rv">
-      <img src="images/showcase.jpg" alt="Pressa Stand 360 in orange" width="1675" height="788" loading="lazy">
+      <img class="sc-zoom" src="images/showcase.jpg" alt="Pressa Stand 360 in orange" width="1675" height="788" loading="lazy">
     </figure>
     <div class="sc-foot">
       <ul class="sc-stats rv">
@@ -379,31 +379,31 @@
       <h3 class="g-head rv"><span data-l="en">From the shop floor</span><span data-l="es">Desde el taller</span></h3>
       <div class="gallery">
         <button class="g-item g-tall rv" data-img="images/built/factory.jpg" aria-label="The fabrication shop">
-          <img src="images/built/factory.jpg" alt="The fabrication shop" loading="lazy">
+          <img class="px" data-speed="0.07" src="images/built/factory.jpg" alt="The fabrication shop" loading="lazy">
           <span class="g-cap"><span data-l="en">The fabrication shop</span><span data-l="es">El taller de fabricación</span></span>
         </button>
         <button class="g-item rv" data-img="images/built/sheet-a.jpg" aria-label="Laser-cut steel, fresh off the table">
-          <img src="images/built/sheet-a.jpg" alt="Laser-cut steel, fresh off the table" loading="lazy">
+          <img class="px" data-speed="0.07" src="images/built/sheet-a.jpg" alt="Laser-cut steel, fresh off the table" loading="lazy">
           <span class="g-cap"><span data-l="en">Laser-cut steel, fresh off the table</span><span data-l="es">Acero recién cortado con láser</span></span>
         </button>
         <button class="g-item g-tall rv" data-img="images/built/stand-t.jpg" aria-label="Raw steel, before finish">
-          <img src="images/built/stand-t.jpg" alt="Raw steel, before finish" loading="lazy">
+          <img class="px" data-speed="0.07" src="images/built/stand-t.jpg" alt="Raw steel, before finish" loading="lazy">
           <span class="g-cap"><span data-l="en">Raw steel, before finish</span><span data-l="es">Acero crudo, antes del acabado</span></span>
         </button>
         <button class="g-item g-tall rv" data-img="images/built/hub.jpg" aria-label="The rotation hub up close">
-          <img src="images/built/hub.jpg" alt="The rotation hub up close" loading="lazy">
+          <img class="px" data-speed="0.07" src="images/built/hub.jpg" alt="The rotation hub up close" loading="lazy">
           <span class="g-cap"><span data-l="en">The rotation hub up close</span><span data-l="es">El eje de rotación de cerca</span></span>
         </button>
         <button class="g-item g-big rv" data-img="images/built/sheet-b.jpg" aria-label="PRESSA cut into every arm">
-          <img src="images/built/sheet-b.jpg" alt="PRESSA cut into every arm" loading="lazy">
+          <img class="px" data-speed="0.07" src="images/built/sheet-b.jpg" alt="PRESSA cut into every arm" loading="lazy">
           <span class="g-cap"><span data-l="en">PRESSA cut into every arm</span><span data-l="es">PRESSA cortado en cada brazo</span></span>
         </button>
         <button class="g-item g-tall rv" data-img="images/built/two-stands.jpg" aria-label="A matched pair, ready for a door">
-          <img src="images/built/two-stands.jpg" alt="A matched pair, ready for a door" loading="lazy">
+          <img class="px" data-speed="0.07" src="images/built/two-stands.jpg" alt="A matched pair, ready for a door" loading="lazy">
           <span class="g-cap"><span data-l="en">A matched pair, ready for a door</span><span data-l="es">Un par listo para la puerta</span></span>
         </button>
         <button class="g-item g-tall rv" data-img="images/built/forklift.jpg" aria-label="Built for the shop floor">
-          <img src="images/built/forklift.jpg" alt="Built for the shop floor" loading="lazy">
+          <img class="px" data-speed="0.07" src="images/built/forklift.jpg" alt="Built for the shop floor" loading="lazy">
           <span class="g-cap"><span data-l="en">Built for the shop floor</span><span data-l="es">Hecho para el taller</span></span>
         </button>
       </div>

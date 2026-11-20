@@ -587,3 +587,35 @@ html.intro-open body{overflow:hidden}
 /* Waitlist button: white text on black (was black on black) */
 .look-f .waitlist .btn-primary,.look-e .waitlist .btn-primary{background:#141414;color:#fff}
 .look-f .waitlist .btn-primary:hover,.look-e .waitlist .btn-primary:hover{background:#2a2a2d;color:#fff}
+
+/* ===================== PREMIUM POLISH + PARALLAX ===================== */
+::selection{background:var(--brand);color:#141414}
+.nav{transition:box-shadow .3s ease,background .3s ease}
+.nav.scrolled{box-shadow:0 10px 30px -18px rgba(0,0,0,.35)}
+.scroll-bar{position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:linear-gradient(90deg,var(--brand),#ffb27a);transform-origin:0 50%;transform:scaleX(0);pointer-events:none}
+/* parallax layers: images get a little extra room so movement never shows an edge */
+.px{will-change:transform;transform:translate3d(0,var(--py,0px),0) scale(1.14)}
+.hero-vid.px{transform:translate3d(0,var(--py,0px),0) scale(1.12)}
+.px-intro{transform:translate3d(0,var(--iy,0px),0) scale(1.08)!important;animation:none!important}
+.sc-zoom{transform:scale(var(--sz,1.12));transform-origin:50% 60%;will-change:transform}
+.feat-img,.g-item,.b-media,.product-shot{overflow:hidden}
+.feat:hover .feat-img img.px,.g-item:hover img.px{transform:translate3d(0,var(--py,0px),0) scale(1.2)}
+.g-item img.px{transition:transform .6s ease}
+/* shine sweep on main buttons */
+.btn-primary,.intro-enter{position:relative;overflow:hidden;isolation:isolate}
+.btn-primary::after,.intro-enter::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);transition:left .7s ease;z-index:-1;pointer-events:none}
+.btn-primary:hover::after,.intro-enter:hover::after{left:120%}
+/* refined section headings */
+.sec h2,.showcase h2,.built-head h2{letter-spacing:-.025em}
+.eyebrow{display:inline-flex;align-items:center;gap:10px}
+.look-f .sec .eyebrow::before,.look-f .built .eyebrow::before{content:"";width:22px;height:2px;background:var(--brand);display:inline-block}
+.made-head .eyebrow,.built-head .eyebrow,.showcase .eyebrow{justify-content:center}
+/* softer card depth */
+.step,.b-step,.contact-form,.media-frame{transition:transform .35s ease,box-shadow .35s ease}
+.step:hover{transform:translateY(-4px);box-shadow:0 26px 50px -32px rgba(0,0,0,.45)}
+/* tablet: keep landing content near the top */
+@media(max-width:900px){.intro{place-items:start center;overflow-y:auto}.intro-in{padding-top:26px}}
+@media (prefers-reduced-motion:reduce){
+  .px,.hero-vid.px,.px-intro,.sc-zoom{transform:none!important}
+  .btn-primary::after,.intro-enter::after{display:none}
+}
