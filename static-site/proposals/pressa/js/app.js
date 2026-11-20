@@ -226,13 +226,10 @@
 })();
 
 
-// ---------- premium motion: parallax, progress bar, counters ----------
+// ---------- premium motion: progress bar, counters ----------
 (function () {
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var nav = document.getElementById("siteNav"), bar = document.getElementById("scrollBar");
-  var layers = [].slice.call(document.querySelectorAll(".px"));
-  var introBg = document.querySelector(".px-intro"), intro = document.getElementById("intro");
-  var zoom = document.querySelector(".sc-zoom");
   var ticking = false;
   function frame() {
     ticking = false;
@@ -240,35 +237,11 @@
     var max = document.documentElement.scrollHeight - vh;
     if (bar) bar.style.transform = "scaleX(" + (max > 0 ? Math.min(1, y / max) : 0) + ")";
     if (nav) nav.classList.toggle("scrolled", y > 10);
-    if (reduce) return;
-    for (var i = 0; i < layers.length; i++) {
-      var el = layers[i], box = el.parentElement.getBoundingClientRect();
-      if (box.bottom < -100 || box.top > vh + 100) continue;
-      var speed = parseFloat(el.getAttribute("data-speed")) || 0.08;
-      var offset = (box.top + box.height / 2 - vh / 2) * -speed;
-      el.style.setProperty("--py", offset.toFixed(1) + "px");
-    }
-    if (zoom) {
-      var zb = zoom.getBoundingClientRect();
-      if (zb.bottom > 0 && zb.top < vh) {
-        var t = Math.min(1, Math.max(0, (vh - zb.top) / (vh + zb.height * 0.5)));
-        zoom.style.setProperty("--sz", (1.12 - 0.12 * t).toFixed(4));
-      }
-    }
   }
   function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onScroll);
   frame();
-  // landing background drifts as the intro scrolls (phones/tablets) or the mouse moves (desktop)
-  if (intro && introBg && !reduce) {
-    intro.addEventListener("scroll", function () { introBg.style.setProperty("--iy", (intro.scrollTop * 0.35).toFixed(1) + "px"); }, { passive: true });
-    intro.addEventListener("mousemove", function (e) {
-      var r = intro.getBoundingClientRect();
-      var dy = ((e.clientY - r.top) / r.height - 0.5) * -14;
-      introBg.style.setProperty("--iy", dy.toFixed(1) + "px");
-    });
-  }
   // number counters
   var counters = [].slice.call(document.querySelectorAll(".hero-facts b, .sc-stats b"));
   function animate(el) {
