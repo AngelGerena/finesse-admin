@@ -36,3 +36,8 @@ li{margin-bottom:6px}
   .lg-toc ol{columns:1}
   .lg-back span{display:none}
 }
+.lg-pat{width:100%;border-collapse:collapse;margin:12px 0 22px;font-size:.92rem}
+.lg-pat th{text-align:left;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:#c9550f;padding:0 12px 8px;border-bottom:2px solid #e8681c}
+.lg-pat td{padding:12px;border-bottom:1px solid #e7e3dd;vertical-align:top}
+@media(max-width:600px){.lg-pat thead{display:none}.lg-pat tr{display:block;border-bottom:1px solid #e7e3dd;padding:10px 0}.lg-pat td{display:block;border:0;padding:2px 0}}
+.lg-pat td b{white-space:nowrap}
