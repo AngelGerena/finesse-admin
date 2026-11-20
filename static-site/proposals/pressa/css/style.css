@@ -583,3 +583,7 @@ html.intro-open body{overflow:hidden}
 .modal-box.wide .modal-x svg{fill:#141414}
 .modal-box.wide .modal-x:hover{background:#ff7a2b}
 .modal-box.wide .vmodal-vid,.modal-box.wide .vmodal-img{border-radius:10px}
+
+/* Waitlist button: white text on black (was black on black) */
+.look-f .waitlist .btn-primary,.look-e .waitlist .btn-primary{background:#141414;color:#fff}
+.look-f .waitlist .btn-primary:hover,.look-e .waitlist .btn-primary:hover{background:#2a2a2d;color:#fff}
