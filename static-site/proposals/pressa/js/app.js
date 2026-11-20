@@ -172,11 +172,31 @@
   };
   var modal = document.getElementById("modal"), body = document.getElementById("modalBody");
   var box = document.querySelector(".modal-box");
-  function openModal(html, wide) { body.innerHTML = html; box.classList.toggle("wide", !!wide); modal.hidden = false; }
+  function openModal(html, wide) { body.innerHTML = html; box.classList.toggle("wide", !!wide); box.classList.remove("pat"); modal.hidden = false; }
   function closeModal() { var v = body.querySelector("video"); if (v) v.pause(); body.innerHTML = ""; modal.hidden = true; }
   document.getElementById("modalX").addEventListener("click", closeModal);
   modal.addEventListener("click", function (e) { if (e.target === modal) closeModal(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeModal(); });
+  // patents pop-up
+  var PAT = [
+    ["U.S. Patent 11,878,404 B2", "Utility patent", "Patente de utilidad", "Covers the Pressa Stand 360 system", "Protege el sistema Pressa Stand 360"],
+    ["U.S. Design Patent D1,120,726 S", "Design patent · Granted Mar. 31, 2026", "Patente de diseño · Otorgada el 31 de marzo de 2026", "Paint stand wood door holder", "Sujetador de puertas de madera para soporte de pintura"],
+    ["U.S. Design Patent D1,122,062 S", "Design patent · Granted Apr. 14, 2026", "Patente de diseño · Otorgada el 14 de abril de 2026", "Paint stand metal door holder", "Sujetador de puertas de metal para soporte de pintura"]
+  ];
+  function patentsHTML() {
+    var es = root.lang === "es", rows = PAT.map(function (p) {
+      return '<li><b>' + p[0] + '</b><span class="pm-type">' + (es ? p[2] : p[1]) + '</span><span>' + (es ? p[4] : p[3]) + '</span></li>';
+    }).join("");
+    return '<p class="pm-eye">' + (es ? "Patentes y marcas" : "Patents & trademarks") + '</p>' +
+      '<h3>' + (es ? "Protegido por 3 patentes de EE. UU." : "Protected by 3 U.S. patents") + '</h3>' +
+      '<ul class="pm-list">' + rows + '</ul>' +
+      '<p class="pm-tm">' + (es ? "PRESSA&trade; y el logo JL son marcas registradas en Puerto Rico de Hiram Díaz Moreno (Reg. 238607, 238608, 238609)." : "PRESSA&trade; and the JL logo are Puerto Rico registered trademarks of Hiram Díaz Moreno (Reg. 238607, 238608, 238609).") + '</p>' +
+      '<a class="pm-link" href="patents.html">' + (es ? "Ver página de patentes" : "View patents page") + '</a>';
+  }
+  document.querySelectorAll("[data-patents]").forEach(function (b) {
+    b.addEventListener("click", function () { openModal(patentsHTML(), false); box.classList.add("pat"); });
+  });
+
   document.querySelectorAll("[data-policy]").forEach(function (b) {
     b.addEventListener("click", function () {
       var p = POL[b.dataset.policy], es = root.lang === "es";
