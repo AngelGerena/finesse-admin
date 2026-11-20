@@ -122,6 +122,31 @@
   var heroVid = document.querySelector(".hero-vid");
   if (heroVid) { heroVid.muted = true; var hp = heroVid.play(); if (hp && hp.catch) hp.catch(function () {}); }
 
+  // ---------- how it's made: loops play only when visible ----------
+  var loops = document.querySelectorAll(".b-loop");
+  if ("IntersectionObserver" in window) {
+    var lo = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) { v.muted = true; var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        else { v.pause(); }
+      });
+    }, { threshold: 0.35 });
+    loops.forEach(function (v) { lo.observe(v); });
+  }
+  document.querySelectorAll(".b-step").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var tall = b.querySelector(".b-tall") ? " tall" : "";
+      openModal('<video class="vmodal-vid' + tall + '" controls playsinline autoplay poster="' + b.dataset.poster + '"><source src="' + b.dataset.src + '" type="video/mp4"></video>', true);
+      var v = body.querySelector("video"); var p = v.play(); if (p && p.catch) p.catch(function () {});
+    });
+  });
+  document.querySelectorAll(".g-item").forEach(function (g) {
+    g.addEventListener("click", function () {
+      openModal('<img class="vmodal-img" src="' + g.dataset.img + '" alt="">', true);
+    });
+  });
+
   // ---------- scroll reveal ----------
   var rvs = document.querySelectorAll(".rv");
   if ("IntersectionObserver" in window) {
