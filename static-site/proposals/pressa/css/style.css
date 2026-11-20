@@ -527,3 +527,38 @@ html.intro-open body{overflow:hidden}
   .gallery .g-item:first-child{grid-column:span 2;aspect-ratio:4/3}
   .gallery .g-item:not(.g-tall){grid-column:span 2;margin:0}
 }
+
+/* ===== SHOWCASE (product reveal) ===== */
+.showcase{background:#000;color:#f4f1ec;padding:72px 0 64px;text-align:center;overflow:hidden}
+.sc-head{max-width:820px;margin:0 auto;padding:0 22px;position:relative;z-index:1}
+.sc-head h2{font-size:clamp(2rem,5vw,3.6rem);color:#fff;margin-bottom:14px}
+.sc-sub{color:#b9b3ab;font-size:clamp(1rem,1.5vw,1.15rem);max-width:36em;margin:0 auto}
+.sc-img{margin:-10px auto 0;max-width:1400px;position:relative}
+.sc-img img{width:100%;height:auto;display:block}
+.sc-img::before,.sc-img::after{content:"";position:absolute;top:0;bottom:0;width:12%;z-index:1;pointer-events:none}
+.sc-img::before{left:0;background:linear-gradient(90deg,#000,transparent)}
+.sc-img::after{right:0;background:linear-gradient(270deg,#000,transparent)}
+.sc-foot{max-width:1000px;margin:0 auto;padding:0 22px}
+.sc-stats{list-style:none;padding:34px 0 0;margin:0 0 34px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;border-top:1px solid #2a2a2d}
+.sc-stats li{display:flex;flex-direction:column;gap:4px;font-size:.9rem;color:#b9b3ab}
+.sc-stats b{font-family:var(--head);font-size:clamp(1.8rem,3.4vw,2.6rem);line-height:1.05;color:var(--brand)}
+.sc-ctas{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.sc-ghost{border:1.5px solid rgba(255,255,255,.4);color:#fff}
+.sc-ghost:hover{background:#fff;color:#141414}
+@media(max-width:600px){
+  .showcase{padding:52px 0 48px}
+  .sc-img{margin-top:6px}
+  .sc-stats{grid-template-columns:1fr;gap:18px;padding-top:26px}
+  .sc-stats li{flex-direction:row;align-items:baseline;justify-content:center;gap:10px}
+  .sc-stats b{font-size:1.9rem}
+  .sc-ctas .btn{flex:1 1 100%}
+}
+/* showcase: fade every edge into black */
+.sc-img::before,.sc-img::after{display:none}
+.sc-img img{
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 14%,#000 72%,transparent 100%),linear-gradient(to right,transparent 0,#000 14%,#000 86%,transparent 100%);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(to bottom,transparent 0,#000 14%,#000 72%,transparent 100%),linear-gradient(to right,transparent 0,#000 14%,#000 86%,transparent 100%);
+  mask-composite:intersect}
+.sc-stats{border-top:0;padding-top:6px}
+@media(max-width:600px){.sc-img img{aspect-ratio:1/1;object-fit:cover;object-position:50% 60%}}
