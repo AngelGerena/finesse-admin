@@ -572,3 +572,6 @@ html.intro-open body{overflow:hidden}
 .final-sale{font-size:.82rem;color:var(--muted);margin:-4px 0 14px;padding:10px 12px;border-left:3px solid var(--brand);background:var(--card);border-radius:6px}
 .final-sale b{color:var(--ink)}
 .final-sale a{color:var(--brand)}
+.ct-name{font-weight:600}
+.ct-stack{display:flex;flex-direction:column;gap:3px;min-width:0}
+.ct-tag{display:inline-block;align-self:flex-start;font-size:.74rem;font-weight:600;letter-spacing:.03em;color:var(--brand);border:1px solid var(--brand);border-radius:999px;padding:2px 9px;line-height:1.5}
