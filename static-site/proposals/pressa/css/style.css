@@ -562,3 +562,8 @@ html.intro-open body{overflow:hidden}
   mask-composite:intersect}
 .sc-stats{border-top:0;padding-top:6px}
 @media(max-width:600px){.sc-img img{aspect-ratio:1/1;object-fit:cover;object-position:50% 60%}}
+
+/* Sunday notice */
+.sunday-note{display:flex;gap:12px;align-items:flex-start;margin:24px 0 0;padding:14px 16px;border-radius:calc(var(--radius) * .6);border:1px solid var(--line);background:var(--card);font-size:.9rem;color:var(--muted);line-height:1.45}
+.sunday-note svg{width:22px;height:22px;fill:var(--brand);flex:none;margin-top:2px}
+.sunday-note b{display:block;color:var(--ink);font-size:.98rem;margin-bottom:2px}
