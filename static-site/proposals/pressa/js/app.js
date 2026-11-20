@@ -2,7 +2,7 @@
   var root = document.documentElement;
   var ANGEL = "14079609004";
   var LOOKS = { a: "A (Studio)", b: "B (Precision)", c: "C (Editorial)", d: "D (Steel)", e: "E (Red Block)", f: "F (Black & Orange)" };
-  var PRICE = 299; // sample price until Hiram confirms
+  var PRICE = 1497; // Hiram's estimated price
   var current = "a", variant = "1";
   var VNAMES = { "1": ["Bookends", "Extremos"], "2": ["Alternating", "Alternado"], "3": ["Full Contrast", "Contraste total"] };
   var G = "#232326", D = "#141414", W = "#ffffff", A = "#f5f3f0", O = "#e8681c";
