@@ -635,3 +635,5 @@ html.intro-open body{overflow:hidden}
 .pm-type{color:#e8681c;font-size:.8rem;font-weight:600}
 .modal-box.pat .pm-tm{font-size:.84rem;color:#9d978f}
 .pm-link{display:inline-block;margin-top:4px;color:#e8681c;font-weight:600;font-size:.9rem}
+.look-f .intro-h,.look-e .intro-h{font-weight:700}
+.intro-h em{font-style:normal;color:var(--brand);display:block}
