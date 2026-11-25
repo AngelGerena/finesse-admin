@@ -51,7 +51,7 @@
     { id: "inbox", icon: "inbox", en: "Messages", es: "Mensajes", count: newCount },
     { id: "orders", icon: "box", en: "Orders", es: "Pedidos" },
     { id: "store", icon: "tag", en: "Store", es: "Tienda" },
-    { id: "site", icon: "pen", en: "Website words", es: "Textos del sitio" },
+    { id: "site", icon: "pen", en: "Website content", es: "Contenido del sitio" },
     { id: "media", icon: "image", en: "Photos & videos", es: "Fotos y videos" },
     { id: "settings", icon: "gear", en: "Settings", es: "Ajustes" }
   ];
@@ -71,7 +71,7 @@
       return '<button class="more-item" data-go="' + x.id + '">' + ic(x.icon) + "<span>" + navLabel(x) + "</span></button>";
     }).join("") + '<button class="more-item more-exit" data-act="exit">' + ic("exit") + "<span>" + L("Exit to my website", "Salir a mi sitio") + "</span></button>";
   }
-  function go(v) { if (v === view) { closeMore(); return; } if (view === "site" && unsavedKeys().length && !confirm(L("You have unsaved changes on Website words. Leave without saving?", "Tienes cambios sin guardar en Textos del sitio. ¿Salir sin guardar?"))) return; view = v; S_siteDraft = {}; closeMore(); renderNav(); render(); window.scrollTo(0, 0); try { history.replaceState(null, "", "#" + v); } catch (e) {} }
+  function go(v) { if (v === view) { closeMore(); return; } if (view === "site" && unsavedKeys().length && !confirm(L("You have unsaved changes on Website content. Leave without saving?", "Tienes cambios sin guardar en Contenido del sitio. ¿Salir sin guardar?"))) return; view = v; S_siteDraft = {}; closeMore(); renderNav(); render(); window.scrollTo(0, 0); try { history.replaceState(null, "", "#" + v); } catch (e) {} }
   function head(title, sub, actions) { return '<div class="page-h"><div><h1>' + title + "</h1>" + (sub ? '<p class="muted">' + sub + "</p>" : "") + "</div>" + (actions ? '<div class="page-actions">' + actions + "</div>" : "") + "</div>"; }
   function empty(msg, icon) { return '<div class="empty">' + ic(icon || "inbox") + "<p>" + msg + "</p></div>"; }
 
@@ -79,7 +79,7 @@
   var SETUP = [
     { id: "phones", en: "Check your phone numbers and email", es: "Revisa tus teléfonos y correo", go: "settings" },
     { id: "price", en: "Confirm the price of the stand", es: "Confirma el precio del soporte", go: "store" },
-    { id: "words", en: "Read your website words and change anything you like", es: "Lee los textos de tu sitio y cambia lo que quieras", go: "site" },
+    { id: "words", en: "Read your website content and change anything you like", es: "Lee el contenido de tu sitio y cambia lo que quieras", go: "site" },
     { id: "photo", en: "Add a new photo to your gallery", es: "Agrega una foto nueva a tu galería", go: "media" },
     { id: "clear", en: "Clear the sample messages and orders", es: "Borra los mensajes y pedidos de ejemplo", go: "settings" }
   ];
@@ -160,7 +160,7 @@
       toggleRow("black", L("Sell it in black", "Venderlo en negro"), L("Shows the black color choice in the store.", "Muestra la opción negra en la tienda."), s.colors.black) +
       toggleRow("orange", L("Sell it in orange", "Venderlo en anaranjado"), L("Shows the orange color choice in the store.", "Muestra la opción anaranjada en la tienda."), s.colors.orange) +
       '<div class="form-foot"><span class="saved" id="storeSaved" hidden>' + ic("check") + L("Saved", "Guardado") + '</span><button class="btn" id="storeSave" disabled>' + L("Save", "Guardar") + "</button></div></form>" +
-      '<p class="muted small">' + L("The words around the price, like estimated price, are in Website words.", "Las palabras alrededor del precio, como precio estimado, están en Textos del sitio.") + "</p>";
+      '<p class="muted small">' + L("The words around the price, like estimated price, are in Website content.", "Las palabras alrededor del precio, como precio estimado, están en Contenido del sitio.") + "</p>";
   }
   function toggleRow(name, t, d, on) { return '<div class="toggle"><div><b>' + t + "</b><small>" + d + '</small></div><label class="switch"><input type="checkbox" name="' + name + '"' + (on ? " checked" : "") + ' aria-label="' + esc(t) + '"><span></span></label></div>'; }
 
@@ -179,7 +179,7 @@
         '<button class="btn ghost sm" data-tip-act="replay-all">' + ic("refresh") + L("Start the tour again", "Ver el recorrido otra vez") + "</button></section>" +
       '<section class="card"><div class="card-h"><h3>' + L("Getting into your back office", "Cómo entrar a tu panel") + '</h3></div><p>' + L("On your website, press and hold the Pressa logo at the top left for 5 seconds, on your phone or your computer. Then enter your PIN and pick your name.", "En tu sitio web, mantén presionado el logo de Pressa arriba a la izquierda por 5 segundos, en el teléfono o en la computadora. Luego escribe tu PIN y escoge tu nombre.") + '</p><p class="muted small">' + L("Preview PIN: 3010. In the live version you also sign in with your own password.", "PIN de prueba: 3010. En la versión final también entras con tu propia contraseña.") + "</p></section>" +
       '<section class="card"><div class="card-h"><h3>' + L("Sample data", "Datos de ejemplo") + '</h3></div><p class="muted small">' + L("The messages and orders marked sample are here so you can practice. Clear them when you're ready.", "Los mensajes y pedidos marcados como ejemplo están aquí para practicar. Bórralos cuando estés listo.") + '</p><button class="btn ghost" data-act="clearDemo">' + ic("trash") + L("Clear sample data", "Borrar datos de ejemplo") + "</button></section>" +
-      '<section class="card se-reset"><div class="card-h"><h3>' + L("Go back to the original website", "Volver al sitio original") + '</h3></div><p class="muted small">' + L("Puts your whole website back exactly the way Finesse Media delivered it: every word, photo, video, price and contact detail. Your current words are saved first, so you can still restore them from Website words.", "Deja todo tu sitio exactamente como lo entregó Finesse Media: cada texto, foto, video, precio y dato de contacto. Tus textos de ahora se guardan antes, así que todavía los puedes restaurar en Textos del sitio.") + '</p><button class="btn danger" data-act="restoreAll">' + ic("refresh") + L("Restore original website", "Restaurar el sitio original") + "</button></section>";
+      '<section class="card se-reset"><div class="card-h"><h3>' + L("Go back to the original website", "Volver al sitio original") + '</h3></div><p class="muted small">' + L("Puts your whole website back exactly the way Finesse Media delivered it: every word, photo, video, price and contact detail. Your current words are saved first, so you can still restore them from Website content.", "Deja todo tu sitio exactamente como lo entregó Finesse Media: cada texto, foto, video, precio y dato de contacto. Tus textos de ahora se guardan antes, así que todavía los puedes restaurar en Contenido del sitio.") + '</p><button class="btn danger" data-act="restoreAll">' + ic("refresh") + L("Restore original website", "Restaurar el sitio original") + "</button></section>";
   }
   function fld(label, name, val, type, ph) { return '<label class="field"><span>' + label + '</span><input name="' + name + '" type="' + (type || "text") + '" value="' + esc(val) + '"' + (ph ? ' placeholder="' + esc(ph) + '"' : "") + (type === "tel" ? ' inputmode="tel"' : "") + "></label>"; }
 
@@ -347,7 +347,7 @@
       if (!bySec[f.s]) { bySec[f.s] = []; secs.push(f); }
       bySec[f.s].push(f);
     });
-    return head(L("Website words", "Textos del sitio"), L("Change any words on your website, in English and Spanish.", "Cambia cualquier texto de tu sitio web, en inglés y en español."),
+    return head(L("Website content", "Contenido del sitio"), L("Change any words on your website, in English and Spanish.", "Cambia cualquier texto de tu sitio web, en inglés y en español."),
         '<a class="btn ghost" href="../" target="_blank" rel="noopener">' + ic("click") + L("Open my website", "Abrir mi sitio") + "</a>") +
       '<section class="card se-safe">' + ic("shield") + "<div><b>" + L("You can't break your site from here", "Desde aquí no puedes dañar tu sitio") + '</b><p class="muted small">' + L("Only the words change, never the design. Nothing goes live until you tap Save, and every save is kept below so you can go back. Leave a box empty to use the original words.", "Solo cambian las palabras, nunca el diseño. Nada sale en el sitio hasta que tocas Guardar, y cada vez que guardas queda abajo para que puedas volver. Deja una casilla vacía para usar el texto original.") + "</p></div></section>" +
       '<label class="field se-search"><span class="sr-only">' + L("Find text", "Buscar texto") + '</span><input type="search" id="seSearch" value="' + esc(seQuery) + '" placeholder="' + L("Find a word or section, like price, hours or FAQ", "Busca una palabra o sección, como precio, horario o preguntas") + '" autocomplete="off"></label>' +
@@ -469,7 +469,7 @@
   /* ---------- actions ---------- */
   var ACT = {
     exit: function () {
-      if (view === "site" && unsavedKeys().length && !confirm(L("You have unsaved changes on Website words. Leave without saving?", "Tienes cambios sin guardar en Textos del sitio. ¿Salir sin guardar?"))) return;
+      if (view === "site" && unsavedKeys().length && !confirm(L("You have unsaved changes on Website content. Leave without saving?", "Tienes cambios sin guardar en Contenido del sitio. ¿Salir sin guardar?"))) return;
       S_siteDraft = {};
       try { sessionStorage.removeItem("pressa-owner"); } catch (e) {}
       location.href = "../";
