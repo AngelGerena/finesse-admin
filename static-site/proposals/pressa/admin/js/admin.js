@@ -103,7 +103,7 @@
           return '<li class="row"><div class="grow"><b>' + esc(m.name || m.email) + "</b>" + (m.lang === "en" ? '<span class="tag-en">EN · Felix</span>' : "") + "<small>" + (m.type === "waitlist" ? L("Joined the waitlist", "Se unió a la lista de espera") : esc(String(m.message || "").slice(0, 70)) + (String(m.message || "").length > 70 ? "..." : "")) + " · " + stamp(m.at) + "</small></div>" + (m.status === "new" ? '<span class="badge b-new">' + L("New", "Nuevo") + "</span>" : "") + "</li>";
         }).join("") + "</ul>" : empty(L("No messages yet. When someone writes from your website, it shows up here.", "Todavía no hay mensajes. Cuando alguien te escriba desde tu sitio web, sale aquí."))) +
       '</section><section class="card"><div class="card-h"><h3>' + L("Quick changes", "Cambios rápidos") + '</h3></div><div class="quick">' +
-        quick("pen", "site", L("Change website words", "Cambiar textos del sitio"), L("Headlines, prices text, FAQ, hours", "Titulares, preguntas, horario")) +
+        quick("pen", "site", L("Change website content", "Cambiar contenido del sitio"), L("Headlines, prices text, FAQ, hours", "Titulares, preguntas, horario")) +
         quick("image", "media", L("Change photos and videos", "Cambiar fotos y videos"), L("Replace a photo or add to the gallery", "Reemplaza una foto o agrega a la galería")) +
         quick("tag", "store", L("Price and pre-orders", "Precio y pre-órdenes"), L("Change the price, open or close pre-orders", "Cambia el precio, abre o cierra pre-órdenes")) +
       "</div></section></div>" +
