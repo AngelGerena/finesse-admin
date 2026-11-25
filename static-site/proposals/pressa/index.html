@@ -312,6 +312,7 @@
       <div class="sc-ctas rv">
         <a href="#shop" class="btn btn-primary"><span data-l="en" data-ek="t061">Buy now</span><span data-l="es" data-ek="t061">Comprar ahora</span></a>
         <a href="#video" class="btn sc-ghost"><span data-l="en" data-ek="t062">Watch the video</span><span data-l="es" data-ek="t062">Ver el video</span></a>
+        <button type="button" class="btn sc-ghost sc-3d" data-3d><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6 20.2 7v10L12 21.4 3.8 17V7L12 2.6Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M3.8 7 12 11.4 20.2 7M12 11.4v10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span data-l="en">View in 3D</span><span data-l="es">Ver en 3D</span></button>
       </div>
     </div>
   </section>
@@ -339,7 +340,7 @@
   <!-- SHOP -->
   <section id="shop" class="sec sec-alt">
     <div class="wrap shop">
-      <div class="shop-media media-frame"><img data-slot="store" src="images/stand.jpg" alt="Pressa Stand 360" width="720" height="720" loading="lazy"></div>
+      <div class="shop-media media-frame"><img data-slot="store" src="images/stand.jpg" alt="Pressa Stand 360" width="720" height="720" loading="lazy"><button type="button" class="v3d-cta" data-3d><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6 20.2 7v10L12 21.4 3.8 17V7L12 2.6Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M3.8 7 12 11.4 20.2 7M12 11.4v10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span><span data-l="en">Take a closer look in 3D</span><span data-l="es">Míralo de cerca en 3D</span></span></button></div>
       <div class="shop-info">
         <span class="badge">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3Zm-1.2 14.2-3.5-3.5 1.4-1.4 2.1 2.1 4.9-4.9 1.4 1.4-6.3 6.3Z"/></svg>
@@ -585,8 +586,25 @@
 
 <script src="js/site-fields.js"></script>
 <script src="js/media-store.js"></script>
+<!-- 3D viewer pop-up -->
+<div class="v3d" id="v3d" hidden role="dialog" aria-modal="true" aria-labelledby="v3dTitle">
+  <div class="v3d-box">
+    <div class="v3d-top">
+      <div class="v3d-title" id="v3dTitle"><b>Pressa Stand 360</b><span><span data-l="en">Interactive 3D view</span><span data-l="es">Vista 3D interactiva</span></span></div>
+      <button type="button" class="v3d-reset" aria-label="Reset view"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-l="en">Reset</span><span data-l="es">Reiniciar</span></button>
+      <button type="button" class="v3d-x" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6.4 5 5.6 5.6L17.6 5 19 6.4 13.4 12l5.6 5.6-1.4 1.4-5.6-5.6L6.4 19 5 17.6l5.6-5.6L5 6.4z"/></svg></button>
+    </div>
+    <div class="v3d-stage">
+      <div class="v3d-load"><span><span data-l="en">Loading 3D model</span><span data-l="es">Cargando modelo 3D</span></span><div class="v3d-bar"><i></i></div></div>
+      <p class="v3d-err" hidden><span data-l="en">The 3D view couldn't load on this device. Try again, or check the photos and video.</span><span data-l="es">La vista 3D no pudo cargar en este dispositivo. Intenta otra vez o mira las fotos y el video.</span></p>
+      <button type="button" class="v3d-ar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M12 7.5 16 9.8v4.4L12 16.5l-4-2.3V9.8l4-2.3Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span data-l="en">See it in your space</span><span data-l="es">Velo en tu espacio</span></button>
+    </div>
+    <p class="v3d-hint"><span class="v3d-h-touch"><span data-l="en">Drag to spin. Pinch to zoom. Two fingers to move.</span><span data-l="es">Arrastra para girar. Pellizca para acercar. Dos dedos para mover.</span></span><span class="v3d-h-mouse"><span data-l="en">Drag to spin. Scroll to zoom. Right-click and drag to move.</span><span data-l="es">Arrastra para girar. Usa la rueda para acercar. Clic derecho y arrastra para mover.</span></span></p>
+  </div>
+</div>
 <script src="js/app.js"></script>
 <script src="js/live.js"></script>
 <script src="js/gate.js"></script>
+<script src="js/viewer3d.js"></script>
 </body>
 </html>

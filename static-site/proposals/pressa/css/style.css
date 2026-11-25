@@ -727,3 +727,55 @@ body.gate-open{overflow:hidden}
 .g-item video{width:100%;height:100%;object-fit:cover;display:block}
 .g-playi{position:absolute;left:50%;top:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:rgba(232,104,28,.92)}
 .g-playi::after{content:"";position:absolute;left:17px;top:13px;border-left:14px solid #141414;border-top:9px solid transparent;border-bottom:9px solid transparent}
+
+/* ============ 3D viewer ============ */
+.shop-media{position:relative}
+@media (min-width:901px){.shop-media{position:sticky}}
+.v3d-cta{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);display:inline-flex;align-items:center;gap:9px;padding:11px 18px 11px 14px;border-radius:999px;border:0;background:rgba(14,14,15,.82);color:#fff;font:inherit;font-weight:700;font-size:.95rem;white-space:nowrap;cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 10px 26px -10px rgba(0,0,0,.6),inset 0 0 0 1.5px rgba(232,104,28,.75);transition:transform .2s ease,background .2s ease}
+.v3d-cta:hover{background:#e8681c;color:#141414;transform:translateX(-50%) translateY(-2px)}
+.v3d-cta svg{width:20px;height:20px;flex:none;color:#e8681c;animation:v3dSpin 6s linear infinite}
+.v3d-cta:hover svg{color:#141414}
+@keyframes v3dSpin{0%,70%{transform:rotateY(0)}100%{transform:rotateY(360deg)}}
+.sc-3d{display:inline-flex;align-items:center;gap:8px}
+.sc-3d svg{width:19px;height:19px;flex:none}
+.v3d{position:fixed;inset:0;z-index:95;display:grid;place-items:center;padding:14px;background:rgba(0,0,0,.84);opacity:0;transition:opacity .2s ease}
+.v3d.on{opacity:1}
+.v3d[hidden]{display:none}
+html.v3d-open,html.v3d-open body{overflow:hidden}
+.v3d-box{position:relative;width:min(1100px,100%);height:min(780px,calc(100dvh - 28px));display:flex;flex-direction:column;border-radius:20px;overflow:hidden;background:radial-gradient(120% 80% at 50% 35%,#2a2a2d 0%,#141416 55%,#0b0b0c 100%);border:1.5px solid #e8681c;box-shadow:0 30px 90px -20px rgba(232,104,28,.35)}
+.v3d-top{display:flex;align-items:center;gap:10px;padding:14px 14px 0 20px;color:#fff;position:relative;z-index:2}
+.v3d-title{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.25}
+.v3d-title b{font-size:1.05rem}
+.v3d-title span{font-size:.85rem;color:#b9b9bf}
+.v3d-reset{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:transparent;color:#fff;font:inherit;font-size:.9rem;font-weight:600;cursor:pointer}
+.v3d-reset:hover{border-color:#e8681c;color:#e8681c}
+.v3d-reset svg{width:17px;height:17px}
+.v3d-x{width:42px;height:42px;flex:none;display:grid;place-items:center;border-radius:50%;border:0;background:#e8681c;cursor:pointer;box-shadow:0 6px 18px -6px rgba(232,104,28,.6)}
+.v3d-x svg{width:20px;height:20px;fill:#141414}
+.v3d-stage{position:relative;flex:1;min-height:0}
+.v3d-stage model-viewer{width:100%;height:100%;display:block;background:transparent;--poster-color:transparent;--progress-bar-height:0;outline:none}
+.v3d-load{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:12px;color:#d7d7dc;font-size:.95rem;z-index:1;pointer-events:none}
+.v3d-load[hidden]{display:none}
+.v3d-bar{width:180px;height:4px;border-radius:4px;background:rgba(255,255,255,.14);overflow:hidden}
+.v3d-bar i{display:block;height:100%;width:4%;background:#e8681c;border-radius:4px;transition:width .2s ease}
+.v3d-err{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:24px;color:#e6e6ea;margin:0}
+.v3d-err[hidden]{display:none}
+.v3d-ar{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:999px;border:0;background:#e8681c;color:#141414;font:inherit;font-weight:700;font-size:.95rem;white-space:nowrap;cursor:pointer;box-shadow:0 10px 24px -10px rgba(232,104,28,.8)}
+.v3d-ar svg{width:20px;height:20px}
+.v3d-hint{margin:0;padding:10px 16px 16px;text-align:center;color:#b9b9bf;font-size:.88rem;transition:opacity .4s ease}
+.v3d.touched .v3d-hint{opacity:.45}
+.v3d-h-touch{display:none}
+@media (hover:none),(pointer:coarse){.v3d-h-touch{display:inline}.v3d-h-mouse{display:none}}
+@media (max-width:600px){
+  .v3d{padding:0}
+  .v3d-box{height:100dvh;width:100%;border-radius:0;border:0}
+  .v3d-top{padding:calc(10px + env(safe-area-inset-top)) 10px 0 16px}
+  .v3d-reset span{display:none}
+  .v3d-reset{padding:0 11px}
+  .v3d-hint{padding-bottom:calc(14px + env(safe-area-inset-bottom))}
+  .v3d-cta{font-size:.9rem;bottom:12px}
+}
+@media (prefers-reduced-motion:reduce){.v3d-cta svg{animation:none}}
+
+/* keep the owner hint off the welcome screen and the 3D viewer */
+html.intro-open .gate-hint,html.v3d-open .gate-hint{display:none}
