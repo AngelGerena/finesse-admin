@@ -69,7 +69,7 @@
     }).join("") + '<button class="tab" data-act="more" aria-label="' + L("More pages", "Más páginas") + '">' + ic("menu") + "<span>" + L("More", "Más") + "</span></button>";
     $("#moreList").innerHTML = NAV.filter(function (x) { return TABS.indexOf(x.id) < 0; }).map(function (x) {
       return '<button class="more-item" data-go="' + x.id + '">' + ic(x.icon) + "<span>" + navLabel(x) + "</span></button>";
-    }).join("");
+    }).join("") + '<button class="more-item more-exit" data-act="exit">' + ic("exit") + "<span>" + L("Exit to my website", "Salir a mi sitio") + "</span></button>";
   }
   function go(v) { if (v === view) { closeMore(); return; } if (view === "site" && unsavedKeys().length && !confirm(L("You have unsaved changes on Website words. Leave without saving?", "Tienes cambios sin guardar en Textos del sitio. ¿Salir sin guardar?"))) return; view = v; S_siteDraft = {}; closeMore(); renderNav(); render(); window.scrollTo(0, 0); try { history.replaceState(null, "", "#" + v); } catch (e) {} }
   function head(title, sub, actions) { return '<div class="page-h"><div><h1>' + title + "</h1>" + (sub ? '<p class="muted">' + sub + "</p>" : "") + "</div>" + (actions ? '<div class="page-actions">' + actions + "</div>" : "") + "</div>"; }
@@ -468,6 +468,12 @@
 
   /* ---------- actions ---------- */
   var ACT = {
+    exit: function () {
+      if (view === "site" && unsavedKeys().length && !confirm(L("You have unsaved changes on Website words. Leave without saving?", "Tienes cambios sin guardar en Textos del sitio. ¿Salir sin guardar?"))) return;
+      S_siteDraft = {};
+      try { sessionStorage.removeItem("pressa-owner"); } catch (e) {}
+      location.href = "../";
+    },
     more: function () { var m = $("#moreSheet"); m.hidden = !m.hidden; },
     closeModal: closeModal,
     inboxTab: function (el) { inboxTab = el.dataset.tab; render(); },

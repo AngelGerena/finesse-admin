@@ -569,3 +569,18 @@ textarea.se-in{overflow:hidden;resize:none}
 .saved[hidden]{display:none}
 .badge{text-transform:none}
 .se-bar:not(.on){display:none}
+
+/* ---------- Exit back office ---------- */
+.tb-exit{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--text);font:inherit;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;flex:none}
+.tb-exit:hover{border-color:var(--accent)}
+.tb-exit .ic{width:18px;height:18px}
+.side-exit{display:flex;align-items:center;gap:10px;width:calc(100% - 24px);margin:8px 12px;min-height:44px;padding:0 14px;border-radius:12px;border:1px solid rgba(255,255,255,.16);background:transparent;color:#fff;font:inherit;font-size:14px;font-weight:700;cursor:pointer;text-align:left}
+.side-exit:hover{border-color:var(--accent);color:var(--accent)}
+.side-exit .ic{width:18px;height:18px}
+
+@media (max-width:420px){.tb-exit span{display:none}.tb-exit{padding:0 10px}}
+.more-item{display:flex;align-items:center;gap:10px;min-height:52px;padding:0 14px;border:0;border-radius:12px;background:transparent;color:var(--text);font:inherit;font-size:15px;font-weight:600;text-align:left;cursor:pointer}
+.more-item:hover,.more-item:active{background:var(--surface)}
+.more-item .ic{width:20px;height:20px;flex:none;color:var(--accent)}
+.more-item.more-exit{grid-column:1/-1;border-top:1px solid var(--line);border-radius:0 0 12px 12px;color:#b42318}
+.more-item.more-exit .ic{color:#b42318}

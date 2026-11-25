@@ -49,6 +49,7 @@
     <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 11-2.3-5.7"/><path d="M20 4v5h-5"/></symbol>
     <symbol id="i-click" viewBox="0 0 24 24"><path d="M9 3v4M3 9h4M5 5l2.5 2.5"/><path d="M10 10l10 4-4 2-2 4z"/></symbol>
     <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+    <symbol id="i-exit" viewBox="0 0 24 24"><path d="M14 4h5v16h-5"/><path d="M10 8l-4 4 4 4M6 12h10"/></symbol>
     <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
     <symbol id="i-wa" viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1112 20a8 8 0 01-4-1z"/><path d="M9 9.5c.3 2 2.2 4 4.4 4.6l1-1.1 1.6.8c-.2 1-1 1.6-2 1.5-3-.4-5.6-3-6-6-.1-1 .5-1.8 1.5-2l.8 1.6z"/></symbol>
     <symbol id="i-sms" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol>
@@ -59,6 +60,7 @@
   <aside class="side">
     <div class="brand"><img class="brand-logo" src="../images/pressa-logo-light.png" alt="Pressa" width="160" height="40"></div>
     <nav class="side-nav" id="sideNav" aria-label="Back office"></nav>
+    <button type="button" class="side-exit" data-act="exit"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-exit"/></svg><span data-t-en="Exit to my website" data-t-es="Salir a mi sitio">Salir a mi sitio</span></button>
     <div class="side-foot"><span class="demo-chip" data-t-en="Sample data" data-t-es="Datos de ejemplo">Datos de ejemplo</span><small>Finesse OS</small></div>
   </aside>
 
@@ -73,6 +75,7 @@
         <button type="button" class="lang-btn on" data-lang="es" aria-pressed="true" lang="es">ES</button>
       </div>
       <a class="tb-site" href="../" data-t-en="View site" data-t-es="Ver sitio">Ver sitio</a>
+      <button type="button" class="tb-exit" data-act="exit" data-al-en="Exit back office and go to your website" data-al-es="Salir del panel e ir a tu sitio" aria-label="Salir del panel e ir a tu sitio"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-exit"/></svg><span data-t-en="Exit" data-t-es="Salir">Salir</span></button>
       <span class="avatar" aria-label="Hiram">H</span>
     </header>
     <main id="view" class="view"></main>
