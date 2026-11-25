@@ -2,7 +2,9 @@
   var root = document.documentElement;
   var ANGEL = "14079609004";
   var LOOKS = { a: "A (Studio)", b: "B (Precision)", c: "C (Editorial)", d: "D (Steel)", e: "E (Red Block)", f: "F (Black & Orange)" };
-  var PRICE = 1497; // Hiram's estimated price
+  var PRICE = 1497; // Hiram's estimated price (the back office can change it)
+  try { var _st = JSON.parse(localStorage.getItem("pressa-store") || "{}"); if (_st.price > 0) PRICE = Number(_st.price); } catch (e) {}
+  window.PRESSA_PRICE = function () { return PRICE; };
   var current = "a", variant = "1";
   var VNAMES = { "1": ["Bookends", "Extremos"], "2": ["Alternating", "Alternado"], "3": ["Full Contrast", "Contraste total"] };
   var K = "#0d0d0e", G = "#232326", D = "#141414", W = "#ffffff", A = "#f5f3f0", O = "#e8681c";
@@ -116,7 +118,8 @@
   cineVid.addEventListener("ended", function () { cine.classList.remove("playing"); cineVid.controls = false; cineVid.currentTime = 0; });
   document.querySelectorAll("[data-video]").forEach(function (b) {
     b.addEventListener("click", function () {
-      openModal('<video class="vmodal-vid" controls playsinline autoplay poster="images/video-poster.jpg"><source src="video/pressa-video.mp4" type="video/mp4"></video>', true);
+      var mainSrc = window.PRESSA_MAIN_SRC || "video/pressa-video.mp4";
+      openModal('<video class="vmodal-vid" controls playsinline autoplay' + (window.PRESSA_MAIN_SRC ? "" : ' poster="images/video-poster.jpg"') + '><source src="' + mainSrc + '" type="video/mp4"></video>', true);
       var v = body.querySelector("video"); var p = v.play(); if (p && p.catch) p.catch(function () {});
     });
   });
@@ -142,10 +145,12 @@
       var v = body.querySelector("video"); var p = v.play(); if (p && p.catch) p.catch(function () {});
     });
   });
-  document.querySelectorAll(".g-item").forEach(function (g) {
-    g.addEventListener("click", function () {
-      openModal('<img class="vmodal-img" src="' + g.dataset.img + '" alt="">', true);
-    });
+  document.addEventListener("click", function (e) {
+    var g = e.target.closest && e.target.closest(".g-item"); if (!g) return;
+    if (g.dataset.kind === "video") {
+      openModal('<video class="vmodal-vid" controls playsinline autoplay src="' + g.dataset.img + '"></video>', true);
+      var v = body.querySelector("video"); var p = v.play(); if (p && p.catch) p.catch(function () {});
+    } else openModal('<img class="vmodal-img" src="' + g.dataset.img + '" alt="">', true);
   });
 
   // ---------- scroll reveal ----------
@@ -161,6 +166,13 @@
   document.querySelectorAll("form[data-form]").forEach(function (f) {
     f.addEventListener("submit", function (e) {
       e.preventDefault();
+      var fd = new FormData(f);
+      if ((fd.get("bot-field") || "").trim()) return; /* bots fill the hidden field */
+      var rec = { id: "w" + Date.now(), type: f.dataset.form, at: new Date().toISOString(), lang: root.lang, status: "new" };
+      fd.forEach(function (v, k) { if (k !== "form-name" && k !== "bot-field") rec[k] = String(v).trim(); });
+      try { var box = JSON.parse(localStorage.getItem("pressa-inbox") || "[]"); box.unshift(rec); localStorage.setItem("pressa-inbox", JSON.stringify(box.slice(0, 200))); } catch (x) {}
+      /* emails the message to Pressa through Netlify Forms */
+      try { fetch(location.pathname, { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams(fd).toString() }).catch(function () {}); } catch (x) {}
       f.querySelectorAll("input,textarea,button").forEach(function (el) { el.disabled = true; });
       f.querySelector(".ok").hidden = false;
     });
