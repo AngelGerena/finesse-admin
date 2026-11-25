@@ -5,11 +5,11 @@
   var PRICE = 1497; // Hiram's estimated price
   var current = "a", variant = "1";
   var VNAMES = { "1": ["Bookends", "Extremos"], "2": ["Alternating", "Alternado"], "3": ["Full Contrast", "Contraste total"] };
-  var G = "#232326", D = "#141414", W = "#ffffff", A = "#f5f3f0", O = "#e8681c";
+  var K = "#0d0d0e", G = "#232326", D = "#141414", W = "#ffffff", A = "#f5f3f0", O = "#e8681c";
   var VARIANTS = {
-    "1": { dk: [".hero", "footer.foot"], div: { d1: [D, G], d2: [W, A], d3: [O, A], d4: [W, A] } },
-    "2": { dk: ["#how", "#story"], div: { d1: [W, D], d2: [W, A], d3: [O, D], d4: [W, A] } },
-    "3": { dk: [".hero", ".made", "#story", "#contact", "footer.foot"], div: { d1: [D, G], d2: [D, A], d3: [O, D], d4: [W, D] } }
+    "1": { dk: [".hero", "footer.foot"], div: { d0: [D, K], d1: [K, G], d2: [W, A], d3: [O, A], d4: [W, A] } },
+    "2": { dk: ["#how", "#story"], div: { d0: [W, K], d1: [K, D], d2: [W, A], d3: [O, D], d4: [W, A] } },
+    "3": { dk: [".hero", ".made", "#story", "#contact", "footer.foot"], div: { d0: [D, K], d1: [K, G], d2: [D, A], d3: [O, D], d4: [W, D] } }
   };
   function clearVariant() {
     document.querySelectorAll("main .dk, footer.dk").forEach(function (e) { e.classList.remove("dk", "dk2"); });
@@ -41,6 +41,7 @@
     });
     try { localStorage.setItem("pressa-lang", l); } catch (e) {}
     updateWant(); setPk();
+    if (window.owSync) window.owSync();
   }
   langBtn.addEventListener("click", function () { setLang(root.lang === "en" ? "es" : "en"); });
 
@@ -173,6 +174,7 @@
   var modal = document.getElementById("modal"), body = document.getElementById("modalBody");
   var box = document.querySelector(".modal-box");
   function openModal(html, wide) { body.innerHTML = html; box.classList.toggle("wide", !!wide); box.classList.remove("pat"); modal.hidden = false; }
+  window.pressaOpenModal = function (html, wide) { openModal(html, wide); var v = body.querySelector("video"); if (v) { var p = v.play(); if (p && p.catch) p.catch(function () {}); } };
   function closeModal() { var v = body.querySelector("video"); if (v) v.pause(); body.innerHTML = ""; modal.hidden = true; }
   document.getElementById("modalX").addEventListener("click", closeModal);
   modal.addEventListener("click", function (e) { if (e.target === modal) closeModal(); });
@@ -284,4 +286,35 @@
     }, { threshold: 0.6 });
     counters.forEach(function (c) { co.observe(c); });
   }
+})();
+
+
+// ---------- the old way: language-matched preview + full video ----------
+(function () {
+  var prev = document.getElementById("owPrev"), btn = document.getElementById("owOpen");
+  if (!prev || !btn) return;
+  var root = document.documentElement, shown = null, visible = false;
+  function lang() { return root.lang === "en" ? "en" : "es"; }
+  window.owSync = function () {
+    var l = lang(); if (l === shown) return; shown = l;
+    prev.poster = "images/old-way-poster-" + l + ".jpg";
+    prev.querySelector("source").src = "video/old-way-prev-" + l + ".mp4";
+    prev.load(); if (visible) { var p = prev.play(); if (p && p.catch) p.catch(function () {}); }
+  };
+  window.owSync();
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        visible = e.isIntersecting;
+        if (visible) { prev.muted = true; var p = prev.play(); if (p && p.catch) p.catch(function () {}); } else prev.pause();
+      });
+    }, { threshold: 0.3 }).observe(prev);
+  }
+  btn.addEventListener("click", function () {
+    var l = lang();
+    if (typeof window.pressaOpenModal === "function") {
+      window.pressaOpenModal('<video class="vmodal-vid" controls playsinline autoplay poster="images/old-way-poster-' + l + '.jpg"><source src="video/old-way-' + l + '.mp4" type="video/mp4"></video>', true);
+      prev.pause();
+    }
+  });
 })();

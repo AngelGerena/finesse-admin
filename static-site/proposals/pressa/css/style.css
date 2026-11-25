@@ -639,3 +639,24 @@ html.intro-open body{overflow:hidden}
 .intro-h em{font-style:normal;color:var(--brand);display:block}
 .feat-img video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
 .feat:hover .feat-img video{transform:scale(1.05)}
+
+/* ===================== THE OLD WAY ===================== */
+.oldway{background:#0d0d0e!important;color:#f4f1ec;--ink:#f4f1ec;--muted:#b4aea6}
+.oldway .wrap{display:grid;gap:28px;justify-items:center;text-align:center}
+.oldway .ow-head{max-width:720px}
+.oldway .eyebrow{color:var(--brand);justify-content:center}
+.oldway h2{color:#fff}
+.oldway .lead{margin:12px auto 0;color:#b4aea6}
+.ow-frame{all:unset;position:relative;display:block;width:100%;max-width:960px;aspect-ratio:16/9;border-radius:18px;overflow:hidden;cursor:pointer;background:#000;box-shadow:0 40px 90px -40px rgba(232,104,28,.45),0 0 0 1px #2a2a2d}
+.ow-frame video{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.85)}
+.ow-frame::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.6));pointer-events:none}
+.ow-tag{position:absolute;top:14px;left:14px;z-index:2;background:#c62828;color:#fff;font-weight:700;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px}
+.ow-play{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:2;display:inline-flex;align-items:center;gap:10px;background:var(--brand);color:#141414;font-weight:700;padding:12px 20px 12px 14px;border-radius:999px;white-space:nowrap;transition:transform .25s ease,background .25s ease}
+.ow-play svg{flex:none;box-sizing:content-box;width:14px;height:14px;fill:#141414;background:#fff;border-radius:50%;padding:4px}
+.ow-frame:hover .ow-play{transform:translateX(-50%) scale(1.04);background:#ff7a2b}
+.ow-frame:focus-visible{outline:3px solid var(--brand);outline-offset:4px}
+.ow-next{display:inline-flex;align-items:center;gap:8px;color:var(--brand);font-weight:700;text-decoration:none;font-size:1.05rem}
+.ow-next svg{width:20px;height:20px;fill:currentColor;animation:owBob 1.6s ease-in-out infinite}
+@keyframes owBob{50%{transform:translateY(4px)}}
+@media(max-width:600px){.ow-frame{border-radius:14px}.ow-play{font-size:.9rem;padding:10px 16px 10px 12px;bottom:12px}}
+@media(prefers-reduced-motion:reduce){.ow-next svg{animation:none}}
