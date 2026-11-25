@@ -53,12 +53,6 @@
       if (closed && !note) { btn.insertAdjacentHTML("beforeend", '<span class="closed-note"><span data-l="en">Pre-orders are closed for now</span><span data-l="es">Las pre-órdenes están cerradas por ahora</span></span>'); }
       if (!closed && note) note.remove();
     }
-    var cols = s.colors || {}, sws = document.querySelectorAll(".sw"), active = null, firstOn = null;
-    Array.prototype.forEach.call(sws, function (w) {
-      var on = cols[w.dataset.color] !== false; w.hidden = !on;
-      if (on && !firstOn) firstOn = w; if (on && w.classList.contains("on")) active = w;
-    });
-    if (!active && firstOn) firstOn.click();
   }
 
   /* ---------- photos and videos ---------- */

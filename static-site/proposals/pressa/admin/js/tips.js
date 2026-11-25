@@ -49,7 +49,7 @@
     ],
     orders: [
       { sel: "#view .req", t: ["Each order", "Cada pedido"],
-        d: ["Who bought, which color, how many and the total. These are samples until the store goes live.", "Quién compró, qué color, cuántos y el total. Estos son ejemplos hasta que la tienda abra."] },
+        d: ["Who bought, how many and the total. These are samples until the store goes live.", "Quién compró, cuántos y el total. Estos son ejemplos hasta que la tienda abra."] },
       { sel: '#view [data-act="ship"]', t: ["Mark shipped", "Marcar enviado"],
         d: ["Once the stand is on its way, tap this and add the tracking number if you have one.", "Cuando el soporte salga, toca esto y agrega el número de rastreo si lo tienes."] }
     ],
@@ -57,7 +57,7 @@
       { sel: '#storeForm .price-in', t: ["Your price", "Tu precio"],
         d: ["Type the price of one stand. The store and the total update by themselves.", "Escribe el precio de un soporte. La tienda y el total se actualizan solos."] },
       { sel: "#storeForm .toggle", t: ["Open or close pre-orders", "Abre o cierra pre-órdenes"],
-        d: ["Switch pre-orders off when you're sold out. Turn colors on or off to show only what you have.", "Apaga las pre-órdenes cuando se te acaben. Prende o apaga colores para mostrar solo lo que tienes."] },
+        d: ["Switch pre-orders off when you're sold out, and back on when you have stands ready.", "Apaga las pre-órdenes cuando se te acaben y préndelas cuando tengas soportes listos."] },
       { sel: "#storeSave", t: ["Save", "Guardar"],
         d: ["Nothing changes on your website until you tap Save.", "Nada cambia en tu sitio hasta que tocas Guardar."] }
     ],

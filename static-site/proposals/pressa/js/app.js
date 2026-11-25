@@ -76,7 +76,7 @@
     sms.href = "sms:+" + ANGEL + (ios ? "&" : "?") + "body=" + t;
   }
 
-  // ---------- shop: color + qty + subtotal ----------
+  // ---------- shop: qty + subtotal ----------
   var qty = document.getElementById("qty"), sub = document.getElementById("subtotal");
   var fmt = function (n) { return "$" + n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
   function clampQty() {
@@ -90,14 +90,6 @@
   qty.addEventListener("blur", clampQty);
   document.getElementById("unitPrice").textContent = fmt(PRICE); clampQty();
 
-  var COLORS = { black: { en: "Black", es: "Negro", hex: "#1b1b1d" }, orange: { en: "Orange", es: "Anaranjada", hex: "#e8681c" } };
-  var colorName = document.getElementById("colorName");
-  function setColor(k) {
-    document.querySelectorAll(".sw").forEach(function (s) { s.classList.toggle("on", s.dataset.color === k); });
-    colorName.innerHTML = '<span data-l="en">' + COLORS[k].en + '</span><span data-l="es">' + COLORS[k].es + "</span>";
-  }
-  document.querySelectorAll(".sw").forEach(function (s) { s.addEventListener("click", function () { setColor(s.dataset.color); }); });
-  setColor("orange");
 
   // ---------- toast ----------
   var toast = document.getElementById("toast"), tt;

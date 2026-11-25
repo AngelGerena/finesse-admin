@@ -40,8 +40,8 @@
   }
   function newCount() { return allInbox().filter(function (m) { return m.status === "new"; }).length; }
 
-  var STORE0 = { price: 1497, open: true, colors: { black: true, orange: true } };
-  function store() { var s = readJ("pressa-store", {}); return { price: s.price > 0 ? Number(s.price) : STORE0.price, open: s.open !== false, colors: Object.assign({}, STORE0.colors, s.colors || {}) }; }
+  var STORE0 = { price: 1497, open: true };
+  function store() { var s = readJ("pressa-store", {}); return { price: s.price > 0 ? Number(s.price) : STORE0.price, open: s.open !== false }; }
   var BIZ0 = { nameHiram: "Hiram Díaz", phoneHiram: "(787) 460-3010", nameFelix: "Felix Ortiz", phoneFelix: "(321) 203-8541", email: "pressatools@gmail.com", instagram: "pressatools", facebook: "" };
   function biz() { return Object.assign({}, BIZ0, readJ("pressa-biz", {})); }
 
@@ -142,9 +142,8 @@
     var list = ST.orders.slice().sort(function (a, b) { return new Date(b.at) - new Date(a.at); });
     return head(L("Orders", "Pedidos"), L("Pre-orders paid through your store. These are samples until the store goes live with Stripe.", "Pre-órdenes pagadas en tu tienda. Estos son ejemplos hasta que la tienda abra con Stripe.")) +
       (list.length ? '<div class="cards">' + list.map(function (o) {
-        var col = o.color === "orange" ? L("Orange", "Anaranjado") : L("Black", "Negro");
         return '<article class="card req"><div class="req-h"><div class="grow"><b>' + esc(o.id) + " · " + esc(o.name) + "</b><small>" + stamp(o.at) + " · " + esc(o.city) + "</small></div>" + (o.status === "shipped" ? '<span class="badge ok">' + L("Shipped", "Enviado") + "</span>" : '<span class="badge b-new">' + L("Ready to ship", "Listo para enviar") + "</span>") + "</div>" +
-          '<p class="msg">' + o.qty + " x Pressa Stand 360 · " + col + "<br><b>" + money(o.total) + "</b></p>" +
+          '<p class="msg">' + o.qty + " x Pressa Stand 360<br><b>" + money(o.total) + "</b></p>" +
           (o.tracking ? '<p class="muted small">' + L("Tracking: ", "Rastreo: ") + esc(o.tracking) + "</p>" : "") +
           '<div class="actions"><a class="btn sm ghost" href="tel:+' + digits(o.phone) + '">' + ic("phone") + L("Call", "Llamar") + "</a>" +
           (o.status !== "shipped" ? '<button class="btn sm" data-act="ship" data-id="' + o.id + '">' + ic("box") + L("Mark shipped", "Marcar enviado") + "</button>" : "") + "</div></article>";
@@ -154,11 +153,9 @@
   /* ---------- store ---------- */
   function vStore() {
     var s = store();
-    return head(L("Store", "Tienda"), L("Change the price, open or close pre-orders, and pick which colors you sell.", "Cambia el precio, abre o cierra las pre-órdenes y escoge los colores que vendes.")) +
+    return head(L("Store", "Tienda"), L("Change the price and open or close pre-orders.", "Cambia el precio y abre o cierra las pre-órdenes.")) +
       '<form class="card form" id="storeForm"><label class="field"><span>' + L("Price of one stand (US dollars)", "Precio de un soporte (dólares)") + '</span><div class="price-in"><b>$</b><input name="price" type="number" min="1" step="1" inputmode="numeric" value="' + s.price + '"></div><small>' + L("The website shows it with cents, like $1,497.00, and the subtotal updates by itself.", "El sitio lo muestra con centavos, como $1,497.00, y el subtotal se calcula solo.") + "</small></label>" +
       toggleRow("open", L("Pre-orders are open", "Pre-órdenes abiertas"), L("Turn this off to stop new orders. The button changes to Pre-orders are closed.", "Apágalo para detener pedidos nuevos. El botón cambia a Pre-órdenes cerradas."), s.open) +
-      toggleRow("black", L("Sell it in black", "Venderlo en negro"), L("Shows the black color choice in the store.", "Muestra la opción negra en la tienda."), s.colors.black) +
-      toggleRow("orange", L("Sell it in orange", "Venderlo en anaranjado"), L("Shows the orange color choice in the store.", "Muestra la opción anaranjada en la tienda."), s.colors.orange) +
       '<div class="form-foot"><span class="saved" id="storeSaved" hidden>' + ic("check") + L("Saved", "Guardado") + '</span><button class="btn" id="storeSave" disabled>' + L("Save", "Guardar") + "</button></div></form>" +
       '<p class="muted small">' + L("The words around the price, like estimated price, are in Website content.", "Las palabras alrededor del precio, como precio estimado, están en Contenido del sitio.") + "</p>";
   }
@@ -356,7 +353,7 @@
         return '<details class="card se-sec" data-sec="' + s0.s + '"' + (open ? " open" : "") + '><summary><span class="grow"><b>' + esc(L(s0.sl[0], s0.sl[1])) + "</b><small>" + fs.length + L(" items", " textos") + (nCh ? " · " + nCh + L(" changed", " cambiados") : "") + "</small></span>" + ic("chev") + "</summary>" +
           fs.map(function (f) { return seField(f, pub); }).join("") + "</details>";
       }).join("") : empty(L("Nothing matches that. Try another word.", "Nada coincide. Prueba con otra palabra."), "pen")) + "</div>" +
-      '<p class="muted small se-note">' + L("The price, colors and contact details are changed in Store and Settings.", "El precio, los colores y los datos de contacto se cambian en Tienda y Ajustes.") + "</p>" +
+      '<p class="muted small se-note">' + L("The price and contact details are changed in Store and Settings.", "El precio y los datos de contacto se cambian en Tienda y Ajustes.") + "</p>" +
       '<section class="card" id="seHistory"><h3>' + L("Saved versions", "Versiones guardadas") + '</h3><p class="muted small">' + L("Every save is kept here. Restore any version to put your website back the way it was.", "Cada vez que guardas queda aquí. Restaura cualquier versión para dejar tu sitio como estaba.") + '</p><ul class="rows">' +
         (vers.length ? vers.map(function (v, i) {
           return '<li class="row"><div class="grow"><b>' + (i === 0 ? L("Live now", "En vivo ahora") : esc(noteText(v) || L("Saved", "Guardado"))) + "</b><small>" + stamp(v.at) + L(" by ", " por ") + esc(v.by) + " · " + (i === 0 && noteText(v) ? esc(noteText(v)) + " · " : "") + v.count + (v.count === 1 ? L(" change from the original", " cambio del original") : L(" changes from the original", " cambios del original")) + "</small></div>" +
@@ -438,8 +435,7 @@
     dirty("#storeForm", "#storeSave", "#storeSaved", function (d) {
       var p = Math.round(Number(d.price));
       if (!(p > 0)) { toast(L("Enter a price above $0.", "Escribe un precio mayor de $0.")); $('#storeForm [name="price"]').focus(); return false; }
-      if (!d.black && !d.orange) { toast(L("Keep at least one color on.", "Deja por lo menos un color prendido.")); return false; }
-      writeJ("pressa-store", { price: p, open: d.open, colors: { black: d.black, orange: d.orange } }); markSetup("price");
+      writeJ("pressa-store", { price: p, open: d.open }); markSetup("price");
     });
     dirty("#bizForm", "#bizSave", "#bizSaved", function (d) {
       if (!/@/.test(d.email)) { toast(L("Check the email address.", "Revisa el correo.")); return false; }
