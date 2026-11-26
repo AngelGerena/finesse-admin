@@ -829,7 +829,7 @@ html.intro-open .gate-hint,html.v3d-open .gate-hint{display:none}
 @media (max-width:600px){.v3d-top{gap:6px}.v3d-tour{padding:0 10px;font-size:.82rem;gap:5px}.v3d-tour svg{width:16px;height:16px}.v3d-title b{font-size:.95rem}}
 
 /* Hero player: one card with a thin orange edge, video edge to edge, play bar flush below */
-html .hero-media.player{padding:0;gap:0;background:#161618;border:1.5px solid #e8681c;border-radius:24px;overflow:hidden;box-shadow:0 30px 70px -36px rgba(232,104,28,.55),0 0 0 1px rgba(0,0,0,.2)}
+html .hero-media.player{padding:0;gap:0;background:#161618;border:4px solid #e8681c;border-radius:24px;overflow:hidden;box-shadow:0 30px 70px -36px rgba(232,104,28,.55),0 0 0 1px rgba(0,0,0,.2)}
 html .hero-media.player .media-frame{border:0;border-radius:0;background:#0b0b0c;box-shadow:none}
 html .hero-media.player .product-shot{aspect-ratio:16/10;padding:0}
 html .hero-media.player .product-shot::after{content:"";position:absolute;left:0;right:0;bottom:0;height:38%;background:linear-gradient(180deg,rgba(22,22,24,0),rgba(22,22,24,.92));pointer-events:none}
