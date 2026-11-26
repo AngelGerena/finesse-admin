@@ -10,7 +10,7 @@
   "use strict";
   var MODEL = "models/pressa-stand.glb";
   var LIB = "js/vendor/model-viewer.min.js";
-  var HOME = "-25deg 82deg 100%";
+  var HOME = "155deg 82deg 100%"; /* the PRESSA logo side faces the visitor */
   /* camera for each note in the Tour: theta, phi, distance */
   var VIEWS = {
     hub: "18deg 80deg 0.95m",
