@@ -41,9 +41,9 @@
       "interaction-prompt": "none",
       "shadow-intensity": "1.1",
       "shadow-softness": "0.9",
-      exposure: "1.2",
+      exposure: "1.1",
       "environment-image": "neutral",
-      "camera-orbit": "135deg 78deg 100%",
+      "camera-orbit": "-25deg 82deg 100%",
       "min-camera-orbit": "auto 10deg 35%",
       "max-camera-orbit": "auto 100deg 220%",
       "field-of-view": "30deg",
@@ -86,7 +86,7 @@
   }
   function reset() {
     if (!mv) return;
-    mv.cameraOrbit = "135deg 78deg 100%";
+    mv.cameraOrbit = "-25deg 82deg 100%";
     mv.cameraTarget = "auto auto auto";
     mv.fieldOfView = "30deg";
     mv.resetTurntableRotation && mv.resetTurntableRotation();

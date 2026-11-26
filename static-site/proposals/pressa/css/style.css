@@ -742,7 +742,7 @@ body.gate-open{overflow:hidden}
 .v3d.on{opacity:1}
 .v3d[hidden]{display:none}
 html.v3d-open,html.v3d-open body{overflow:hidden}
-.v3d-box{position:relative;width:min(1100px,100%);height:min(780px,calc(100dvh - 28px));display:flex;flex-direction:column;border-radius:20px;overflow:hidden;background:radial-gradient(120% 80% at 50% 35%,#2a2a2d 0%,#141416 55%,#0b0b0c 100%);border:1.5px solid #e8681c;box-shadow:0 30px 90px -20px rgba(232,104,28,.35)}
+.v3d-box{position:relative;width:min(1100px,100%);height:min(780px,calc(100dvh - 28px));display:flex;flex-direction:column;border-radius:20px;overflow:hidden;background:radial-gradient(120% 85% at 50% 40%,#4a4a50 0%,#26262a 50%,#121214 100%);border:1.5px solid #e8681c;box-shadow:0 30px 90px -20px rgba(232,104,28,.35)}
 .v3d-top{display:flex;align-items:center;gap:10px;padding:14px 14px 0 20px;color:#fff;position:relative;z-index:2}
 .v3d-title{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.25}
 .v3d-title b{font-size:1.05rem}
