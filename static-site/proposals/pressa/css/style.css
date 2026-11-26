@@ -849,3 +849,6 @@ html .hero-media.player .product-shot{border-radius:20px 20px 0 0;overflow:hidde
 html .hero-media.player .video-card{border-radius:0 0 20px 20px;overflow:hidden;margin:0}
 @media (max-width:600px){html .hero-media.player .product-shot{border-radius:16px 16px 0 0}html .hero-media.player .video-card{border-radius:0 0 16px 16px}}
 html .hero-media.player .video-card{-webkit-tap-highlight-color:transparent}
+
+/* Shop on phones and tablets: the desktop sticky offset (top:140px) must not apply, or it pushes the photo card down over the price */
+@media (max-width:900px){.shop-media{top:auto}}
