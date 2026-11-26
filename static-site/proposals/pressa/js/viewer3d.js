@@ -8,7 +8,7 @@
    so it never slows down the page. */
 (function () {
   "use strict";
-  var MODEL = "models/pressa-stand.glb?v=6";
+  var MODEL = "models/pressa-stand.glb?v=8";
   var LIB = "js/vendor/model-viewer.min.js";
   var HOME = "155deg 82deg 100%"; /* the PRESSA logo side faces the visitor */
   /* camera for each note in the Tour: theta, phi, distance */
