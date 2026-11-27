@@ -854,3 +854,106 @@ html .hero-media.player .video-card{-webkit-tap-highlight-color:transparent}
 @media (max-width:900px){.shop-media{top:auto}.shop{gap:44px}}
 /* Store photo: orange frame to match the hero player */
 .look-f .shop-media{background:#e8681c;box-shadow:0 26px 60px -34px rgba(232,104,28,.6)}
+
+/* =====================================================================
+   OPTION 4 · PLANO TÉCNICO (Technical Blueprint)
+   The site dressed as the patent drawing: drafting-grid paper, hard square
+   edges, condensed uppercase headlines, mono spec labels, numbered sections,
+   black frames with an orange offset "shadow", slanted full-width breaks.
+   Applied as html.look-f.look-g so options 1-3 are untouched.
+   ===================================================================== */
+html.look-g{
+  --bg:#ffffff;--alt:#efefed;--ink:#111112;--muted:#4f4c48;--line:#d4d3cf;
+  --brand:#e8681c;--brand-2:#c9550f;--card:#ffffff;--band:#e8681c;--band-ink:#111112;--panel:#111112;
+  --head:"Barlow Condensed","Archivo",system-ui,sans-serif;--body:"Archivo",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --radius:0px;--btn-radius:0px;--h1:clamp(3rem,8.4vw,6.6rem);--track:-.005em;--upper:uppercase;
+  --grid:linear-gradient(#e6e6e3 1px,transparent 1px) 0 0/24px 24px,linear-gradient(90deg,#e6e6e3 1px,transparent 1px) 0 0/24px 24px,
+         linear-gradient(#d7d6d2 1px,transparent 1px) 0 0/120px 120px,linear-gradient(90deg,#d7d6d2 1px,transparent 1px) 0 0/120px 120px;
+}
+html.look-g body{font-size:17px}
+html.look-g h1,html.look-g h2,html.look-g h3,html.look-g h4{font-weight:800;line-height:.98}
+html.look-g h2{font-size:clamp(2.3rem,5.4vw,4rem)}
+html.look-g h3{font-size:1.45rem;letter-spacing:.01em}
+html.look-g h4{font-size:1.3rem}
+html.look-g h1 em{color:var(--brand)}
+html.look-g h1::after{content:"";display:block;width:132px;height:8px;margin-top:22px;background:var(--brand);box-shadow:140px 0 0 -2px #111112}
+/* drafting paper on the white sections */
+html.look-g .hero,html.look-g #how,html.look-g .made,html.look-g #faq{background:var(--grid) var(--bg)!important;color:var(--ink)}
+html.look-g #how{--bg:#ffffff;--alt:#efefed;--ink:#111112;--muted:#4f4c48;--line:#d4d3cf;--card:#ffffff}
+html.look-g #shop,html.look-g #story,html.look-g #contact{background:var(--alt)}
+html.look-g .oldway{background:linear-gradient(rgba(232,104,28,.09) 1px,transparent 1px) 0 0/24px 24px,linear-gradient(90deg,rgba(232,104,28,.09) 1px,transparent 1px) 0 0/24px 24px,#0d0d0e!important}
+html.look-g .oldway .eyebrow{color:#f4f1ec}
+/* blueprint negative: the built section goes black with orange linework */
+html.look-g .built{background:linear-gradient(rgba(232,104,28,.10) 1px,transparent 1px) 0 0/24px 24px,linear-gradient(90deg,rgba(232,104,28,.10) 1px,transparent 1px) 0 0/24px 24px,#0e0e0f;--card:#18181a;--line:#3a2a20}
+/* numbered sections with mono labels */
+html.look-g main{counter-reset:sec}
+html.look-g .eyebrow{font-family:var(--mono);font-weight:700;font-size:.78rem;letter-spacing:.14em;color:var(--ink);display:inline-flex;align-items:center;gap:10px}
+html.look-g .dk .eyebrow,html.look-g .built .eyebrow,html.look-g .showcase .eyebrow{color:#f4f1ec}
+html.look-g .sec .eyebrow::before,html.look-g .built .eyebrow::before{counter-increment:sec;content:counter(sec,decimal-leading-zero);width:auto;height:auto;background:var(--brand);color:#111112;padding:3px 7px;letter-spacing:.04em}
+/* nav */
+html.look-g .nav{background:rgba(255,255,255,.94);border-bottom:2px solid #111112}
+html.look-g .nav-links a{font-family:var(--mono);font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+/* badge: stamped plate */
+html.look-g .badge{border-radius:0;background:#111112;color:var(--brand);border:2px solid #111112;font-family:var(--mono);box-shadow:4px 4px 0 var(--brand)}
+/* buttons: square with a hard offset shadow */
+html.look-g .btn{border-radius:0;border:2px solid #111112;font-family:var(--mono);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.92rem;transition:transform .15s,box-shadow .15s,background .2s}
+html.look-g .btn-primary{background:var(--brand);color:#111112;box-shadow:5px 5px 0 #111112}
+html.look-g .btn-primary:hover{background:var(--brand);color:#111112;transform:translate(-2px,-2px);box-shadow:7px 7px 0 #111112}
+html.look-g .btn-ghost{background:#fff;color:#111112;box-shadow:5px 5px 0 var(--brand)}
+html.look-g .btn-ghost:hover{background:#111112;color:#fff;transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--brand)}
+html.look-g .btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 #111112}
+html.look-g .dk .btn-primary,html.look-g .built .btn-primary,html.look-g .waitlist .btn-primary{border-color:#111112}
+html.look-g .waitlist .btn-primary{background:#111112;color:#fff;box-shadow:5px 5px 0 #fff}
+html.look-g .waitlist .btn-primary:hover{background:#111112;color:var(--brand)}
+html.look-g .nav-cta{box-shadow:3px 3px 0 #111112}
+/* hero facts as a spec table */
+html.look-g .hero-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:2px solid #111112;padding:0;background:#fff}
+html.look-g .hero-facts li{padding:12px 14px;border-right:2px solid #111112;font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+html.look-g .hero-facts li:last-child{border-right:0}
+html.look-g .hero-facts b{font-family:var(--head);font-size:2.2rem;font-weight:800;color:#111112}
+/* frames: black outline + orange offset plate, square corners */
+html.look-g .hero-media.player{background:#111112!important;padding:0!important;border-radius:0!important;border:2px solid #111112!important;box-shadow:10px 10px 0 var(--brand)!important;-webkit-mask-image:none!important}
+html.look-g .hero-media.player .product-shot,html.look-g .hero-media.player .video-card{border-radius:0!important}
+html.look-g .hero-media.player .video-card{background:#111112;border-top:2px solid var(--brand)}
+html.look-g .hero-media.player .play{border-radius:0}
+html.look-g .hero-media.player .play::before{border-radius:0}
+html.look-g .hero-media.player .vc-go{border-radius:0}
+html.look-g .live-tag{border-radius:0;font-family:var(--mono);text-transform:uppercase;font-size:.72rem}
+html.look-g .shop-media{background:#111112!important;padding:0!important;border:2px solid #111112;border-radius:0;box-shadow:10px 10px 0 var(--brand)!important}
+html.look-g .shop-media img{border-radius:0!important}
+html.look-g .v3d-cta{border-radius:0;font-family:var(--mono);text-transform:uppercase;font-size:.8rem;letter-spacing:.05em}
+html.look-g .ow-frame{border-radius:0;border:2px solid #111112;box-shadow:8px 8px 0 var(--brand)}
+html.look-g .ow-tag,html.look-g .ow-play{border-radius:0}
+html.look-g .feat-img{border-radius:0;border:2px solid #111112;position:relative}
+html.look-g .features{counter-reset:fig}
+html.look-g .feat h4::before{counter-increment:fig;content:"FIG. " counter(fig,decimal-leading-zero);display:block;font-family:var(--mono);font-size:.7rem;font-weight:700;letter-spacing:.14em;color:var(--brand);margin-bottom:6px}
+/* steps: spec cards */
+html.look-g .step,html.look-g #how .step{background:#fff;border:2px solid #111112;border-top:2px solid #111112;border-radius:0;box-shadow:6px 6px 0 #111112}
+html.look-g .num,html.look-g #how .num{border-radius:0;background:#111112;color:var(--brand);font-family:var(--mono);width:auto;height:auto;padding:4px 9px}
+html.look-g .num::before{content:"PASO ";}
+html[lang="en"].look-g .num::before{content:"STEP "}
+/* forms + small parts */
+html.look-g .contact-form,html.look-g .stepper,html.look-g .contact-form input,html.look-g .contact-form textarea,html.look-g .wl-form input{border-radius:0}
+html.look-g .contact-form{border:2px solid #111112;box-shadow:8px 8px 0 var(--brand)}
+html.look-g .contact-form input,html.look-g .contact-form textarea{border:1.5px solid #111112}
+html.look-g .stepper{border:2px solid #111112}
+html.look-g details{border-bottom:2px solid #111112}
+html.look-g details summary{font-family:var(--head);font-weight:700;text-transform:uppercase;font-size:1.25rem;letter-spacing:.01em}
+/* dividers: big full-width slants */
+html.look-g .divider{height:clamp(44px,6vw,88px)}
+html.look-g .divider::after{clip-path:polygon(0 100%,100% 0,100% 100%)!important}
+html.look-g .d2::after,html.look-g .d4::after{clip-path:polygon(0 0,100% 100%,0 100%)!important}
+@media (max-width:600px){
+  html.look-g h1::after{width:96px;height:7px;box-shadow:104px 0 0 -2px #111112}
+  html.look-g .hero-facts b{font-size:1.8rem}
+  html.look-g .hero-facts li{padding:10px;font-size:.62rem}
+  html.look-g .hero-media.player,html.look-g .shop-media{box-shadow:7px 7px 0 var(--brand)!important}
+}
+@media (prefers-reduced-motion:reduce){html.look-g .btn{transition:none}}
+html.look-g .divider.d5{background:var(--top,#0e0e0f)}
+html.look-g .divider.d5::after{background:var(--bot,#fff)}
+html.look-g .num,html.look-g #how .num{display:inline-flex;align-items:center;gap:.45em;white-space:nowrap;line-height:1.2}
+html.look-g .divider{margin-bottom:-1px;z-index:1}
+html.look-g .divider + .sec,html.look-g .divider + section{border-top:0!important}
+html.look-g .showcase .btn-primary{box-shadow:5px 5px 0 #f4f1ec;border-color:#f4f1ec}
+html.look-g .showcase .btn:not(.btn-primary){border-color:#f4f1ec;color:#f4f1ec;background:transparent;box-shadow:5px 5px 0 var(--brand)}
