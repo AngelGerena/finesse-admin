@@ -5,7 +5,19 @@
   var PRICE = 1497; // Hiram's estimated price (the back office can change it)
   try { var _st = JSON.parse(localStorage.getItem("pressa-store") || "{}"); if (_st.price > 0) PRICE = Number(_st.price); } catch (e) {}
   window.PRESSA_PRICE = function () { return PRICE; };
-  var current = "a", variant = "1";
+  var current = "a", variant = "3";
+  /* Saved look from the back office (Website look page). Default: 3 · Full Contrast.
+     ?look=1..4 in the address previews a look without saving it. */
+  function savedVariant() {
+    try {
+      var q = new URLSearchParams(location.search).get("look");
+      if (/^[1-4]$/.test(q || "")) return q;
+      var st = JSON.parse(localStorage.getItem("pressa-style") || "null");
+      if (st && /^[1-4]$/.test(String(st.v))) return String(st.v);
+    } catch (e) {}
+    return "3";
+  }
+  variant = savedVariant();
   var VNAMES = { "1": ["Bookends", "Extremos"], "2": ["Alternating", "Alternado"], "3": ["Full Contrast", "Contraste total"], "4": ["Luxe", "Lujo"] };
   var K = "#0d0d0e", G = "#232326", D = "#141414", W = "#ffffff", A = "#f5f3f0", O = "#e8681c";
   var VARIANTS = {
@@ -69,6 +81,11 @@
     updateWant();
   }
   chips.forEach(function (c) { c.addEventListener("click", function () { setLook(c.dataset.look); }); });
+  /* the owner changed the look in the back office (another tab): switch right away */
+  window.addEventListener("storage", function (e) {
+    if (e.key !== "pressa-style") return;
+    variant = savedVariant(); applyVariant(); updateWant();
+  });
   document.querySelectorAll(".vchip").forEach(function (c) {
     c.addEventListener("click", function () { variant = c.dataset.v; applyVariant(); updateWant(); });
   });
