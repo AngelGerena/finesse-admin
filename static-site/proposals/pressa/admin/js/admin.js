@@ -53,6 +53,7 @@
     { id: "store", icon: "tag", en: "Store", es: "Tienda" },
     { id: "site", icon: "pen", en: "Website content", es: "Contenido del sitio" },
     { id: "media", icon: "image", en: "Photos & videos", es: "Fotos y videos" },
+    { id: "look", icon: "palette", en: "Website look", es: "Estilo del sitio" },
     { id: "settings", icon: "gear", en: "Settings", es: "Ajustes" }
   ];
   var TABS = ["dashboard", "inbox", "site", "media"];
@@ -104,6 +105,7 @@
         }).join("") + "</ul>" : empty(L("No messages yet. When someone writes from your website, it shows up here.", "Todavía no hay mensajes. Cuando alguien te escriba desde tu sitio web, sale aquí."))) +
       '</section><section class="card"><div class="card-h"><h3>' + L("Quick changes", "Cambios rápidos") + '</h3></div><div class="quick">' +
         quick("pen", "site", L("Change website content", "Cambiar contenido del sitio"), L("Headlines, prices text, FAQ, hours", "Titulares, preguntas, horario")) +
+        quick("palette", "look", L("Change the website look", "Cambiar el estilo del sitio"), L("Pick one of 4 looks in black and orange", "Escoge uno de 4 estilos en negro y naranja")) +
         quick("image", "media", L("Change photos and videos", "Cambiar fotos y videos"), L("Replace a photo or add to the gallery", "Reemplaza una foto o agrega a la galería")) +
         quick("tag", "store", L("Price and pre-orders", "Precio y pre-órdenes"), L("Change the price, open or close pre-orders", "Cambia el precio, abre o cierra pre-órdenes")) +
       "</div></section></div>" +
@@ -160,6 +162,30 @@
       '<p class="muted small">' + L("The words around the price, like estimated price, are in Website content.", "Las palabras alrededor del precio, como precio estimado, están en Contenido del sitio.") + "</p>";
   }
   function toggleRow(name, t, d, on) { return '<div class="toggle"><div><b>' + t + "</b><small>" + d + '</small></div><label class="switch"><input type="checkbox" name="' + name + '"' + (on ? " checked" : "") + ' aria-label="' + esc(t) + '"><span></span></label></div>'; }
+
+  /* ---------- website look ---------- */
+  var LOOKS = [
+    { v: "1", en: "Bookends", es: "Extremos", den: "Black at the top and bottom, bright and clean in the middle.", des: "Negro arriba y abajo, claro y limpio en el medio." },
+    { v: "2", en: "Alternating", es: "Alternado", den: "Light and dark sections take turns as people scroll.", des: "Secciones claras y oscuras se turnan al bajar." },
+    { v: "3", en: "Full Contrast", es: "Contraste total", den: "Bold black sections with orange. Strong and easy to read.", des: "Secciones negras con naranja. Fuerte y fácil de leer." },
+    { v: "4", en: "Luxe", es: "Lujo", den: "All black with a warm orange glow. Premium, like a luxury product.", des: "Todo negro con un brillo naranja. De lujo, como un producto premium." }
+  ];
+  var LOOK0 = "3";
+  function lookNow() { var st = readJ("pressa-style", null); return st && /^[1-4]$/.test(String(st.v)) ? String(st.v) : LOOK0; }
+  function vLook() {
+    var cur = lookNow(), st = readJ("pressa-style", null);
+    return head(L("Website look", "Estilo del sitio"), L("Pick how your website looks. Your words, photos and prices stay the same. Only the style changes.", "Escoge cómo se ve tu sitio. Tus textos, fotos y precios no cambian. Solo cambia el estilo.")) +
+      '<div class="looks" id="looks">' + LOOKS.map(function (k) {
+        var on = k.v === cur;
+        return '<article class="card look-card' + (on ? " on" : "") + '">' +
+          '<div class="look-thumb"><img src="../images/looks/look-' + k.v + '.jpg" alt="' + esc(L(k.en, k.es)) + '" loading="lazy" width="480" height="600">' + (on ? '<span class="badge ok look-live">' + ic("check") + L("On your website", "En tu sitio") + "</span>" : "") + "</div>" +
+          '<div class="look-body"><h3>' + k.v + " · " + L(k.en, k.es) + (k.v === LOOK0 ? ' <small class="muted">' + L("(original)", "(original)") + "</small>" : "") + '</h3><p class="muted small">' + L(k.den, k.des) + "</p>" +
+          '<div class="look-acts">' + (on ? '<button class="btn sm" disabled>' + ic("check") + L("In use", "En uso") + "</button>" : '<button class="btn sm" data-act="useLook" data-v="' + k.v + '">' + L("Use this look", "Usar este estilo") + "</button>") +
+          '<a class="btn ghost sm" href="../?look=' + k.v + '" target="_blank" rel="noopener">' + L("Preview", "Ver") + "</a></div></div></article>";
+      }).join("") + "</div>" +
+      (st && st.by ? '<p class="muted small">' + L("Last changed by ", "Último cambio por ") + esc(st.by) + " · " + stamp(st.at) + "</p>" : "") +
+      '<p class="muted small">' + L("Preview opens your website in a new tab with that look, without changing anything. Use this look changes it for everyone right away.", "Ver abre tu sitio en otra pestaña con ese estilo, sin cambiar nada. Usar este estilo lo cambia para todos de inmediato.") + "</p>";
+  }
 
   /* ---------- settings ---------- */
   function vSettings() {
@@ -405,7 +431,7 @@
   function ensureBaseline() { if (!siteVersions().length) writeJ("pressa-site-versions", [{ id: "v0", at: Date.now() - 1000, by: "Finesse Media", count: 0, note: { type: "original" }, data: {} }]); }
 
   /* ---------- render ---------- */
-  var VIEWS = { dashboard: vDashboard, inbox: vInbox, orders: vOrders, store: vStore, site: vSite, media: vMedia, settings: vSettings };
+  var VIEWS = { dashboard: vDashboard, inbox: vInbox, orders: vOrders, store: vStore, site: vSite, media: vMedia, look: vLook, settings: vSettings };
   function render() {
     $("#view").innerHTML = VIEWS[view]();
     var x = NAV.filter(function (y) { return y.id === view; })[0];
@@ -535,6 +561,12 @@
       if (!confirmTyped("seResetIn", ["RESET", "RESTABLECER"])) { $("#seResetIn").focus(); toast(L("Type RESET to confirm", "Escribe RESTABLECER para confirmar")); return; }
       ensureBaseline(); if (pushVersion({}, { type: "reset" })) { S_siteDraft = {}; closeModal(); render(); toast(L("Your website is back to the original words.", "Tu sitio volvió al texto original.")); }
     },
+    useLook: function (b) {
+      var v = b && b.dataset.v; if (!/^[1-4]$/.test(v || "")) return;
+      writeJ("pressa-style", { v: v, at: Date.now(), by: userName() });
+      var k = LOOKS.filter(function (x) { return x.v === v; })[0];
+      render(); toast(L("Done. Your website now uses ", "Listo. Tu sitio ahora usa ") + v + " · " + L(k.en, k.es) + ".");
+    },
     restoreAll: function () {
       modal(L("Restore the original website?", "¿Restaurar el sitio original?"), "<p>" + L("Every word, photo, video, price and contact detail goes back to the way Finesse Media delivered it. Your messages and orders are not touched.", "Cada texto, foto, video, precio y dato de contacto vuelve a como lo entregó Finesse Media. Tus mensajes y pedidos no se tocan.") + "</p><p>" + L("Type ", "Escribe ") + "<b>" + L("RESTORE", "RESTAURAR") + "</b>" + L(" to confirm.", " para confirmar.") + '</p><label class="field"><span>' + L("Confirm", "Confirmar") + '</span><input id="raIn" autocomplete="off" autocapitalize="characters"></label>',
         '<button class="btn ghost" data-act="closeModal">' + L("Cancel", "Cancelar") + '</button><button class="btn danger" data-act="restoreAllGo">' + L("Restore original", "Restaurar original") + "</button>");
@@ -542,7 +574,7 @@
     restoreAllGo: function () {
       if (!confirmTyped("raIn", ["RESTORE", "RESTAURAR"])) { $("#raIn").focus(); toast(L("Type RESTORE to confirm", "Escribe RESTAURAR para confirmar")); return; }
       ensureBaseline(); pushVersion({}, { type: "reset" });
-      try { localStorage.removeItem("pressa-store"); localStorage.removeItem("pressa-biz"); localStorage.removeItem("pressa-media-meta"); } catch (e) {}
+      try { localStorage.removeItem("pressa-store"); localStorage.removeItem("pressa-biz"); localStorage.removeItem("pressa-media-meta"); localStorage.removeItem("pressa-style"); } catch (e) {}
       var p = MS ? Promise.all(ups.map(function (u) { return MS.del(u.id); })) : Promise.resolve();
       p.then(function () { if (MS) MS.ping(); return loadUps(); }).then(function () { S_siteDraft = {}; closeModal(); render(); toast(L("Done. Your website looks exactly like the original again.", "Listo. Tu sitio se ve exactamente como el original otra vez.")); });
     },

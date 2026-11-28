@@ -85,6 +85,12 @@
       { sel: "#galTabs", t: ["Nothing is lost", "Nada se pierde"],
         d: ["Deleted photos wait in Trash, so you can restore them anytime.", "Las fotos que borras esperan en la Papelera, así que las puedes restaurar cuando quieras."] }
     ],
+    look: [
+      { sel: "#looks", t: ["Four looks, one website", "Cuatro estilos, un sitio"],
+        d: ["Each card is the same website in a different style. The one with the orange border is live right now.", "Cada tarjeta es el mismo sitio con otro estilo. El que tiene el borde naranja es el que está en vivo."] },
+      { sel: '#looks .look-acts .ghost', t: ["Try before you switch", "Pruébalo antes de cambiar"],
+        d: ["Preview opens your website with that look in a new tab. Nothing changes until you tap Use this look.", "Ver abre tu sitio con ese estilo en otra pestaña. Nada cambia hasta que tocas Usar este estilo."] }
+    ],
     settings: [
       { sel: "#bizForm", t: ["Your contact details", "Tus datos de contacto"],
         d: ["Your phones, email and Instagram show on your website. Change one here and it updates everywhere.", "Tus teléfonos, correo e Instagram salen en tu sitio. Cambia uno aquí y se actualiza en todas partes."] },
