@@ -6,19 +6,19 @@
   try { var _st = JSON.parse(localStorage.getItem("pressa-store") || "{}"); if (_st.price > 0) PRICE = Number(_st.price); } catch (e) {}
   window.PRESSA_PRICE = function () { return PRICE; };
   var current = "a", variant = "1";
-  var VNAMES = { "1": ["Bookends", "Extremos"], "2": ["Alternating", "Alternado"], "3": ["Full Contrast", "Contraste total"], "4": ["Technical Blueprint", "Plano técnico"] };
+  var VNAMES = { "1": ["Bookends", "Extremos"], "2": ["Alternating", "Alternado"], "3": ["Full Contrast", "Contraste total"], "4": ["Luxe", "Lujo"] };
   var K = "#0d0d0e", G = "#232326", D = "#141414", W = "#ffffff", A = "#f5f3f0", O = "#e8681c";
   var VARIANTS = {
     "1": { dk: [".hero", "footer.foot"], div: { d0: [D, K], d1: [K, G], d2: [W, A], d3: [O, A], d4: [W, A] } },
     "2": { dk: ["#how", "#story"], div: { d0: [W, K], d1: [K, D], d2: [W, A], d3: [O, D], d4: [W, A] } },
     "3": { dk: [".hero", ".made", "#story", "#contact", "footer.foot"], div: { d0: [D, K], d1: [K, G], d2: [D, A], d3: [O, D], d4: [W, D] } },
-    /* 4 · Plano técnico: drafting-paper sections, black footer, slanted breaks (styles in html.look-g) */
-    "4": { dk: ["footer.foot"], div: { d0: [W, "#0d0d0e"], d1: ["#0d0d0e", W], d2: [W, "#efefed"], d3: [O, "#efefed"], d4: [W, "#efefed"], d5: ["#0e0e0f", W] } }
+    /* 4 · Luxe: all black, orange light, glass surfaces (styles in html.look-g) */
+    "4": { dk: [], div: {} }
   };
-  function loadPlanoFonts() {
-    if (document.getElementById("planoFonts")) return;
-    var l = document.createElement("link"); l.id = "planoFonts"; l.rel = "stylesheet";
-    l.href = "css/plano-fonts.css?v=20261127a";
+  function loadLuxeFonts() {
+    if (document.getElementById("luxeFonts")) return;
+    var l = document.createElement("link"); l.id = "luxeFonts"; l.rel = "stylesheet";
+    l.href = "css/luxe-fonts.css?v=20261127b";
     document.head.appendChild(l);
   }
   function clearVariant() {
@@ -31,7 +31,7 @@
     if (box) box.hidden = current !== "f";
     root.classList.toggle("look-g", current === "f" && variant === "4");
     if (current !== "f") return;
-    if (variant === "4") loadPlanoFonts();
+    if (variant === "4") loadLuxeFonts();
     var v = VARIANTS[variant];
     v.dk.forEach(function (sel) { var e = document.querySelector(sel); if (e) e.classList.add("dk"); });
     Object.keys(v.div).forEach(function (k) { var d = document.querySelector(".divider." + k); if (d) { d.style.setProperty("--top", v.div[k][0]); d.style.setProperty("--bot", v.div[k][1]); } });
